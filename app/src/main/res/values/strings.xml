@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- app_name is defined per flavor in build.gradle (Sower, Sembrador, Semeur, ...). -->
+    <string name="tagline">The Word travels hand to hand.</string>
+
+    <string name="old_testament">Old Testament</string>
+    <string name="new_testament">New Testament</string>
+
+    <string name="continue_reading">Continue reading</string>
+    <string name="verse_of_the_day">Verse of the day</string>
+
+    <string name="chapter_n">Chapter %1$d</string>
+    <string name="chapter_x_of_y">Chapter %1$d of %2$d</string>
+    <string name="previous_chapter">Previous chapter</string>
+    <string name="next_chapter">Next chapter</string>
+
+    <string name="menu_pass_it_on">Pass it on</string>
+    <string name="menu_search">Search</string>
+    <string name="search_hint">Search the Bible…</string>
+    <string name="search_prompt">Type a word or phrase, then press search.</string>
+    <string name="search_too_short">Type at least two characters.</string>
+    <string name="search_searching">Searching…</string>
+    <string name="search_no_results">No verses found.</string>
+    <string name="search_results_capped">Showing the first %1$d matches — try a more specific search.</string>
+    <plurals name="search_results">
+        <item quantity="one">%1$d verse found</item>
+        <item quantity="other">%1$d verses found</item>
+    </plurals>
+    <string name="menu_text_larger">Larger text</string>
+    <string name="menu_text_smaller">Smaller text</string>
+
+    <string name="verse_copied">Verse copied</string>
+    <string name="share_verse_via">Share verse</string>
+
+    <string name="pass_it_on_title">Pass it on</string>
+    <string name="pass_it_on_lead">This app carries the complete Bible — no internet, no account, no app store. It travels straight from your phone to a friend’s, like a seed passed hand to hand.</string>
+    <string name="pass_it_on_how_title">How it works</string>
+    <string name="pass_it_on_step1">On your friend’s phone: <b>open the Bluetooth settings screen</b> and stay there. (That turns Bluetooth on and makes their phone visible — it works on every Android phone.)</string>
+    <string name="pass_it_on_step2">On this phone: tap <b>Send this app</b> below, choose <b>Bluetooth</b>, then tap <b>your friend’s phone name</b> when it appears.</string>
+    <string name="pass_it_on_step3">Your friend taps <b>Accept</b>, opens the finished file, and <b>allows the install</b> when their phone asks — that question is normal for an app shared phone-to-phone. Done! <b>Their copy can now be passed on too.</b></string>
+    <string name="pass_it_on_quickshare_tip">Both phones have <b>Quick Share</b>? It’s faster: your friend swipes down from the top of their screen, <b>presses and holds the Quick Share button</b>, and allows <b>“Everyone”</b> — then in step 2 pick Quick Share instead of Bluetooth. Some phones name sharing differently (Huawei Share, Mi Share), but <b>Bluetooth works on them all</b>.</string>
+    <string name="pass_it_on_button">Send this app to another phone</string>
+    <string name="pass_it_on_size">App size: %1$s</string>
+    <string name="pass_it_on_failed">Could not prepare the app for sharing.</string>
+    <string name="pass_it_on_verse">“A farmer went out to sow his seed… Other seed fell into the good ground and grew and produced one hundred times as much fruit.” — Luke 8:5,8</string>
+
+    <!-- about_translation is defined per product flavor in build.gradle. -->
+</resources>

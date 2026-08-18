@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Two phones passing the seed: the app travels device to device, no internet. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="140dp"
+    android:viewportWidth="320"
+    android:viewportHeight="140">
+
+    <!-- sending phone -->
+    <path
+        android:fillColor="#F7F2E9"
+        android:strokeColor="#2E6B34"
+        android:strokeWidth="4"
+        android:pathData="M40,20 h50 q10,0 10,10 v80 q0,10 -10,10 h-50 q-10,0 -10,-10 v-80 q0,-10 10,-10 z" />
+    <!-- sprout on its screen -->
+    <path
+        android:strokeColor="#2E6B34"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M65,98 C65,88 65,80 65,72" />
+    <path
+        android:fillColor="#2E6B34"
+        android:pathData="M65,80 C59,80 53,77 51.5,71 C57,69.5 63,72.5 65,78 Z" />
+    <path
+        android:fillColor="#3E8A46"
+        android:pathData="M65,74 C71,74 77,71 78.5,65 C73,63.5 67,66.5 65,72 Z" />
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M65,72 m-2.8,0 a2.8,2.8 0 1,1 5.6,0 a2.8,2.8 0 1,1 -5.6,0" />
+
+    <!-- receiving phone -->
+    <path
+        android:fillColor="#F7F2E9"
+        android:strokeColor="#2E6B34"
+        android:strokeWidth="4"
+        android:pathData="M230,20 h50 q10,0 10,10 v80 q0,10 -10,10 h-50 q-10,0 -10,-10 v-80 q0,-10 10,-10 z" />
+    <!-- seed landing on its screen -->
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M255,75 m-5,0 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0" />
+
+    <!-- dotted flight path with a seed mid-air -->
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M118,52 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0" />
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M141,44 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0" />
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M163,40 m-6,0 a6,6 0 1,1 12,0 a6,6 0 1,1 -12,0" />
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M185,44 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0" />
+    <!-- arrowhead -->
+    <path
+        android:fillColor="#C8A24B"
+        android:pathData="M200,42 L216,52 L198,56 Z" />
+</vector>

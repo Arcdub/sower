@@ -1,0 +1,1 @@
+First release: complete offline World English Bible with red-letter text, full-text search, verse of the day, reading-position memory, 10 interface languages, and offline phone-to-phone app sharing over Bluetooth or Quick Share.

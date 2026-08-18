@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">旧约</string>
+    <string name="new_testament">新约</string>
+    <string name="continue_reading">继续阅读</string>
+    <string name="verse_of_the_day">每日经文</string>
+    <string name="chapter_x_of_y">第 %1$d 章，共 %2$d 章</string>
+    <string name="previous_chapter">上一章</string>
+    <string name="next_chapter">下一章</string>
+    <string name="menu_pass_it_on">传下去</string>
+    <string name="menu_text_larger">放大字体</string>
+    <string name="menu_text_smaller">缩小字体</string>
+    <string name="menu_search">搜索</string>
+    <string name="verse_copied">经文已复制</string>
+    <string name="share_verse_via">分享经文</string>
+    <string name="search_hint">搜索圣经…</string>
+    <string name="search_prompt">输入词语或短句，然后点击搜索。</string>
+    <string name="search_too_short">请至少输入两个字符。</string>
+    <string name="search_searching">正在搜索…</string>
+    <string name="search_no_results">未找到经文。</string>
+    <string name="search_results_capped">仅显示前 %1$d 条结果 — 请尝试更具体的搜索。</string>
+    <plurals name="search_results">
+        <item quantity="other">找到 %1$d 节经文</item>
+    </plurals>
+    <string name="pass_it_on_title">传下去</string>
+    <string name="pass_it_on_lead">这个应用装着整本圣经 — 无需网络、无需账号、无需应用商店。它可以直接从你的手机传到朋友的手机，就像一粒种子，手手相传。</string>
+    <string name="pass_it_on_how_title">使用方法</string>
+    <string name="pass_it_on_step1">在朋友的手机上：<b>打开蓝牙设置页面</b>并停留在该页面。（这会打开蓝牙并让手机可被发现 — 任何安卓手机都可以。）</string>
+    <string name="pass_it_on_step2">在这部手机上：点击下方的<b>发送此应用</b>，选择<b>蓝牙</b>，当<b>朋友的手机名称</b>出现时点击它。</string>
+    <string name="pass_it_on_step3">朋友点击<b>接受</b>，打开收到的文件，并在手机询问时<b>允许安装</b> — 对于手机间直接分享的应用，这个提示是正常的。完成！<b>他的副本现在也可以继续传下去。</b></string>
+    <string name="pass_it_on_quickshare_tip">两部手机都有 <b>Quick Share</b>（快速分享）？那样更快：朋友从屏幕顶部下滑，<b>长按 Quick Share 按钮</b>，允许<b>“所有人”</b> — 然后在第 2 步选择 Quick Share 而不是蓝牙。有些手机的分享功能名称不同（华为分享、小米互传），但<b>蓝牙在所有手机上都能用</b>。</string>
+    <string name="pass_it_on_button">发送此应用到另一部手机</string>
+    <string name="pass_it_on_size">应用大小：%1$s</string>
+    <string name="pass_it_on_failed">无法准备分享此应用。</string>
+    <string name="pass_it_on_verse">“有一个撒种的出去撒种……又有落在好土里的，生长起来，结实百倍。” — 路加福音 8:5,8</string>
+</resources>

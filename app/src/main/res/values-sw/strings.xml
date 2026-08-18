@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">Agano la Kale</string>
+    <string name="new_testament">Agano Jipya</string>
+    <string name="continue_reading">Endelea kusoma</string>
+    <string name="verse_of_the_day">Mstari wa leo</string>
+    <string name="chapter_x_of_y">Sura ya %1$d kati ya %2$d</string>
+    <string name="previous_chapter">Sura iliyopita</string>
+    <string name="next_chapter">Sura inayofuata</string>
+    <string name="menu_pass_it_on">Ipitishe</string>
+    <string name="menu_text_larger">Maandishi makubwa</string>
+    <string name="menu_text_smaller">Maandishi madogo</string>
+    <string name="menu_search">Tafuta</string>
+    <string name="verse_copied">Mstari umenakiliwa</string>
+    <string name="share_verse_via">Shiriki mstari</string>
+    <string name="search_hint">Tafuta katika Biblia…</string>
+    <string name="search_prompt">Andika neno au kifungu, kisha bonyeza tafuta.</string>
+    <string name="search_too_short">Andika angalau herufi mbili.</string>
+    <string name="search_searching">Inatafuta…</string>
+    <string name="search_no_results">Hakuna mistari iliyopatikana.</string>
+    <string name="search_results_capped">Inaonyesha matokeo %1$d ya kwanza — jaribu utafutaji mahususi zaidi.</string>
+    <plurals name="search_results">
+        <item quantity="one">Mstari %1$d umepatikana</item>
+        <item quantity="other">Mistari %1$d imepatikana</item>
+    </plurals>
+    <string name="pass_it_on_title">Ipitishe</string>
+    <string name="pass_it_on_lead">Programu hii imebeba Biblia nzima — bila intaneti, bila akaunti, bila duka la programu. Inasafiri moja kwa moja kutoka simu yako hadi simu ya rafiki, kama mbegu inayopitishwa mkono kwa mkono.</string>
+    <string name="pass_it_on_how_title">Jinsi inavyofanya kazi</string>
+    <string name="pass_it_on_step1">Kwenye simu ya rafiki yako: <b>fungua skrini ya mipangilio ya Bluetooth</b> na ubaki hapo. (Hilo huwasha Bluetooth na kufanya simu ionekane — inafanya kazi kwenye kila simu ya Android.)</string>
+    <string name="pass_it_on_step2">Kwenye simu hii: gusa <b>Tuma programu hii</b> hapa chini, chagua <b>Bluetooth</b>, kisha gusa <b>jina la simu ya rafiki yako</b> litakapoonekana.</string>
+    <string name="pass_it_on_step3">Rafiki yako anagusa <b>Kubali</b>, anafungua faili lililopokelewa, na <b>anaruhusu usakinishaji</b> simu yake ikiuliza — swali hilo ni la kawaida kwa programu inayoshirikiwa simu kwa simu. Imekamilika! <b>Nakala yake sasa inaweza kupitishwa pia.</b></string>
+    <string name="pass_it_on_quickshare_tip">Simu zote mbili zina <b>Quick Share</b>? Ni haraka zaidi: rafiki yako anatelezesha kidole kutoka juu ya skrini kwenda chini, <b>anabonyeza na kushikilia kitufe cha Quick Share</b>, na kuruhusu <b>“Kila mtu”</b> — kisha katika hatua ya 2 chagua Quick Share badala ya Bluetooth. Simu zingine huita ushirikiano jina lingine (Huawei Share, Mi Share), lakini <b>Bluetooth inafanya kazi kwenye zote</b>.</string>
+    <string name="pass_it_on_button">Tuma programu hii kwenye simu nyingine</string>
+    <string name="pass_it_on_size">Ukubwa wa programu: %1$s</string>
+    <string name="pass_it_on_failed">Imeshindwa kuandaa programu kwa kushiriki.</string>
+    <string name="pass_it_on_verse">“Mpanzi alitoka kwenda kupanda mbegu zake… Nyingine ikaanguka penye udongo mzuri, ikamea na kuzaa mara mia.” — Luka 8:5,8</string>
+</resources>

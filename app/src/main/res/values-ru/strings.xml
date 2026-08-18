@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">Ветхий Завет</string>
+    <string name="new_testament">Новый Завет</string>
+    <string name="continue_reading">Продолжить чтение</string>
+    <string name="verse_of_the_day">Стих дня</string>
+    <string name="chapter_x_of_y">Глава %1$d из %2$d</string>
+    <string name="previous_chapter">Предыдущая глава</string>
+    <string name="next_chapter">Следующая глава</string>
+    <string name="menu_pass_it_on">Передай дальше</string>
+    <string name="menu_text_larger">Крупнее текст</string>
+    <string name="menu_text_smaller">Мельче текст</string>
+    <string name="menu_search">Поиск</string>
+    <string name="verse_copied">Стих скопирован</string>
+    <string name="share_verse_via">Поделиться стихом</string>
+    <string name="search_hint">Поиск по Библии…</string>
+    <string name="search_prompt">Введите слово или фразу и нажмите поиск.</string>
+    <string name="search_too_short">Введите не менее двух символов.</string>
+    <string name="search_searching">Идёт поиск…</string>
+    <string name="search_no_results">Стихи не найдены.</string>
+    <string name="search_results_capped">Показаны первые %1$d совпадений — уточните запрос.</string>
+    <plurals name="search_results">
+        <item quantity="one">Найден %1$d стих</item>
+        <item quantity="few">Найдено %1$d стиха</item>
+        <item quantity="many">Найдено %1$d стихов</item>
+        <item quantity="other">Найдено %1$d стиха</item>
+    </plurals>
+    <string name="pass_it_on_title">Передай дальше</string>
+    <string name="pass_it_on_lead">Это приложение несёт в себе полную Библию — без интернета, без аккаунта, без магазина приложений. Оно переходит с вашего телефона прямо на телефон друга, как семя из рук в руки.</string>
+    <string name="pass_it_on_how_title">Как это работает</string>
+    <string name="pass_it_on_step1">На телефоне друга: <b>откройте экран настроек Bluetooth</b> и оставайтесь на нём. (Это включит Bluetooth и сделает телефон видимым — работает на любом Android-телефоне.)</string>
+    <string name="pass_it_on_step2">На этом телефоне: нажмите <b>Отправить это приложение</b> ниже, выберите <b>Bluetooth</b> и коснитесь <b>имени телефона друга</b>, когда оно появится.</string>
+    <string name="pass_it_on_step3">Друг нажимает <b>Принять</b>, открывает полученный файл и <b>разрешает установку</b>, когда телефон спросит — этот вопрос обычен для приложения, переданного с телефона на телефон. Готово! <b>Теперь и его копию можно передать дальше.</b></string>
+    <string name="pass_it_on_quickshare_tip">На обоих телефонах есть <b>Quick Share</b>? Так быстрее: друг проводит пальцем сверху вниз по экрану, <b>долго нажимает кнопку Quick Share</b> и разрешает <b>«Все»</b> — затем на шаге 2 выберите Quick Share вместо Bluetooth. На некоторых телефонах обмен называется иначе (Huawei Share, Mi Share), но <b>Bluetooth работает на всех</b>.</string>
+    <string name="pass_it_on_button">Отправить это приложение на другой телефон</string>
+    <string name="pass_it_on_size">Размер: %1$s</string>
+    <string name="pass_it_on_failed">Не удалось подготовить приложение к передаче.</string>
+    <string name="pass_it_on_verse">«Вышел сеятель сеять семя своё… А иное упало на добрую землю и, взойдя, принесло плод сторичный.» — Луки 8:5,8</string>
+</resources>

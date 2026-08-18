@@ -1,0 +1,26 @@
+Categories:
+  - Reading
+License: MIT
+AuthorName: Arcdub
+SourceCode: https://github.com/Arcdub/sower
+IssueTracker: https://github.com/Arcdub/sower/issues
+Changelog: https://github.com/Arcdub/sower/releases
+
+AutoName: Sower
+Summary: Offline Bible that passes itself phone to phone, no internet needed
+
+RepoType: git
+Repo: https://github.com/Arcdub/sower.git
+
+Builds:
+  - versionName: '1.0'
+    versionCode: 1
+    commit: v1.0
+    subdir: app
+    gradle:
+      - en
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v[0-9.]+$
+CurrentVersion: '1.0'
+CurrentVersionCode: 1

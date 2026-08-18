@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">पुराना नियम</string>
+    <string name="new_testament">नया नियम</string>
+    <string name="continue_reading">पढ़ना जारी रखें</string>
+    <string name="verse_of_the_day">आज का वचन</string>
+    <string name="chapter_x_of_y">अध्याय %1$d / %2$d</string>
+    <string name="previous_chapter">पिछला अध्याय</string>
+    <string name="next_chapter">अगला अध्याय</string>
+    <string name="menu_pass_it_on">आगे बढ़ाएँ</string>
+    <string name="menu_text_larger">बड़ा अक्षर</string>
+    <string name="menu_text_smaller">छोटा अक्षर</string>
+    <string name="menu_search">खोजें</string>
+    <string name="verse_copied">वचन कॉपी हो गया</string>
+    <string name="share_verse_via">वचन साझा करें</string>
+    <string name="search_hint">बाइबल में खोजें…</string>
+    <string name="search_prompt">कोई शब्द या वाक्यांश लिखें, फिर खोज दबाएँ।</string>
+    <string name="search_too_short">कम से कम दो अक्षर लिखें।</string>
+    <string name="search_searching">खोज रहा है…</string>
+    <string name="search_no_results">कोई वचन नहीं मिला।</string>
+    <string name="search_results_capped">पहले %1$d परिणाम दिखाए गए — अधिक सटीक खोज आज़माएँ।</string>
+    <plurals name="search_results">
+        <item quantity="one">%1$d वचन मिला</item>
+        <item quantity="other">%1$d वचन मिले</item>
+    </plurals>
+    <string name="pass_it_on_title">आगे बढ़ाएँ</string>
+    <string name="pass_it_on_lead">यह ऐप पूरी बाइबल साथ रखता है — न इंटरनेट चाहिए, न खाता, न ऐप स्टोर। यह सीधे आपके फ़ोन से आपके मित्र के फ़ोन तक जाता है, जैसे हाथों-हाथ दिया गया बीज।</string>
+    <string name="pass_it_on_how_title">यह कैसे काम करता है</string>
+    <string name="pass_it_on_step1">मित्र के फ़ोन पर: <b>ब्लूटूथ सेटिंग स्क्रीन खोलें</b> और वहीं रहें। (इससे ब्लूटूथ चालू हो जाता है और फ़ोन दिखाई देने लगता है — यह हर एंड्रॉइड फ़ोन पर काम करता है।)</string>
+    <string name="pass_it_on_step2">इस फ़ोन पर: नीचे <b>यह ऐप भेजें</b> दबाएँ, <b>ब्लूटूथ</b> चुनें, फिर <b>मित्र के फ़ोन का नाम</b> दिखते ही उसे दबाएँ।</string>
+    <string name="pass_it_on_step3">मित्र <b>स्वीकार करें</b> दबाता है, मिली फ़ाइल खोलता है, और फ़ोन के पूछने पर <b>इंस्टॉल की अनुमति देता है</b> — फ़ोन से फ़ोन साझा किए गए ऐप के लिए यह सवाल सामान्य है। हो गया! <b>अब उसकी प्रति भी आगे बढ़ाई जा सकती है।</b></string>
+    <string name="pass_it_on_quickshare_tip">दोनों फ़ोनों में <b>Quick Share</b> है? वह तेज़ है: मित्र स्क्रीन के ऊपर से नीचे स्वाइप करे, <b>Quick Share बटन को देर तक दबाए</b> और <b>“सभी”</b> की अनुमति दे — फिर चरण 2 में ब्लूटूथ की जगह Quick Share चुनें। कुछ फ़ोन साझा करने को अलग नाम देते हैं (Huawei Share, Mi Share), पर <b>ब्लूटूथ सब पर चलता है</b>।</string>
+    <string name="pass_it_on_button">यह ऐप दूसरे फ़ोन पर भेजें</string>
+    <string name="pass_it_on_size">ऐप का आकार: %1$s</string>
+    <string name="pass_it_on_failed">ऐप साझा करने के लिए तैयार नहीं हो सका।</string>
+    <string name="pass_it_on_verse">“एक बोने वाला अपना बीज बोने निकला… और कुछ अच्छी भूमि पर गिरा, और उगकर सौ गुणा फल लाया।” — लूका 8:5,8</string>
+</resources>

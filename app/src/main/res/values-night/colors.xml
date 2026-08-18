@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brighter variants so red letters and verse numbers stay readable on dark backgrounds. -->
+    <color name="red_letter">#EF5350</color>
+    <color name="verse_number">#8CBF94</color>
+</resources>

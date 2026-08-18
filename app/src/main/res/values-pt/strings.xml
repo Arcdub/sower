@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">Antigo Testamento</string>
+    <string name="new_testament">Novo Testamento</string>
+    <string name="continue_reading">Continuar lendo</string>
+    <string name="verse_of_the_day">Versículo do dia</string>
+    <string name="chapter_x_of_y">Capítulo %1$d de %2$d</string>
+    <string name="previous_chapter">Capítulo anterior</string>
+    <string name="next_chapter">Próximo capítulo</string>
+    <string name="menu_pass_it_on">Passe adiante</string>
+    <string name="menu_text_larger">Texto maior</string>
+    <string name="menu_text_smaller">Texto menor</string>
+    <string name="menu_search">Pesquisar</string>
+    <string name="verse_copied">Versículo copiado</string>
+    <string name="share_verse_via">Compartilhar versículo</string>
+    <string name="search_hint">Pesquisar na Bíblia…</string>
+    <string name="search_prompt">Digite uma palavra ou frase e toque em pesquisar.</string>
+    <string name="search_too_short">Digite pelo menos dois caracteres.</string>
+    <string name="search_searching">Pesquisando…</string>
+    <string name="search_no_results">Nenhum versículo encontrado.</string>
+    <string name="search_results_capped">Mostrando os primeiros %1$d resultados — tente uma pesquisa mais específica.</string>
+    <plurals name="search_results">
+        <item quantity="one">%1$d versículo encontrado</item>
+        <item quantity="other">%1$d versículos encontrados</item>
+    </plurals>
+    <string name="pass_it_on_title">Passe adiante</string>
+    <string name="pass_it_on_lead">Este aplicativo carrega a Bíblia completa — sem internet, sem conta, sem loja de aplicativos. Ele vai direto do seu telefone para o de um amigo, como uma semente passada de mão em mão.</string>
+    <string name="pass_it_on_how_title">Como funciona</string>
+    <string name="pass_it_on_step1">No telefone do seu amigo: <b>abra a tela de configurações do Bluetooth</b> e fique nela. (Isso liga o Bluetooth e torna o telefone visível — funciona em qualquer telefone Android.)</string>
+    <string name="pass_it_on_step2">Neste telefone: toque em <b>Enviar este aplicativo</b> abaixo, escolha <b>Bluetooth</b> e toque <b>no nome do telefone do seu amigo</b> quando aparecer.</string>
+    <string name="pass_it_on_step3">Seu amigo toca em <b>Aceitar</b>, abre o arquivo recebido e <b>permite a instalação</b> quando o telefone perguntar — essa pergunta é normal para um aplicativo compartilhado de telefone a telefone. Pronto! <b>A cópia dele agora também pode ser passada adiante.</b></string>
+    <string name="pass_it_on_quickshare_tip">Os dois telefones têm <b>Quick Share</b>? É mais rápido: seu amigo desliza de cima para baixo na tela, <b>mantém pressionado o botão Quick Share</b> e permite <b>“Todos”</b> — então no passo 2 escolha Quick Share em vez de Bluetooth. Alguns telefones chamam o compartilhamento de outro nome (Huawei Share, Mi Share), mas <b>o Bluetooth funciona em todos</b>.</string>
+    <string name="pass_it_on_button">Enviar este aplicativo para outro telefone</string>
+    <string name="pass_it_on_size">Tamanho: %1$s</string>
+    <string name="pass_it_on_failed">Não foi possível preparar o aplicativo para compartilhar.</string>
+    <string name="pass_it_on_verse">“Saiu o semeador a semear a sua semente… E outra caiu em boa terra, e nascida, produziu fruto a cento por um.” — Lucas 8:5,8</string>
+</resources>

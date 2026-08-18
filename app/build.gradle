@@ -1,0 +1,132 @@
+plugins {
+    alias libs.plugins.android.application
+}
+
+// Release signing: one key for every distribution channel (direct APK, F-Droid, Play),
+// so any copy can update any other. Keep sower-release.jks and keystore.properties
+// backed up and out of version control — losing the key orphans every installed copy.
+def keystoreProps = new Properties()
+def keystorePropsFile = rootProject.file('keystore.properties')
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
+android {
+    namespace 'arcsky.steph.sower'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "arcsky.steph.sower"
+        minSdk 21
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+        resValues true
+    }
+
+    // One small APK per Bible language, installable side by side, so the app always
+    // stays a quick Bluetooth/Quick Share transfer. Each flavor bundles one translation
+    // in src/<flavor>/assets/bible (generate with tools/transform.js).
+    flavorDimensions = ["language"]
+    productFlavors {
+        en {
+            dimension "language"
+            resValue "string", "app_name", "Sower"
+            resValue "string", "about_translation", "World English Bible — public domain, freely shareable."
+        }
+        es {
+            dimension "language"
+            resValue "string", "app_name", "Sembrador"
+            applicationIdSuffix ".es"
+            versionNameSuffix "-es"
+            resValue "string", "about_translation", "Reina-Valera 1909 — dominio público, libre para compartir."
+        }
+        fr {
+            dimension "language"
+            resValue "string", "app_name", "Semeur"
+            applicationIdSuffix ".fr"
+            versionNameSuffix "-fr"
+            resValue "string", "about_translation", "Louis Segond 1910 — domaine public, libre de partage."
+        }
+        pt {
+            dimension "language"
+            resValue "string", "app_name", "Semeador"
+            applicationIdSuffix ".pt"
+            versionNameSuffix "-pt"
+            resValue "string", "about_translation", "Bíblia Livre 2018 — CC BY 4.0, livre para compartilhar."
+        }
+        ru {
+            dimension "language"
+            resValue "string", "app_name", "Сеятель"
+            applicationIdSuffix ".ru"
+            versionNameSuffix "-ru"
+            resValue "string", "about_translation", "Синодальный перевод — общественное достояние."
+        }
+        ar {
+            dimension "language"
+            resValue "string", "app_name", "الزارع"
+            applicationIdSuffix ".ar"
+            versionNameSuffix "-ar"
+            resValue "string", "about_translation", "ترجمة فان دايك — ملكية عامة، حرة التوزيع."
+        }
+        hi {
+            dimension "language"
+            resValue "string", "app_name", "बोनेवाला"
+            applicationIdSuffix ".hi"
+            versionNameSuffix "-hi"
+            resValue "string", "about_translation", "Indian Revised Version 2017 — CC BY-SA 4.0"
+        }
+        sw {
+            dimension "language"
+            resValue "string", "app_name", "Mpanzi"
+            applicationIdSuffix ".sw"
+            versionNameSuffix "-sw"
+            resValue "string", "about_translation", "Unlocked Literal Bible (Kiswahili) — CC BY-SA 4.0"
+        }
+        zh {
+            dimension "language"
+            resValue "string", "app_name", "撒种者"
+            applicationIdSuffix ".zh"
+            versionNameSuffix "-zh"
+            resValue "string", "about_translation", "和合本 1919 — 公有领域，可自由分享。"
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.core
+    implementation libs.material
+    implementation libs.recyclerview
+}

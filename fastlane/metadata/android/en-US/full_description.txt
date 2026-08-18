@@ -1,0 +1,16 @@
+Sower carries the complete Bible (World English Bible, public domain) and is built to travel: it can send its own APK to a nearby phone over Bluetooth or Quick Share, with no internet, no account, and no app store. Like a seed passed hand to hand — one phone can seed a whole village.
+
+Features:
+
+• Complete 66-book Bible, fully offline — the app requests zero permissions and cannot touch the network
+• Red-letter edition: the words of Jesus in red, accurate to the sub-verse level
+• Full-text search across every verse, accent-insensitive
+• Verse of the day and continue-reading that remembers your exact place
+• Tap a verse to share it as text; long-press to copy
+• Adjustable text size; light and dark themes
+• "Pass it on": simple three-step guide and one button to send the whole app to another phone offline
+• Interface in English, Spanish, French, Portuguese, Russian, Chinese, Arabic, Hindi, Indonesian, and Swahili
+• Nine Scripture editions as sister apps, each named in its own language: Sower (English), Sembrador (Spanish), Semeur (French), Semeador (Portuguese), Сеятель (Russian), الزارع (Arabic), बोनेवाला (Hindi), Mpanzi (Swahili), 撒种者 (Chinese)
+• Runs on Android 5.0 (2014) and newer, including phones without Google services
+
+Freely you received; freely give.

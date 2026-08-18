@@ -1,0 +1,17 @@
+[versions]
+agp = "9.3.1"
+# Library versions are pinned to the last releases supporting minSdk 21 (Android 5.0):
+# newer AndroidX/Material releases require minSdk 23 and would cut off older phones.
+appcompat = "1.7.1"
+core = "1.15.0"
+material = "1.12.0"
+recyclerview = "1.4.0"
+
+[libraries]
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+core = { group = "androidx.core", name = "core", version.ref = "core" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }

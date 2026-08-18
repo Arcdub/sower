@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">Perjanjian Lama</string>
+    <string name="new_testament">Perjanjian Baru</string>
+    <string name="continue_reading">Lanjutkan membaca</string>
+    <string name="verse_of_the_day">Ayat hari ini</string>
+    <string name="chapter_x_of_y">Pasal %1$d dari %2$d</string>
+    <string name="previous_chapter">Pasal sebelumnya</string>
+    <string name="next_chapter">Pasal berikutnya</string>
+    <string name="menu_pass_it_on">Teruskan</string>
+    <string name="menu_text_larger">Perbesar teks</string>
+    <string name="menu_text_smaller">Perkecil teks</string>
+    <string name="menu_search">Cari</string>
+    <string name="verse_copied">Ayat disalin</string>
+    <string name="share_verse_via">Bagikan ayat</string>
+    <string name="search_hint">Cari di Alkitab…</string>
+    <string name="search_prompt">Ketik kata atau frasa, lalu tekan cari.</string>
+    <string name="search_too_short">Ketik minimal dua karakter.</string>
+    <string name="search_searching">Mencari…</string>
+    <string name="search_no_results">Tidak ada ayat yang ditemukan.</string>
+    <string name="search_results_capped">Menampilkan %1$d hasil pertama — coba pencarian yang lebih spesifik.</string>
+    <plurals name="search_results">
+        <item quantity="other">%1$d ayat ditemukan</item>
+    </plurals>
+    <string name="pass_it_on_title">Teruskan</string>
+    <string name="pass_it_on_lead">Aplikasi ini membawa Alkitab lengkap — tanpa internet, tanpa akun, tanpa toko aplikasi. Ia berpindah langsung dari ponsel Anda ke ponsel teman, seperti benih yang berpindah dari tangan ke tangan.</string>
+    <string name="pass_it_on_how_title">Cara kerjanya</string>
+    <string name="pass_it_on_step1">Di ponsel teman Anda: <b>buka layar pengaturan Bluetooth</b> dan tetap di sana. (Itu menyalakan Bluetooth dan membuat ponselnya terlihat — berlaku di semua ponsel Android.)</string>
+    <string name="pass_it_on_step2">Di ponsel ini: ketuk <b>Kirim aplikasi ini</b> di bawah, pilih <b>Bluetooth</b>, lalu ketuk <b>nama ponsel teman Anda</b> saat muncul.</string>
+    <string name="pass_it_on_step3">Teman Anda mengetuk <b>Terima</b>, membuka berkas yang diterima, dan <b>mengizinkan pemasangan</b> saat ponselnya bertanya — pertanyaan itu wajar untuk aplikasi yang dibagikan antar ponsel. Selesai! <b>Salinannya kini juga bisa diteruskan.</b></string>
+    <string name="pass_it_on_quickshare_tip">Kedua ponsel punya <b>Quick Share</b>? Lebih cepat: teman Anda menggeser layar dari atas ke bawah, <b>menekan lama tombol Quick Share</b>, dan mengizinkan <b>“Semua orang”</b> — lalu di langkah 2 pilih Quick Share alih-alih Bluetooth. Beberapa ponsel menamai berbagi dengan nama lain (Huawei Share, Mi Share), tetapi <b>Bluetooth berfungsi di semuanya</b>.</string>
+    <string name="pass_it_on_button">Kirim aplikasi ini ke ponsel lain</string>
+    <string name="pass_it_on_size">Ukuran aplikasi: %1$s</string>
+    <string name="pass_it_on_failed">Tidak dapat menyiapkan aplikasi untuk dibagikan.</string>
+    <string name="pass_it_on_verse">“Seorang penabur keluar menaburkan benihnya… Sebagian jatuh di tanah yang baik, lalu tumbuh dan berbuah seratus kali lipat.” — Lukas 8:5,8</string>
+</resources>

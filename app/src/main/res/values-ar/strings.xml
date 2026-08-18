@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="old_testament">العهد القديم</string>
+    <string name="new_testament">العهد الجديد</string>
+    <string name="continue_reading">متابعة القراءة</string>
+    <string name="verse_of_the_day">آية اليوم</string>
+    <string name="chapter_x_of_y">الإصحاح %1$d من %2$d</string>
+    <string name="previous_chapter">الإصحاح السابق</string>
+    <string name="next_chapter">الإصحاح التالي</string>
+    <string name="menu_pass_it_on">مرِّرها</string>
+    <string name="menu_text_larger">تكبير الخط</string>
+    <string name="menu_text_smaller">تصغير الخط</string>
+    <string name="menu_search">بحث</string>
+    <string name="verse_copied">تم نسخ الآية</string>
+    <string name="share_verse_via">مشاركة الآية</string>
+    <string name="search_hint">ابحث في الكتاب المقدس…</string>
+    <string name="search_prompt">اكتب كلمة أو عبارة ثم اضغط بحث.</string>
+    <string name="search_too_short">اكتب حرفين على الأقل.</string>
+    <string name="search_searching">جارٍ البحث…</string>
+    <string name="search_no_results">لم يتم العثور على آيات.</string>
+    <string name="search_results_capped">تُعرض أول %1$d نتيجة — جرّب بحثًا أدق.</string>
+    <plurals name="search_results">
+        <item quantity="one">تم العثور على آية واحدة</item>
+        <item quantity="two">تم العثور على آيتين</item>
+        <item quantity="few">تم العثور على %1$d آيات</item>
+        <item quantity="many">تم العثور على %1$d آية</item>
+        <item quantity="other">تم العثور على %1$d آية</item>
+    </plurals>
+    <string name="pass_it_on_title">مرِّرها</string>
+    <string name="pass_it_on_lead">يحمل هذا التطبيق الكتاب المقدس كاملًا — بلا إنترنت، بلا حساب، بلا متجر تطبيقات. ينتقل مباشرة من هاتفك إلى هاتف صديقك، كبذرة تنتقل من يد إلى يد.</string>
+    <string name="pass_it_on_how_title">كيف يعمل</string>
+    <string name="pass_it_on_step1">على هاتف صديقك: <b>افتح شاشة إعدادات البلوتوث</b> وابقَ فيها. (هذا يشغّل البلوتوث ويجعل الهاتف مرئيًا — يعمل على كل هواتف أندرويد.)</string>
+    <string name="pass_it_on_step2">على هذا الهاتف: اضغط <b>أرسل هذا التطبيق</b> بالأسفل، واختر <b>البلوتوث</b>، ثم اضغط على <b>اسم هاتف صديقك</b> عندما يظهر.</string>
+    <string name="pass_it_on_step3">يضغط صديقك <b>قبول</b>، ويفتح الملف المستلم، و<b>يسمح بالتثبيت</b> عندما يسأل هاتفه — هذا السؤال طبيعي لأي تطبيق يُشارك من هاتف إلى هاتف. تم! <b>نسخته الآن يمكن تمريرها أيضًا.</b></string>
+    <string name="pass_it_on_quickshare_tip">هل يوجد <b>Quick Share</b> على الهاتفين؟ إنه أسرع: يسحب صديقك من أعلى الشاشة إلى الأسفل، <b>يضغط مطولًا على زر Quick Share</b> ويسمح بـ<b>«الجميع»</b> — ثم في الخطوة 2 اختر Quick Share بدلًا من البلوتوث. بعض الهواتف تسمّي المشاركة باسم آخر (Huawei Share، Mi Share)، لكن <b>البلوتوث يعمل عليها كلها</b>.</string>
+    <string name="pass_it_on_button">أرسل هذا التطبيق إلى هاتف آخر</string>
+    <string name="pass_it_on_size">حجم التطبيق: %1$s</string>
+    <string name="pass_it_on_failed">تعذّر تجهيز التطبيق للمشاركة.</string>
+    <string name="pass_it_on_verse">«خرج الزارع ليزرع زرعه… وسقط آخر في الأرض الصالحة، فلما نبت صنع ثمرًا مئة ضعف.» — لوقا ٨:‏٥،٨</string>
+</resources>

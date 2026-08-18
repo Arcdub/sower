@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- API 23+ can request light-on-dark status bar icons; below 23 they are always white. -->
+    <style name="Theme.Sower" parent="Base.Theme.Sower">
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

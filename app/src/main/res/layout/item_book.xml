@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bookRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="14dp"
-    android:layout_marginEnd="14dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="?attr/colorPrimaryContainer"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="0dp">
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:layout_marginEnd="14dp"
+        android:includeFontPadding="false"
+        android:text="•"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/bookName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/book_bubble"
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:includeFontPadding="false"
-            android:text="•"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="26sp" />
-
-        <TextView
-            android:id="@+id/bookName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            android:textAppearance="?attr/textAppearanceBodyLarge" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/sower_green_dark"
+        android:textAppearance="?attr/textAppearanceBodyLarge" />
+</LinearLayout>

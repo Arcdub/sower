@@ -33,5 +33,6 @@
     <string name="pass_it_on_button">Enviar esta aplicación a otro teléfono</string>
     <string name="pass_it_on_size">Tamaño: %1$s</string>
     <string name="pass_it_on_failed">No se pudo preparar la aplicación para compartir.</string>
+    <string name="pass_it_on_qr_tip">¿Internet en lugar de Bluetooth? Pide que <b>escaneen este código con la cámara de su teléfono</b> — descarga esta aplicación directamente:</string>
     <string name="pass_it_on_verse">«El sembrador salió a sembrar su semilla… Y otra parte cayó en buena tierra, y nació y llevó fruto a ciento por uno.» — Lucas 8:5,8</string>
 </resources>

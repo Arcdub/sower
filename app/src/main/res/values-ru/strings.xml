@@ -35,5 +35,6 @@
     <string name="pass_it_on_button">Отправить это приложение на другой телефон</string>
     <string name="pass_it_on_size">Размер: %1$s</string>
     <string name="pass_it_on_failed">Не удалось подготовить приложение к передаче.</string>
+    <string name="pass_it_on_qr_tip">Есть интернет вместо Bluetooth? Пусть <b>отсканируют этот код камерой телефона</b> — приложение скачается напрямую:</string>
     <string name="pass_it_on_verse">«Вышел сеятель сеять семя своё… А иное упало на добрую землю и, взойдя, принесло плод сторичный.» — Луки 8:5,8</string>
 </resources>

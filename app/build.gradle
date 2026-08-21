@@ -129,4 +129,5 @@ dependencies {
     implementation libs.core
     implementation libs.material
     implementation libs.recyclerview
+    implementation libs.zxing
 }

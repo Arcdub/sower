@@ -32,5 +32,6 @@
     <string name="pass_it_on_button">Kirim aplikasi ini ke ponsel lain</string>
     <string name="pass_it_on_size">Ukuran aplikasi: %1$s</string>
     <string name="pass_it_on_failed">Tidak dapat menyiapkan aplikasi untuk dibagikan.</string>
+    <string name="pass_it_on_qr_tip">Ada internet, bukan Bluetooth? Minta mereka <b>memindai kode ini dengan kamera ponsel</b> — aplikasi ini langsung terunduh:</string>
     <string name="pass_it_on_verse">“Seorang penabur keluar menaburkan benihnya… Sebagian jatuh di tanah yang baik, lalu tumbuh dan berbuah seratus kali lipat.” — Lukas 8:5,8</string>
 </resources>

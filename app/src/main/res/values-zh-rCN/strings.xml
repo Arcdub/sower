@@ -32,5 +32,6 @@
     <string name="pass_it_on_button">发送此应用到另一部手机</string>
     <string name="pass_it_on_size">应用大小：%1$s</string>
     <string name="pass_it_on_failed">无法准备分享此应用。</string>
+    <string name="pass_it_on_qr_tip">有网络而不用蓝牙？让对方<b>用手机相机扫描这个二维码</b>，即可直接下载本应用：</string>
     <string name="pass_it_on_verse">“有一个撒种的出去撒种……又有落在好土里的，生长起来，结实百倍。” — 路加福音 8:5,8</string>
 </resources>

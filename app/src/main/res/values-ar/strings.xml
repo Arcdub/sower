@@ -36,5 +36,6 @@
     <string name="pass_it_on_button">أرسل هذا التطبيق إلى هاتف آخر</string>
     <string name="pass_it_on_size">حجم التطبيق: %1$s</string>
     <string name="pass_it_on_failed">تعذّر تجهيز التطبيق للمشاركة.</string>
+    <string name="pass_it_on_qr_tip">إنترنت بدل البلوتوث؟ اطلب منهم <b>مسح هذا الرمز بكاميرا هاتفهم</b> — سيُحمَّل التطبيق مباشرة:</string>
     <string name="pass_it_on_verse">«خرج الزارع ليزرع زرعه… وسقط آخر في الأرض الصالحة، فلما نبت صنع ثمرًا مئة ضعف.» — لوقا ٨:‏٥،٨</string>
 </resources>

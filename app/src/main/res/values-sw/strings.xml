@@ -33,5 +33,6 @@
     <string name="pass_it_on_button">Tuma programu hii kwenye simu nyingine</string>
     <string name="pass_it_on_size">Ukubwa wa programu: %1$s</string>
     <string name="pass_it_on_failed">Imeshindwa kuandaa programu kwa kushiriki.</string>
+    <string name="pass_it_on_qr_tip">Kuna intaneti badala ya Bluetooth? Waambie <b>waskani msimbo huu kwa kamera ya simu yao</b> — programu itapakuliwa moja kwa moja:</string>
     <string name="pass_it_on_verse">“Mpanzi alitoka kwenda kupanda mbegu zake… Nyingine ikaanguka penye udongo mzuri, ikamea na kuzaa mara mia.” — Luka 8:5,8</string>
 </resources>

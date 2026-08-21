@@ -42,6 +42,7 @@
     <string name="pass_it_on_button">Send this app to another phone</string>
     <string name="pass_it_on_size">App size: %1$s</string>
     <string name="pass_it_on_failed">Could not prepare the app for sharing.</string>
+    <string name="pass_it_on_qr_tip">Internet instead of Bluetooth? Have them <b>scan this code with their phone’s camera</b> — it downloads this app directly:</string>
     <string name="pass_it_on_verse">“A farmer went out to sow his seed… Other seed fell into the good ground and grew and produced one hundred times as much fruit.” — Luke 8:5,8</string>
 
     <!-- about_translation is defined per product flavor in build.gradle. -->

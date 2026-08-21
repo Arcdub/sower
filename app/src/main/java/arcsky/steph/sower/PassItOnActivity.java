@@ -45,6 +45,46 @@ public class PassItOnActivity extends AppCompatActivity {
                 Formatter.formatShortFileSize(this, source.length())));
 
         findViewById(R.id.shareAppButton).setOnClickListener(v -> shareApk());
+        showDownloadQr();
+    }
+
+    /**
+     * A camera-scannable direct download of this edition. Points at the
+     * "latest" release asset so even an old printed or screenshotted code
+     * always delivers the newest version.
+     */
+    private void showDownloadQr() {
+        String url = "https://github.com/Arcdub/sower/releases/latest/download/Sower-"
+                + BuildConfig.FLAVOR + ".apk";
+        android.widget.ImageView qrView = findViewById(R.id.qrImage);
+        android.graphics.Bitmap qr = renderQr(url, 660);
+        if (qr != null) {
+            qrView.setImageBitmap(qr);
+        } else {
+            findViewById(R.id.qrCard).setVisibility(android.view.View.GONE);
+        }
+    }
+
+    private static android.graphics.Bitmap renderQr(String content, int size) {
+        try {
+            java.util.Map<com.google.zxing.EncodeHintType, Object> hints =
+                    new java.util.HashMap<>();
+            hints.put(com.google.zxing.EncodeHintType.MARGIN, 1);
+            com.google.zxing.common.BitMatrix matrix = new com.google.zxing.qrcode.QRCodeWriter()
+                    .encode(content, com.google.zxing.BarcodeFormat.QR_CODE, size, size, hints);
+            int[] pixels = new int[size * size];
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    pixels[y * size + x] = matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
+                }
+            }
+            android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(
+                    size, size, android.graphics.Bitmap.Config.RGB_565);
+            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private void shareApk() {

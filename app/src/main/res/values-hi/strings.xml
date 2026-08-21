@@ -33,5 +33,6 @@
     <string name="pass_it_on_button">यह ऐप दूसरे फ़ोन पर भेजें</string>
     <string name="pass_it_on_size">ऐप का आकार: %1$s</string>
     <string name="pass_it_on_failed">ऐप साझा करने के लिए तैयार नहीं हो सका।</string>
+    <string name="pass_it_on_qr_tip">ब्लूटूथ की जगह इंटरनेट है? उनसे कहें कि <b>अपने फ़ोन के कैमरे से यह कोड स्कैन करें</b> — ऐप सीधे डाउनलोड हो जाएगा:</string>
     <string name="pass_it_on_verse">“एक बोने वाला अपना बीज बोने निकला… और कुछ अच्छी भूमि पर गिरा, और उगकर सौ गुणा फल लाया।” — लूका 8:5,8</string>
 </resources>

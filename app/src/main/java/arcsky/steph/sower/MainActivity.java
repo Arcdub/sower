@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.action_search) {
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
+            } else if (id == R.id.action_privacy) {
+                showPrivacyPolicy();
+                return true;
             }
             return false;
         });
@@ -78,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
 
         loadVerseOfTheDay();
+    }
+
+    /** Shown in-app so it is readable with no internet, matching the app's offline design. */
+    private void showPrivacyPolicy() {
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.menu_privacy)
+                .setMessage(R.string.privacy_policy_body)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     @Override

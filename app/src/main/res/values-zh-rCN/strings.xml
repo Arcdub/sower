@@ -11,6 +11,8 @@
     <string name="menu_text_larger">放大字体</string>
     <string name="menu_text_smaller">缩小字体</string>
     <string name="menu_search">搜索</string>
+    <string name="menu_privacy">隐私政策</string>
+    <string name="privacy_policy_body">撒种者完全尊重您的隐私。本应用不收集任何个人信息，不申请任何权限，也不进行任何网络连接，因此无法将您的数据发送到任何地方。您阅读和搜索的一切都只保存在您的设备上。没有任何内容被追踪、存储在服务器上或与任何人分享。\n\n你们白白地得来，也要白白地舍去。</string>
     <string name="verse_copied">经文已复制</string>
     <string name="share_verse_via">分享经文</string>
     <string name="search_hint">搜索圣经…</string>

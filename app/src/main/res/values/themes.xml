@@ -8,7 +8,20 @@
         <item name="colorSecondary">@color/sower_gold</item>
         <!-- Transparent bar: the toolbar's green extends underneath it (see EdgeToEdge). -->
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Default (green) reading surfaces. -->
+        <item name="bubbleBackground">@color/book_bubble</item>
+        <item name="bubbleText">@color/sower_green_dark</item>
+        <item name="bubbleRipple">@color/sower_green</item>
+        <item name="sectionHeading">@color/sower_green</item>
     </style>
 
     <style name="Theme.Sower" parent="Base.Theme.Sower" />
+
+    <!-- High-contrast (colour-blind friendly): neutral surfaces, black text, no green-on-green. -->
+    <style name="Theme.Sower.HighContrast" parent="Base.Theme.Sower">
+        <item name="bubbleBackground">#E6E6E6</item>
+        <item name="bubbleText">#000000</item>
+        <item name="bubbleRipple">#9E9E9E</item>
+        <item name="sectionHeading">#000000</item>
+    </style>
 </resources>

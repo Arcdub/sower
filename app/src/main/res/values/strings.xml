@@ -17,6 +17,12 @@
     <string name="menu_pass_it_on">Pass it on</string>
     <string name="menu_search">Search</string>
     <string name="menu_translation">Translation</string>
+    <string name="menu_accessibility">Accessibility</string>
+    <string name="wj_title">Words of Jesus</string>
+    <string name="wj_style_red">In red</string>
+    <string name="wj_style_bold">In bold (for color blindness)</string>
+    <string name="wj_style_none">Same as other text</string>
+    <string name="high_contrast">High contrast (for color blindness)</string>
     <string name="menu_privacy">Privacy policy</string>
     <string name="privacy_policy_body">Sower respects your privacy completely. It collects no personal information, requests no permissions, and makes no network connections, so it cannot send your data anywhere. Everything you read and search stays only on your device. Nothing is tracked, stored on a server, or shared with anyone.\n\nFreely you received; freely give.</string>
     <string name="search_hint">Search the Bible…</string>

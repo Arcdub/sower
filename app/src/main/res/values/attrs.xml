@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Themable surfaces so a high-contrast theme can neutralise the green palette. -->
+    <attr name="bubbleBackground" format="color" />
+    <attr name="bubbleText" format="color" />
+    <attr name="bubbleRipple" format="color" />
+    <attr name="sectionHeading" format="color" />
+</resources>

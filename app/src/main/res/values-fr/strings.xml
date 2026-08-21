@@ -12,6 +12,12 @@
     <string name="menu_text_smaller">Texte plus petit</string>
     <string name="menu_search">Rechercher</string>
     <string name="menu_translation">Traduction</string>
+    <string name="menu_accessibility">Accessibilité</string>
+    <string name="wj_title">Paroles de Jésus</string>
+    <string name="wj_style_red">En rouge</string>
+    <string name="wj_style_bold">En gras (pour le daltonisme)</string>
+    <string name="wj_style_none">Comme le reste du texte</string>
+    <string name="high_contrast">Contraste élevé (pour le daltonisme)</string>
     <string name="menu_privacy">Politique de confidentialité</string>
     <string name="privacy_policy_body">Semeur respecte entièrement votre vie privée. Elle ne recueille aucune information personnelle, ne demande aucune autorisation et n’établit aucune connexion réseau ; elle ne peut donc envoyer vos données nulle part. Tout ce que vous lisez et recherchez reste uniquement sur votre appareil. Rien n’est suivi, stocké sur un serveur ni partagé avec qui que ce soit.\n\nVous avez reçu gratuitement, donnez gratuitement.</string>
     <string name="verse_copied">Verset copié</string>

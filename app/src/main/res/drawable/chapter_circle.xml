@@ -4,7 +4,7 @@
     android:color="?attr/colorPrimary">
     <item>
         <shape android:shape="oval">
-            <solid android:color="?attr/colorPrimaryContainer" />
+            <solid android:color="?attr/bubbleBackground" />
         </shape>
     </item>
 </ripple>

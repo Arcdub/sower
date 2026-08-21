@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bookRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="16dp"
@@ -17,7 +15,7 @@
         android:layout_marginEnd="14dp"
         android:includeFontPadding="false"
         android:text="•"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/sectionHeading"
         android:textSize="26sp" />
 
     <TextView
@@ -25,10 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/book_bubble"
+        android:clickable="true"
+        android:focusable="true"
         android:paddingStart="18dp"
         android:paddingEnd="18dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColor="@color/sower_green_dark"
+        android:textColor="?attr/bubbleText"
         android:textAppearance="?attr/textAppearanceBodyLarge" />
 </LinearLayout>

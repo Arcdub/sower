@@ -12,6 +12,12 @@
     <string name="menu_text_smaller">Maandishi madogo</string>
     <string name="menu_search">Tafuta</string>
     <string name="menu_translation">Tafsiri</string>
+    <string name="menu_accessibility">Ufikivu</string>
+    <string name="wj_title">Maneno ya Yesu</string>
+    <string name="wj_style_red">Kwa rangi nyekundu</string>
+    <string name="wj_style_bold">Kwa herufi nzito (kwa upofu wa rangi)</string>
+    <string name="wj_style_none">Sawa na maandishi mengine</string>
+    <string name="high_contrast">Utofautishaji wa juu (kwa upofu wa rangi)</string>
     <string name="menu_privacy">Sera ya faragha</string>
     <string name="privacy_policy_body">Mpanzi inaheshimu kikamilifu faragha yako. Haikusanyi taarifa yoyote ya binafsi, haiombi ruhusa yoyote, na haifanyi muunganisho wowote wa mtandao, hivyo haiwezi kutuma data yako popote. Kila unachosoma na kutafuta kinabaki kwenye kifaa chako pekee. Hakuna kinachofuatiliwa, kuhifadhiwa kwenye seva, au kushirikiwa na mtu yeyote.\n\nMlipata bure, toeni bure.</string>
     <string name="verse_copied">Mstari umenakiliwa</string>

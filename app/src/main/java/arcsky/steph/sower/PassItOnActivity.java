@@ -32,6 +32,7 @@ public class PassItOnActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.applyTheme(this);
         setContentView(R.layout.activity_pass_it_on);
 
         Toolbar toolbar = findViewById(R.id.toolbar);

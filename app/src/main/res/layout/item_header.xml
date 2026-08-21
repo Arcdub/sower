@@ -9,4 +9,4 @@
     android:paddingBottom="10dp"
     android:textAppearance="?attr/textAppearanceTitleLarge"
     android:textStyle="bold"
-    android:textColor="?attr/colorPrimary" />
+    android:textColor="?attr/sectionHeading" />

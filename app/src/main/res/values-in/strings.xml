@@ -12,6 +12,12 @@
     <string name="menu_text_smaller">Perkecil teks</string>
     <string name="menu_search">Cari</string>
     <string name="menu_translation">Terjemahan</string>
+    <string name="menu_accessibility">Aksesibilitas</string>
+    <string name="wj_title">Perkataan Yesus</string>
+    <string name="wj_style_red">Berwarna merah</string>
+    <string name="wj_style_bold">Tebal (untuk buta warna)</string>
+    <string name="wj_style_none">Sama seperti teks lain</string>
+    <string name="high_contrast">Kontras tinggi (untuk buta warna)</string>
     <string name="menu_privacy">Kebijakan privasi</string>
     <string name="privacy_policy_body">Sower sepenuhnya menghormati privasi Anda. Aplikasi ini tidak mengumpulkan informasi pribadi apa pun, tidak meminta izin apa pun, dan tidak membuat koneksi jaringan, sehingga tidak dapat mengirim data Anda ke mana pun. Semua yang Anda baca dan cari tetap hanya di perangkat Anda. Tidak ada yang dilacak, disimpan di server, atau dibagikan kepada siapa pun.\n\nKamu telah menerima dengan cuma-cuma, berikanlah pula dengan cuma-cuma.</string>
     <string name="verse_copied">Ayat disalin</string>

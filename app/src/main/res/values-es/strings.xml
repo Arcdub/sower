@@ -12,6 +12,12 @@
     <string name="menu_text_smaller">Texto más pequeño</string>
     <string name="menu_search">Buscar</string>
     <string name="menu_translation">Traducción</string>
+    <string name="menu_accessibility">Accesibilidad</string>
+    <string name="wj_title">Palabras de Jesús</string>
+    <string name="wj_style_red">En rojo</string>
+    <string name="wj_style_bold">En negrita (para daltonismo)</string>
+    <string name="wj_style_none">Igual que el resto del texto</string>
+    <string name="high_contrast">Alto contraste (para daltonismo)</string>
     <string name="menu_privacy">Política de privacidad</string>
     <string name="privacy_policy_body">Sembrador respeta por completo tu privacidad. No recopila ninguna información personal, no solicita permisos y no realiza conexiones de red, por lo que no puede enviar tus datos a ningún lugar. Todo lo que lees y buscas permanece solo en tu dispositivo. No se rastrea, almacena en un servidor ni comparte nada con nadie.\n\nDe gracia recibisteis; dad de gracia.</string>
     <string name="verse_copied">Versículo copiado</string>

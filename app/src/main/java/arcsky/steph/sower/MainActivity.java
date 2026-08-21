@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyTheme(this);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.action_translation) {
                 showTranslationPicker();
+                return true;
+            } else if (id == R.id.action_accessibility) {
+                showAccessibilityOptions();
                 return true;
             } else if (id == R.id.action_privacy) {
                 showPrivacyPolicy();
@@ -90,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
         loadVerseOfTheDay();
     }
 
+    /** Switches to the high-contrast theme when the user has turned it on. Call before setContentView. */
+    static void applyTheme(android.app.Activity activity) {
+        if (Prefs.highContrast(activity)) {
+            activity.setTheme(R.style.Theme_Sower_HighContrast);
+        }
+    }
+
     /** Paints the three-dot overflow icon white so it reads on the green toolbar. */
     static void tintOverflowWhite(Toolbar toolbar) {
         android.graphics.drawable.Drawable overflow = toolbar.getOverflowIcon();
@@ -99,6 +110,38 @@ public class MainActivity extends AppCompatActivity {
                     android.graphics.PorterDuff.Mode.SRC_IN);
             toolbar.setOverflowIcon(overflow);
         }
+    }
+
+    private void showAccessibilityOptions() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_accessibility, null);
+        android.widget.CompoundButton highContrast = view.findViewById(R.id.highContrastSwitch);
+        highContrast.setChecked(Prefs.highContrast(this));
+        android.widget.RadioGroup wjGroup = view.findViewById(R.id.wjGroup);
+        int[] wjIds = {R.id.wjRed, R.id.wjBold, R.id.wjNone};
+        wjGroup.check(wjIds[Prefs.wordsOfJesusStyle(this)]);
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.menu_accessibility)
+                .setView(view)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int wj = RedLetter.STYLE_RED;
+                    if (wjGroup.getCheckedRadioButtonId() == R.id.wjBold) {
+                        wj = RedLetter.STYLE_BOLD;
+                    } else if (wjGroup.getCheckedRadioButtonId() == R.id.wjNone) {
+                        wj = RedLetter.STYLE_NONE;
+                    }
+                    Prefs.setWordsOfJesusStyle(this, wj);
+                    boolean contrastChanged = highContrast.isChecked() != Prefs.highContrast(this);
+                    Prefs.setHighContrast(this, highContrast.isChecked());
+                    if (contrastChanged) {
+                        recreate(); // re-inflate with the other theme
+                    } else {
+                        adapter.rebuild();
+                        loadVerseOfTheDay();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private void showTranslationPicker() {
@@ -282,8 +325,10 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) holder.itemView.findViewById(R.id.headerText)).setText((String) row);
             } else {
                 Bible.Book book = (Bible.Book) row;
-                ((TextView) holder.itemView.findViewById(R.id.bookName)).setText(book.name);
-                holder.itemView.setOnClickListener(view -> {
+                TextView bookName = holder.itemView.findViewById(R.id.bookName);
+                bookName.setText(book.name);
+                // Click on the bubble itself so the ripple stays inside the rounded box.
+                bookName.setOnClickListener(view -> {
                     Intent intent = new Intent(activity, ChapterGridActivity.class);
                     intent.putExtra(ChapterGridActivity.EXTRA_BOOK, book.file);
                     activity.startActivity(intent);

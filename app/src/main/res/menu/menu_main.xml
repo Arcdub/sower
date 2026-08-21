@@ -16,6 +16,10 @@
         android:title="@string/menu_translation"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_accessibility"
+        android:title="@string/menu_accessibility"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_privacy"
         android:title="@string/menu_privacy"
         app:showAsAction="never" />

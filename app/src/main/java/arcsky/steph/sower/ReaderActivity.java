@@ -57,6 +57,7 @@ public class ReaderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.applyTheme(this);
         setContentView(R.layout.activity_reader);
 
         bookFile = getIntent().getStringExtra(EXTRA_BOOK);

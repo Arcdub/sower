@@ -78,6 +78,7 @@ public class ReaderActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(v -> finish());
         toolbar.inflateMenu(R.menu.menu_reader);
+        MainActivity.tintOverflowWhite(toolbar);
         toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.action_text_larger) {

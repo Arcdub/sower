@@ -12,6 +12,10 @@
         android:title="@string/menu_pass_it_on"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_translation"
+        android:title="@string/menu_translation"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_privacy"
         android:title="@string/menu_privacy"
         app:showAsAction="never" />

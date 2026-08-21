@@ -1,0 +1,4 @@
+[
+  { "id": "web", "name": "World English Bible", "dir": "bible" },
+  { "id": "bsb", "name": "Berean Standard Bible", "dir": "bible_bsb" }
+]

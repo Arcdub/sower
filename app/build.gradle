@@ -41,7 +41,7 @@ android {
         en {
             dimension "language"
             resValue "string", "app_name", "Sower"
-            resValue "string", "about_translation", "World English Bible — public domain, freely shareable."
+            resValue "string", "about_translation", "World English Bible & Berean Standard Bible — public domain, freely shareable."
         }
         es {
             dimension "language"

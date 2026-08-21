@@ -12,16 +12,18 @@
     android:paddingBottom="14dp">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:includeFontPadding="false"
+        android:text="•"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="26sp" />
+
+    <TextView
         android:id="@+id/bookName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAppearance="?attr/textAppearanceBodyLarge" />
-
-    <TextView
-        android:id="@+id/bookChapters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceLabelMedium"
-        android:alpha="0.6" />
 </LinearLayout>

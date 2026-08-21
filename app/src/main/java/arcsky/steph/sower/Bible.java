@@ -19,11 +19,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Loads the bundled World English Bible from assets/bible/.
- * index.json lists the 66 books; each book file holds verses grouped by chapter.
- * Everything is read from the APK — no network, ever.
+ * Loads the bundled Bible(s) from the APK assets — no network, ever.
+ *
+ * An edition may carry one or several translations. assets/translations.json (when
+ * present) lists them as {id, name, dir}; each dir holds an index.json listing the
+ * 66 books plus one file per book. With no translations.json the edition has a single
+ * translation living in assets/bible/.
  */
 public final class Bible {
+
+    public static final class Translation {
+        public final String id;
+        public final String name;
+        public final String dir;
+
+        Translation(String id, String name, String dir) {
+            this.id = id;
+            this.name = name;
+            this.dir = dir;
+        }
+    }
 
     public static final class Book {
         public final String file;
@@ -69,6 +84,8 @@ public final class Bible {
         }
     }
 
+    private static List<Translation> translations;
+    private static String activeDir;
     private static List<Book> books;
 
     private static final Map<String, BookText> CACHE =
@@ -85,11 +102,70 @@ public final class Bible {
     private Bible() {
     }
 
+    /** The translations this edition bundles (always at least one). */
+    public static synchronized List<Translation> translations(Context context) {
+        if (translations == null) {
+            List<Translation> list = new ArrayList<>();
+            String json = readAssetOrNull(context, "translations.json");
+            if (json != null) {
+                try {
+                    JSONArray arr = new JSONArray(json);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject o = arr.getJSONObject(i);
+                        list.add(new Translation(
+                                o.getString("id"), o.getString("name"), o.getString("dir")));
+                    }
+                } catch (Exception e) {
+                    throw new IllegalStateException("Corrupt translations.json", e);
+                }
+            }
+            if (list.isEmpty()) {
+                list.add(new Translation("default", null, "bible"));
+            }
+            translations = Collections.unmodifiableList(list);
+        }
+        return translations;
+    }
+
+    public static Translation currentTranslation(Context context) {
+        String id = Prefs.translation(context);
+        List<Translation> all = translations(context);
+        if (id != null) {
+            for (Translation t : all) {
+                if (t.id.equals(id)) {
+                    return t;
+                }
+            }
+        }
+        return all.get(0);
+    }
+
+    /** Switch the reading translation, dropping all cached text for the previous one. */
+    public static synchronized void setTranslation(Context context, String id) {
+        Prefs.setTranslation(context, id);
+        activeDir = null;
+        books = null;
+        synchronized (CACHE) {
+            CACHE.clear();
+        }
+        corpus = null;
+        corpusMeta = null;
+        corpusNorm = null;
+    }
+
+    private static synchronized String activeDir(Context context) {
+        if (activeDir == null) {
+            activeDir = currentTranslation(context).dir;
+        }
+        return activeDir;
+    }
+
     public static synchronized List<Book> books(Context context) {
         if (books == null) {
             List<Book> loaded = new ArrayList<>(66);
             try {
-                JSONArray arr = new JSONArray(readAsset(context, "bible/index.json"));
+                JSONArray arr = new JSONArray(
+                        readAsset(context, activeDir(context) + "/index.json"));
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
                     loaded.add(new Book(
@@ -139,7 +215,8 @@ public final class Bible {
             }
         }
         try {
-            JSONObject o = new JSONObject(readAsset(context, "bible/" + file + ".json"));
+            JSONObject o = new JSONObject(
+                    readAsset(context, activeDir(context) + "/" + file + ".json"));
             JSONArray chaptersJson = o.getJSONArray("chapters");
             List<List<String>> chapters = new ArrayList<>(chaptersJson.length());
             for (int c = 0; c < chaptersJson.length(); c++) {
@@ -244,6 +321,15 @@ public final class Bible {
                 out.write(buffer, 0, read);
             }
             return out.toString(StandardCharsets.UTF_8.name());
+        }
+    }
+
+    /** Reads an optional asset, returning null when the file is absent. */
+    private static String readAssetOrNull(Context context, String path) {
+        try {
+            return readAsset(context, path);
+        } catch (Exception e) {
+            return null;
         }
     }
 }

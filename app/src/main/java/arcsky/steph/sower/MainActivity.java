@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
+        tintOverflowWhite(toolbar);
+        // The translation picker only makes sense when this edition bundles more than one.
+        toolbar.getMenu().findItem(R.id.action_translation)
+                .setVisible(Bible.translations(this).size() > 1);
         toolbar.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.action_pass_it_on) {
@@ -49,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.action_search) {
                 startActivity(new Intent(this, SearchActivity.class));
+                return true;
+            } else if (id == R.id.action_translation) {
+                showTranslationPicker();
                 return true;
             } else if (id == R.id.action_privacy) {
                 showPrivacyPolicy();
@@ -81,6 +88,40 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
 
         loadVerseOfTheDay();
+    }
+
+    /** Paints the three-dot overflow icon white so it reads on the green toolbar. */
+    static void tintOverflowWhite(Toolbar toolbar) {
+        android.graphics.drawable.Drawable overflow = toolbar.getOverflowIcon();
+        if (overflow != null) {
+            overflow = overflow.mutate();
+            overflow.setColorFilter(android.graphics.Color.WHITE,
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+            toolbar.setOverflowIcon(overflow);
+        }
+    }
+
+    private void showTranslationPicker() {
+        final java.util.List<Bible.Translation> all = Bible.translations(this);
+        String currentId = Bible.currentTranslation(this).id;
+        CharSequence[] names = new CharSequence[all.size()];
+        int checked = 0;
+        for (int i = 0; i < all.size(); i++) {
+            names[i] = all.get(i).name;
+            if (all.get(i).id.equals(currentId)) {
+                checked = i;
+            }
+        }
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.menu_translation)
+                .setSingleChoiceItems(names, checked, (dialog, which) -> {
+                    Bible.setTranslation(this, all.get(which).id);
+                    dialog.dismiss();
+                    adapter.rebuild();
+                    loadVerseOfTheDay();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     /** Shown in-app so it is readable with no internet, matching the app's offline design. */
@@ -242,8 +283,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Bible.Book book = (Bible.Book) row;
                 ((TextView) holder.itemView.findViewById(R.id.bookName)).setText(book.name);
-                ((TextView) holder.itemView.findViewById(R.id.bookChapters))
-                        .setText(String.valueOf(book.chapters));
                 holder.itemView.setOnClickListener(view -> {
                     Intent intent = new Intent(activity, ChapterGridActivity.class);
                     intent.putExtra(ChapterGridActivity.EXTRA_BOOK, book.file);

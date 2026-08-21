@@ -47,7 +47,7 @@ public class ChapterGridActivity extends AppCompatActivity {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                TextView view = (TextView) LayoutInflater.from(parent.getContext())
+                View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_chapter, parent, false);
                 return new RecyclerView.ViewHolder(view) {
                 };
@@ -56,9 +56,9 @@ public class ChapterGridActivity extends AppCompatActivity {
             @Override
             public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
                 final int chapter = position + 1;
-                TextView view = (TextView) holder.itemView;
-                view.setText(String.valueOf(chapter));
-                view.setOnClickListener(v -> {
+                TextView number = holder.itemView.findViewById(R.id.chapterNumber);
+                number.setText(String.valueOf(chapter));
+                holder.itemView.setOnClickListener(v -> {
                     Intent intent = new Intent(ChapterGridActivity.this, ReaderActivity.class);
                     intent.putExtra(ReaderActivity.EXTRA_BOOK, book.file);
                     intent.putExtra(ReaderActivity.EXTRA_CHAPTER, chapter);

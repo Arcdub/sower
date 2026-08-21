@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/chapterNumber"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:layout_margin="6dp"
-    android:background="?attr/selectableItemBackground"
-    android:gravity="center"
-    android:textAppearance="?attr/textAppearanceTitleMedium" />
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/chapterNumber"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:background="@drawable/chapter_circle"
+        android:gravity="center"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textAppearance="?attr/textAppearanceTitleMedium" />
+</FrameLayout>

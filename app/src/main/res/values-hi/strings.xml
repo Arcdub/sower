@@ -11,6 +11,7 @@
     <string name="menu_text_larger">बड़ा अक्षर</string>
     <string name="menu_text_smaller">छोटा अक्षर</string>
     <string name="menu_search">खोजें</string>
+    <string name="menu_translation">अनुवाद</string>
     <string name="menu_privacy">गोपनीयता नीति</string>
     <string name="privacy_policy_body">बोनेवाला आपकी निजता का पूरा सम्मान करता है। यह कोई व्यक्तिगत जानकारी एकत्र नहीं करता, कोई अनुमति नहीं माँगता, और कोई नेटवर्क कनेक्शन नहीं बनाता, इसलिए यह आपका डेटा कहीं नहीं भेज सकता। आप जो भी पढ़ते और खोजते हैं वह केवल आपके फ़ोन पर ही रहता है। कुछ भी ट्रैक नहीं किया जाता, सर्वर पर संग्रहीत नहीं किया जाता, या किसी के साथ साझा नहीं किया जाता।\n\nतुमने सेंत-मेंत पाया है, सेंत-मेंत दो।</string>
     <string name="verse_copied">वचन कॉपी हो गया</string>

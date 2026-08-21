@@ -11,6 +11,7 @@
     <string name="menu_text_larger">تكبير الخط</string>
     <string name="menu_text_smaller">تصغير الخط</string>
     <string name="menu_search">بحث</string>
+    <string name="menu_translation">الترجمة</string>
     <string name="menu_privacy">سياسة الخصوصية</string>
     <string name="privacy_policy_body">يحترم تطبيق الزارع خصوصيتك تمامًا. فهو لا يجمع أي معلومات شخصية، ولا يطلب أي أذونات، ولا يجري أي اتصالات بالشبكة، لذا لا يمكنه إرسال بياناتك إلى أي مكان. كل ما تقرأه وتبحث عنه يبقى على جهازك فقط. لا شيء يُتَتبَّع أو يُخزَّن على خادم أو يُشارَك مع أي أحد.\n\nمجانًا أخذتم، مجانًا أعطوا.</string>
     <string name="verse_copied">تم نسخ الآية</string>

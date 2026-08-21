@@ -10,6 +10,7 @@ public final class Prefs {
     private static final String KEY_LAST_CHAPTER = "lastChapter";
     private static final String KEY_LAST_VERSE = "lastVerse";
     private static final String KEY_TEXT_SIZE = "textSize";
+    private static final String KEY_TRANSLATION = "translation";
 
     public static final float MIN_TEXT_SIZE = 14f;
     public static final float MAX_TEXT_SIZE = 30f;
@@ -20,6 +21,15 @@ public final class Prefs {
 
     private static SharedPreferences prefs(Context context) {
         return context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+    }
+
+    /** Selected translation id when an edition bundles more than one. */
+    public static String translation(Context context) {
+        return prefs(context).getString(KEY_TRANSLATION, null);
+    }
+
+    public static void setTranslation(Context context, String id) {
+        prefs(context).edit().putString(KEY_TRANSLATION, id).apply();
     }
 
     public static void setLastRead(Context context, String bookFile, int chapter) {

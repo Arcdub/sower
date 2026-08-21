@@ -11,6 +11,7 @@
     <string name="menu_text_larger">Texte plus grand</string>
     <string name="menu_text_smaller">Texte plus petit</string>
     <string name="menu_search">Rechercher</string>
+    <string name="menu_translation">Traduction</string>
     <string name="menu_privacy">Politique de confidentialité</string>
     <string name="privacy_policy_body">Semeur respecte entièrement votre vie privée. Elle ne recueille aucune information personnelle, ne demande aucune autorisation et n’établit aucune connexion réseau ; elle ne peut donc envoyer vos données nulle part. Tout ce que vous lisez et recherchez reste uniquement sur votre appareil. Rien n’est suivi, stocké sur un serveur ni partagé avec qui que ce soit.\n\nVous avez reçu gratuitement, donnez gratuitement.</string>
     <string name="verse_copied">Verset copié</string>

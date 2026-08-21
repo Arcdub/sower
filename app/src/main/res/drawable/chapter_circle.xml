@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tappable circle for a chapter number: solid light-green fill, no ring. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorPrimary">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="?attr/colorPrimaryContainer" />
+        </shape>
+    </item>
+</ripple>

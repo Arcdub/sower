@@ -11,6 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
@@ -57,7 +58,6 @@ public class ReaderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity.applyTheme(this);
         setContentView(R.layout.activity_reader);
 
         bookFile = getIntent().getStringExtra(EXTRA_BOOK);
@@ -81,12 +81,8 @@ public class ReaderActivity extends AppCompatActivity {
         toolbar.inflateMenu(R.menu.menu_reader);
         MainActivity.tintOverflowWhite(toolbar);
         toolbar.setOnMenuItemClickListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.action_text_larger) {
-                adjustTextSize(2f);
-                return true;
-            } else if (id == R.id.action_text_smaller) {
-                adjustTextSize(-2f);
+            if (item.getItemId() == R.id.action_text_size) {
+                showTextSizePopup();
                 return true;
             }
             return false;
@@ -168,11 +164,31 @@ public class ReaderActivity extends AppCompatActivity {
         }
     }
 
-    private void adjustTextSize(float delta) {
-        float size = Prefs.textSize(this) + delta;
-        size = Math.max(Prefs.MIN_TEXT_SIZE, Math.min(Prefs.MAX_TEXT_SIZE, size));
-        Prefs.setTextSize(this, size);
-        adapter.notifyDataSetChanged();
+    /** Pops a text-size slider out from the toolbar's "A" button. */
+    private void showTextSizePopup() {
+        View content = getLayoutInflater().inflate(R.layout.popup_text_size, null);
+        com.google.android.material.slider.Slider slider = content.findViewById(R.id.textSizeSlider);
+        slider.setValueFrom(Prefs.MIN_TEXT_SIZE);
+        slider.setValueTo(Prefs.MAX_TEXT_SIZE);
+        slider.setStepSize(1f);
+        float current = Math.max(Prefs.MIN_TEXT_SIZE,
+                Math.min(Prefs.MAX_TEXT_SIZE, Prefs.textSize(this)));
+        slider.setValue(current);
+        slider.addOnChangeListener((s, value, fromUser) -> {
+            Prefs.setTextSize(this, value);
+            adapter.notifyDataSetChanged();
+        });
+
+        float density = getResources().getDisplayMetrics().density;
+        int width = (int) (300 * density);
+        android.widget.PopupWindow popup = new android.widget.PopupWindow(content, width,
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popup.setElevation(12f);
+        View anchor = toolbar.findViewById(R.id.action_text_size);
+        if (anchor == null) {
+            anchor = toolbar;
+        }
+        popup.showAsDropDown(anchor, (int) (-260 * density), 0);
     }
 
     private String verseReference(int verseNumber) {

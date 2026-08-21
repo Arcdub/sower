@@ -2,11 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_text_larger"
-        android:title="@string/menu_text_larger"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_text_smaller"
-        android:title="@string/menu_text_smaller"
-        app:showAsAction="never" />
+        android:id="@+id/action_text_size"
+        android:icon="@drawable/ic_text_size"
+        android:title="@string/menu_text_size"
+        app:showAsAction="always" />
 </menu>

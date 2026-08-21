@@ -18,6 +18,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_translation">Translation</string>
     <string name="menu_accessibility">Accessibility</string>
+    <string name="menu_text_size">Text size</string>
     <string name="wj_title">Words of Jesus</string>
     <string name="wj_style_red">In red</string>
     <string name="wj_style_bold">In bold (for color blindness)</string>

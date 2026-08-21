@@ -13,6 +13,7 @@
     <string name="menu_search">بحث</string>
     <string name="menu_translation">الترجمة</string>
     <string name="menu_accessibility">إمكانية الوصول</string>
+    <string name="menu_text_size">حجم النص</string>
     <string name="wj_title">كلمات يسوع</string>
     <string name="wj_style_red">بالأحمر</string>
     <string name="wj_style_bold">بخط عريض (لعمى الألوان)</string>

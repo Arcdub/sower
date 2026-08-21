@@ -12,7 +12,6 @@ public final class Prefs {
     private static final String KEY_TEXT_SIZE = "textSize";
     private static final String KEY_TRANSLATION = "translation";
     private static final String KEY_WJ_STYLE = "wordsOfJesusStyle";
-    private static final String KEY_HIGH_CONTRAST = "highContrast";
 
     public static final float MIN_TEXT_SIZE = 14f;
     public static final float MAX_TEXT_SIZE = 30f;
@@ -41,15 +40,6 @@ public final class Prefs {
 
     public static void setWordsOfJesusStyle(Context context, int style) {
         prefs(context).edit().putInt(KEY_WJ_STYLE, style).apply();
-    }
-
-    /** Neutral high-contrast surfaces instead of the green palette. */
-    public static boolean highContrast(Context context) {
-        return prefs(context).getBoolean(KEY_HIGH_CONTRAST, false);
-    }
-
-    public static void setHighContrast(Context context, boolean on) {
-        prefs(context).edit().putBoolean(KEY_HIGH_CONTRAST, on).apply();
     }
 
     public static void setLastRead(Context context, String bookFile, int chapter) {

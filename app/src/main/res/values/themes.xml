@@ -16,12 +16,4 @@
     </style>
 
     <style name="Theme.Sower" parent="Base.Theme.Sower" />
-
-    <!-- High-contrast (colour-blind friendly): neutral surfaces, black text, no green-on-green. -->
-    <style name="Theme.Sower.HighContrast" parent="Base.Theme.Sower">
-        <item name="bubbleBackground">#E6E6E6</item>
-        <item name="bubbleText">#000000</item>
-        <item name="bubbleRipple">#9E9E9E</item>
-        <item name="sectionHeading">#000000</item>
-    </style>
 </resources>

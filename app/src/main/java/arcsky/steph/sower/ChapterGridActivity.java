@@ -20,7 +20,6 @@ public class ChapterGridActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity.applyTheme(this);
         setContentView(R.layout.activity_chapters);
 
         String bookFile = getIntent().getStringExtra(EXTRA_BOOK);

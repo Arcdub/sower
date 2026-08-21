@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        applyTheme(this);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -94,13 +93,6 @@ public class MainActivity extends AppCompatActivity {
         loadVerseOfTheDay();
     }
 
-    /** Switches to the high-contrast theme when the user has turned it on. Call before setContentView. */
-    static void applyTheme(android.app.Activity activity) {
-        if (Prefs.highContrast(activity)) {
-            activity.setTheme(R.style.Theme_Sower_HighContrast);
-        }
-    }
-
     /** Paints the three-dot overflow icon white so it reads on the green toolbar. */
     static void tintOverflowWhite(Toolbar toolbar) {
         android.graphics.drawable.Drawable overflow = toolbar.getOverflowIcon();
@@ -114,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAccessibilityOptions() {
         View view = getLayoutInflater().inflate(R.layout.dialog_accessibility, null);
-        android.widget.CompoundButton highContrast = view.findViewById(R.id.highContrastSwitch);
-        highContrast.setChecked(Prefs.highContrast(this));
         android.widget.RadioGroup wjGroup = view.findViewById(R.id.wjGroup);
         int[] wjIds = {R.id.wjRed, R.id.wjBold, R.id.wjNone};
         wjGroup.check(wjIds[Prefs.wordsOfJesusStyle(this)]);
@@ -131,14 +121,8 @@ public class MainActivity extends AppCompatActivity {
                         wj = RedLetter.STYLE_NONE;
                     }
                     Prefs.setWordsOfJesusStyle(this, wj);
-                    boolean contrastChanged = highContrast.isChecked() != Prefs.highContrast(this);
-                    Prefs.setHighContrast(this, highContrast.isChecked());
-                    if (contrastChanged) {
-                        recreate(); // re-inflate with the other theme
-                    } else {
-                        adapter.rebuild();
-                        loadVerseOfTheDay();
-                    }
+                    adapter.rebuild();
+                    loadVerseOfTheDay();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

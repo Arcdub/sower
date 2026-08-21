@@ -13,6 +13,7 @@
     <string name="menu_search">खोजें</string>
     <string name="menu_translation">अनुवाद</string>
     <string name="menu_accessibility">सुगम्यता</string>
+    <string name="menu_text_size">पाठ का आकार</string>
     <string name="wj_title">यीशु के वचन</string>
     <string name="wj_style_red">लाल रंग में</string>
     <string name="wj_style_bold">मोटे अक्षरों में (वर्णांधता के लिए)</string>

@@ -32,6 +32,8 @@
     <string name="search_no_highlights">Bado hakuna mistari iliyoangaziwa.</string>
     <string name="verse_highlight">Angazia</string>
     <string name="verse_unhighlight">Ondoa mwangazo</string>
+    <string name="highlight_removed">Mwangazo umeondolewa</string>
+    <string name="undo">Tendua</string>
     <plurals name="search_results">
         <item quantity="one">Mstari %1$d umepatikana</item>
         <item quantity="other">Mistari %1$d imepatikana</item>

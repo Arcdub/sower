@@ -32,6 +32,8 @@
     <string name="search_no_highlights">Belum ada ayat yang disorot.</string>
     <string name="verse_highlight">Sorot</string>
     <string name="verse_unhighlight">Hapus sorotan</string>
+    <string name="highlight_removed">Sorotan dihapus</string>
+    <string name="undo">Urungkan</string>
     <plurals name="search_results">
         <item quantity="other">%1$d ayat ditemukan</item>
     </plurals>

@@ -52,6 +52,9 @@ final class Highlights {
             }
             list.add(range);
         }
+        for (List<int[]> list : map.values()) {
+            Collections.sort(list, (a, b) -> a[0] - b[0]);
+        }
         return map;
     }
 

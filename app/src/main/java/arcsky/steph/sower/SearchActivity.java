@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     private final AtomicInteger generation = new AtomicInteger();
     private EditText input;
     private TextView status;
+    private RecyclerView results;
     private ResultsAdapter adapter;
     private com.google.android.material.chip.Chip highlightsChip;
 
@@ -45,11 +46,37 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(v -> finish());
 
-        RecyclerView results = findViewById(R.id.resultList);
+        results = findViewById(R.id.resultList);
         EdgeToEdge.apply(this, toolbar, results);
         results.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ResultsAdapter();
         results.setAdapter(adapter);
+
+        // Swiping a highlight result away removes that highlight (with an undo).
+        new androidx.recyclerview.widget.ItemTouchHelper(
+                new androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback(0,
+                        androidx.recyclerview.widget.ItemTouchHelper.LEFT
+                                | androidx.recyclerview.widget.ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView rv,
+                                          @NonNull RecyclerView.ViewHolder vh,
+                                          @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public int getSwipeDirs(@NonNull RecyclerView rv,
+                                            @NonNull RecyclerView.ViewHolder vh) {
+                        int position = vh.getBindingAdapterPosition();
+                        return position >= 0 && adapter.isHighlightResult(position)
+                                ? super.getSwipeDirs(rv, vh) : 0;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder vh, int direction) {
+                        removeHighlightAt(vh.getBindingAdapterPosition());
+                    }
+                }).attachToRecyclerView(results);
 
         status = findViewById(R.id.searchStatus);
         input = findViewById(R.id.searchInput);
@@ -100,6 +127,41 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /** Removes the highlight behind a swiped result row, offering an undo. */
+    private void removeHighlightAt(int position) {
+        if (position < 0 || position >= adapter.items.size()) {
+            return;
+        }
+        final Bible.SearchResult item = adapter.items.get(position);
+        if (item.pieces == null) {
+            return;
+        }
+        final java.util.Set<String> before = Prefs.highlights(this);
+        String translation = Bible.currentTranslation(this).id;
+        for (int[] p : item.pieces) {
+            Highlights.remove(this, translation, item.file, item.chapter,
+                    p[0], p[1], p[2], p[3]);
+        }
+        adapter.removeAt(position);
+        showResultCount();
+        com.google.android.material.snackbar.Snackbar
+                .make(results, R.string.highlight_removed,
+                        com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo, v -> {
+                    Prefs.saveHighlights(this, before);
+                    adapter.restoreAt(position, item);
+                    showResultCount();
+                })
+                .show();
+    }
+
+    private void showResultCount() {
+        int count = adapter.items.size();
+        status.setText(count == 0
+                ? getString(R.string.search_no_highlights)
+                : getResources().getQuantityString(R.plurals.search_results, count, count));
+    }
+
     class ResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<Bible.SearchResult> items = new ArrayList<>();
@@ -110,6 +172,20 @@ public class SearchActivity extends AppCompatActivity {
             items.addAll(results);
             query = Bible.normalizeQuery(newQuery);
             notifyDataSetChanged();
+        }
+
+        boolean isHighlightResult(int position) {
+            return items.get(position).pieces != null;
+        }
+
+        void removeAt(int position) {
+            items.remove(position);
+            notifyItemRemoved(position);
+        }
+
+        void restoreAt(int position, Bible.SearchResult item) {
+            items.add(Math.min(position, items.size()), item);
+            notifyItemInserted(Math.min(position, items.size() - 1));
         }
 
         @NonNull

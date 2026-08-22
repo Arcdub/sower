@@ -75,19 +75,23 @@ public final class Bible {
         public final int verse;    // 1-based
         public final int endVerse; // last verse of a multi-verse highlight; == verse otherwise
         public final String text;  // plain, no red-letter markers
+        // For a highlight result: its {verse, start, end, verseLength} pieces, so the
+        // exact ranges can be removed. Null for plain search results.
+        public final int[][] pieces;
 
         SearchResult(String file, String bookName, int chapter, int verse, String text) {
-            this(file, bookName, chapter, verse, verse, text);
+            this(file, bookName, chapter, verse, verse, text, null);
         }
 
         SearchResult(String file, String bookName, int chapter, int verse, int endVerse,
-                     String text) {
+                     String text, int[][] pieces) {
             this.file = file;
             this.bookName = bookName;
             this.chapter = chapter;
             this.verse = verse;
             this.endVerse = endVerse;
             this.text = text;
+            this.pieces = pieces;
         }
     }
 
@@ -375,7 +379,7 @@ public final class Bible {
                             open = new ArrayList<>();
                             segments.add(open);
                         }
-                        open.add(new int[]{v, start, end});
+                        open.add(new int[]{v, start, end, length});
                         first = false;
                     }
                 }
@@ -397,7 +401,7 @@ public final class Bible {
                         continue;
                     }
                     results.add(new SearchResult(meta[0], meta[1], c + 1,
-                            head[0], tail[0], snippet));
+                            head[0], tail[0], snippet, pieces.toArray(new int[0][])));
                     if (results.size() >= limit) {
                         return results;
                     }

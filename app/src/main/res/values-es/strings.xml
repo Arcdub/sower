@@ -32,6 +32,8 @@
     <string name="search_no_highlights">Aún no hay versículos destacados.</string>
     <string name="verse_highlight">Destacar</string>
     <string name="verse_unhighlight">Quitar destacado</string>
+    <string name="highlight_removed">Resaltado eliminado</string>
+    <string name="undo">Deshacer</string>
     <plurals name="search_results">
         <item quantity="one">%1$d versículo encontrado</item>
         <item quantity="other">%1$d versículos encontrados</item>

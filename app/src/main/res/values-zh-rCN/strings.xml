@@ -32,6 +32,8 @@
     <string name="search_no_highlights">还没有高亮的经文。</string>
     <string name="verse_highlight">高亮</string>
     <string name="verse_unhighlight">取消高亮</string>
+    <string name="highlight_removed">已删除高亮</string>
+    <string name="undo">撤消</string>
     <plurals name="search_results">
         <item quantity="other">找到 %1$d 节经文</item>
     </plurals>

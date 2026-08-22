@@ -36,6 +36,8 @@
     <string name="search_no_highlights">No highlighted verses yet.</string>
     <string name="verse_highlight">Highlight</string>
     <string name="verse_unhighlight">Remove highlight</string>
+    <string name="highlight_removed">Highlight removed</string>
+    <string name="undo">Undo</string>
     <plurals name="search_results">
         <item quantity="one">%1$d verse found</item>
         <item quantity="other">%1$d verses found</item>

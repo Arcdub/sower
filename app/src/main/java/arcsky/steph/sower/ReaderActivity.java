@@ -65,9 +65,7 @@ public class ReaderActivity extends AppCompatActivity {
     private final List<Integer> verseTextStarts = new ArrayList<>();
     private final List<Integer> verseTextEnds = new ArrayList<>();
     private final List<String> verseRawTexts = new ArrayList<>();
-
-    private float touchX;
-    private float touchY;
+    private Map<Integer, List<int[]>> chapterRanges = new java.util.HashMap<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -106,19 +104,21 @@ public class ReaderActivity extends AppCompatActivity {
 
         verseScroll = findViewById(R.id.verseScroll);
         chapterText = findViewById(R.id.chapterText);
+        // A plain click listener misses the first tap (it only grants the
+        // selectable TextView focus), so taps are detected from the touch stream.
+        final android.view.GestureDetector taps = new android.view.GestureDetector(this,
+                new android.view.GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        if (!chapterText.hasSelection()) {
+                            handleTap(e.getX(), e.getY());
+                        }
+                        return false;
+                    }
+                });
         chapterText.setOnTouchListener((v, event) -> {
-            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                touchX = event.getX();
-                touchY = event.getY();
-            }
+            taps.onTouchEvent(event);
             return false;
-        });
-        chapterText.setOnClickListener(v -> {
-            int index = verseIndexForOffset(
-                    chapterText.getOffsetForPosition(touchX, touchY));
-            if (index >= 0) {
-                shareVerse(verseNumbers.get(index), verseRawTexts.get(index));
-            }
         });
         chapterText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
@@ -204,8 +204,9 @@ public class ReaderActivity extends AppCompatActivity {
         verseTextEnds.clear();
         verseRawTexts.clear();
 
-        Map<Integer, List<int[]>> ranges = Highlights.rangesFor(this,
+        chapterRanges = Highlights.rangesFor(this,
                 Bible.currentTranslation(this).id, bookFile, chapter);
+        Map<Integer, List<int[]>> ranges = chapterRanges;
         int numberColor = ContextCompat.getColor(this, R.color.verse_number);
         List<String> verses = book.chapters.get(chapter - 1);
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -298,6 +299,21 @@ public class ReaderActivity extends AppCompatActivity {
         chapterText.post(this::buildChapterText);
     }
 
+    /** A tap on a highlight offers to remove it; anywhere else shares the verse. */
+    private void handleTap(float x, float y) {
+        int offset = chapterText.getOffsetForPosition(x, y);
+        int index = verseIndexForOffset(offset);
+        if (index < 0) {
+            return;
+        }
+        List<int[]> swath = swathAt(index, offset);
+        if (swath != null) {
+            confirmRemoveSwath(swath);
+        } else {
+            shareVerse(verseNumbers.get(index), verseRawTexts.get(index));
+        }
+    }
+
     private int verseIndexForOffset(int offset) {
         int index = -1;
         for (int i = 0; i < versePrefixStarts.size(); i++) {
@@ -308,6 +324,129 @@ public class ReaderActivity extends AppCompatActivity {
             }
         }
         return index;
+    }
+
+    private int plainLengthAt(int index) {
+        return verseTextEnds.get(index) - verseTextStarts.get(index);
+    }
+
+    /** The stored range containing a local offset in a verse, clamped; null if none. */
+    private int[] rangeAt(int number, int local, int length) {
+        List<int[]> ranges = chapterRanges.get(number);
+        if (ranges == null) {
+            return null;
+        }
+        for (int[] r : ranges) {
+            int start = Math.max(0, r[0]);
+            int end = Math.min(length, r[1]);
+            if (start <= local && local < end) {
+                return new int[]{start, end};
+            }
+        }
+        return null;
+    }
+
+    private int[] edgeRange(int number, int length, boolean last) {
+        List<int[]> ranges = chapterRanges.get(number);
+        if (ranges == null || ranges.isEmpty()) {
+            return null;
+        }
+        int[] r = ranges.get(last ? ranges.size() - 1 : 0);
+        return new int[]{Math.max(0, r[0]), Math.min(length, r[1])};
+    }
+
+    /**
+     * The whole contiguous highlight under a tapped character, as
+     * {verse, start, end, verseLength} pieces — walking across verse boundaries
+     * wherever the marking runs on unbroken. Null when the tap isn't on a highlight.
+     */
+    private List<int[]> swathAt(int index, int offset) {
+        int number = verseNumbers.get(index);
+        int local = offset - verseTextStarts.get(index);
+        int length = plainLengthAt(index);
+        if (local < 0 || local >= length) {
+            return null;
+        }
+        int[] hit = rangeAt(number, local, length);
+        if (hit == null) {
+            return null;
+        }
+        List<int[]> pieces = new ArrayList<>();
+        pieces.add(new int[]{number, hit[0], hit[1], length});
+        int[] cur = pieces.get(0);
+        while (cur[1] == 0) {
+            int prevIndex = verseNumbers.indexOf(cur[0] - 1);
+            if (prevIndex < 0) {
+                break;
+            }
+            int prevLength = plainLengthAt(prevIndex);
+            int[] prev = edgeRange(cur[0] - 1, prevLength, true);
+            if (prev == null || prev[1] != prevLength) {
+                break;
+            }
+            cur = new int[]{cur[0] - 1, prev[0], prev[1], prevLength};
+            pieces.add(0, cur);
+        }
+        cur = pieces.get(pieces.size() - 1);
+        while (cur[2] == cur[3]) {
+            int nextIndex = verseNumbers.indexOf(cur[0] + 1);
+            if (nextIndex < 0) {
+                break;
+            }
+            int nextLength = plainLengthAt(nextIndex);
+            int[] next = edgeRange(cur[0] + 1, nextLength, false);
+            if (next == null || next[0] != 0) {
+                break;
+            }
+            cur = new int[]{cur[0] + 1, next[0], next[1], nextLength};
+            pieces.add(cur);
+        }
+        return pieces;
+    }
+
+    /** Shows the tapped highlight and offers to remove it (or share the verse). */
+    private void confirmRemoveSwath(List<int[]> pieces) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < pieces.size(); i++) {
+            int[] p = pieces.get(i);
+            String plain = RedLetter.plain(
+                    verseRawTexts.get(verseNumbers.indexOf(p[0])));
+            if (i > 0) {
+                sb.append(' ');
+            }
+            sb.append(plain, p[1], p[2]);
+        }
+        int[] head = pieces.get(0);
+        int[] tail = pieces.get(pieces.size() - 1);
+        String snippet = (head[1] > 0 ? "…" : "") + sb.toString().trim()
+                + (tail[2] < tail[3] ? "…" : "");
+        String reference = book.name + " " + chapter + ":" + head[0]
+                + (tail[0] > head[0] ? "–" + tail[0] : "");
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(reference)
+                .setMessage(snippet)
+                .setPositiveButton(R.string.verse_unhighlight, (d, w) -> removeSwath(pieces))
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.share_verse_via, (d, w) -> shareVerse(head[0],
+                        verseRawTexts.get(verseNumbers.indexOf(head[0]))))
+                .show();
+    }
+
+    private void removeSwath(List<int[]> pieces) {
+        final java.util.Set<String> before = Prefs.highlights(this);
+        String translation = Bible.currentTranslation(this).id;
+        for (int[] p : pieces) {
+            Highlights.remove(this, translation, bookFile, chapter, p[0], p[1], p[2], p[3]);
+        }
+        buildChapterText();
+        com.google.android.material.snackbar.Snackbar
+                .make(verseScroll, R.string.highlight_removed,
+                        com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo, v -> {
+                    Prefs.saveHighlights(this, before);
+                    buildChapterText();
+                })
+                .show();
     }
 
     /** The verse at the top of the viewport. */

@@ -32,6 +32,8 @@
     <string name="search_no_highlights">Пока нет выделенных стихов.</string>
     <string name="verse_highlight">Выделить</string>
     <string name="verse_unhighlight">Убрать выделение</string>
+    <string name="highlight_removed">Выделение удалено</string>
+    <string name="undo">Отменить</string>
     <plurals name="search_results">
         <item quantity="one">Найден %1$d стих</item>
         <item quantity="few">Найдено %1$d стиха</item>

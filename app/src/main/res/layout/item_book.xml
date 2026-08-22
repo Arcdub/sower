@@ -25,7 +25,7 @@
         android:layout_marginEnd="10dp"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_book"
-        app:tint="?attr/sectionHeading" />
+        app:tint="@color/book_icon" />
 
     <TextView
         android:id="@+id/bookName"
@@ -34,7 +34,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:textColor="?attr/bubbleText"
+        android:textColor="@color/book_text"
         android:textSize="15sp"
         app:autoSizeMaxTextSize="15sp"
         app:autoSizeMinTextSize="10sp"

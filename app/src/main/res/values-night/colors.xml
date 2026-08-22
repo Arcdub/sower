@@ -5,4 +5,9 @@
     <color name="verse_number">#8CBF94</color>
     <!-- Night reading: very dark green toolbar. -->
     <color name="toolbar_bg">#14201A</color>
+    <color name="page_bg">#1E2A24</color>
+    <color name="book_tile">#26332C</color>
+    <color name="book_tile_border">#C8A24B</color>
+    <color name="book_text">#E8E0CF</color>
+    <color name="book_icon">#C8A24B</color>
 </resources>

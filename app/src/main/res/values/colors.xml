@@ -11,4 +11,9 @@
     <color name="book_bubble">#D8E8D4</color>
     <color name="book_bubble_border">#C8A24B</color>
     <color name="toolbar_bg">#2E6B34</color>
+    <color name="page_bg">#F6F4EE</color>
+    <color name="book_tile">#FFFFFF</color>
+    <color name="book_tile_border">#DED9CE</color>
+    <color name="book_text">#2B3A2C</color>
+    <color name="book_icon">#7FA56B</color>
 </resources>

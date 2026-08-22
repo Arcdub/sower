@@ -6,6 +6,10 @@
         <item name="colorPrimaryContainer">#D8E8D4</item>
         <item name="colorOnPrimaryContainer">@color/sower_green_dark</item>
         <item name="colorSecondary">@color/sower_gold</item>
+        <!-- Warm cream canvas so white book tiles read as cards. -->
+        <item name="android:colorBackground">@color/page_bg</item>
+        <item name="android:windowBackground">@color/page_bg</item>
+        <item name="colorSurface">@color/page_bg</item>
         <!-- Transparent bar: the toolbar's green extends underneath it (see EdgeToEdge). -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Default (green) reading surfaces. -->

@@ -238,6 +238,13 @@ public class ReaderActivity extends AppCompatActivity {
             builder.append(RedLetter.styled(this, text));
             int textEnd = builder.length();
 
+            if (number == transientVerse) {
+                // Soft green, deliberately distinct from the gold highlights, so the
+                // searched-for verse can't be mistaken for a marked one. Applied
+                // first so gold highlight spans draw on top of it.
+                builder.setSpan(new BackgroundColorSpan(0x408CBF94), prefixStart, textEnd,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
             List<int[]> verseRanges = ranges.get(number);
             if (verseRanges != null) {
                 for (int[] r : verseRanges) {
@@ -248,10 +255,6 @@ public class ReaderActivity extends AppCompatActivity {
                                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
-            }
-            if (number == transientVerse) {
-                builder.setSpan(new BackgroundColorSpan(0x33C8A24B), prefixStart, textEnd,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             verseNumbers.add(number);

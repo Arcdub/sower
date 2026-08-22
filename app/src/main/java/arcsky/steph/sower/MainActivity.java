@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -86,8 +86,17 @@ public class MainActivity extends AppCompatActivity {
         pulseY.setRepeatMode(ObjectAnimator.REVERSE);
         pulse.start();
         EdgeToEdge.liftAboveSystemBars(fab);
-        list.setLayoutManager(new LinearLayoutManager(this));
+
+        // Two columns: books take one span each, all other rows span the full width.
+        GridLayoutManager layout = new GridLayoutManager(this, 2);
         adapter = new BookAdapter(this);
+        layout.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.isBook(position) ? 1 : 2;
+            }
+        });
+        list.setLayoutManager(layout);
         list.setAdapter(adapter);
 
         loadVerseOfTheDay();
@@ -266,6 +275,10 @@ public class MainActivity extends AppCompatActivity {
             return TYPE_BOOK;
         }
 
+        boolean isBook(int position) {
+            return getItemViewType(position) == TYPE_BOOK;
+        }
+
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -309,10 +322,8 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) holder.itemView.findViewById(R.id.headerText)).setText((String) row);
             } else {
                 Bible.Book book = (Bible.Book) row;
-                TextView bookName = holder.itemView.findViewById(R.id.bookName);
-                bookName.setText(book.name);
-                // Click on the bubble itself so the ripple stays inside the rounded box.
-                bookName.setOnClickListener(view -> {
+                ((TextView) holder.itemView.findViewById(R.id.bookName)).setText(book.name);
+                holder.itemView.setOnClickListener(view -> {
                     Intent intent = new Intent(activity, ChapterGridActivity.class);
                     intent.putExtra(ChapterGridActivity.EXTRA_BOOK, book.file);
                     activity.startActivity(intent);

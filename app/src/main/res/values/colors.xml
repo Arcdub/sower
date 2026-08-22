@@ -10,4 +10,5 @@
     <color name="icon_background">#F7F2E9</color>
     <color name="book_bubble">#D8E8D4</color>
     <color name="book_bubble_border">#C8A24B</color>
+    <color name="toolbar_bg">#2E6B34</color>
 </resources>

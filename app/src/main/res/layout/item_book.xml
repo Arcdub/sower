@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bookRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/book_bubble"
+    android:clickable="true"
+    android:focusable="true"
     android:gravity="center_vertical"
+    android:minHeight="52dp"
     android:orientation="horizontal"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:includeFontPadding="false"
-        android:text="•"
-        android:textColor="?attr/sectionHeading"
-        android:textSize="26sp" />
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_book"
+        app:tint="?attr/sectionHeading" />
 
     <TextView
         android:id="@+id/bookName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/book_bubble"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="?attr/bubbleText"
-        android:textAppearance="?attr/textAppearanceBodyLarge" />
+        android:textSize="15sp"
+        app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform" />
 </LinearLayout>

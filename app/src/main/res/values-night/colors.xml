@@ -3,4 +3,6 @@
     <!-- Brighter variants so red letters and verse numbers stay readable on dark backgrounds. -->
     <color name="red_letter">#EF5350</color>
     <color name="verse_number">#8CBF94</color>
+    <!-- Night reading: very dark green toolbar. -->
+    <color name="toolbar_bg">#14201A</color>
 </resources>

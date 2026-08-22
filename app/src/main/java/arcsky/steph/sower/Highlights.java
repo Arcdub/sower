@@ -55,36 +55,77 @@ final class Highlights {
         return map;
     }
 
-    /** Verse-level keys "book:chapter:verse" that carry any highlight in this translation. */
-    static Set<String> verseKeysFor(Context context, String translation) {
-        Set<String> out = new HashSet<>();
-        for (String key : Prefs.highlights(context)) {
-            String[] p = key.split(":");
-            if (p.length == 6 && p[0].equals(translation)) {
-                out.add(p[1] + ":" + p[2] + ":" + p[3]);
-            } else if (p.length == 3) {
-                out.add(key);
-            }
-        }
-        return out;
-    }
-
     /** Adds [start, end) to a verse, merging overlapping or touching ranges. */
     static void add(Context context, String translation, String book, int chapter,
                     int verse, int start, int end, int verseLength) {
         List<int[]> ranges = collect(context, translation, book, chapter, verse, verseLength);
         ranges.add(new int[]{start, end});
+        write(context, translation, book, chapter, verse, merged(ranges));
+    }
+
+    /** Sorts ranges and merges any that overlap or touch. */
+    private static List<int[]> merged(List<int[]> ranges) {
         Collections.sort(ranges, (a, b) -> a[0] - b[0]);
-        List<int[]> merged = new ArrayList<>();
+        List<int[]> out = new ArrayList<>();
         for (int[] r : ranges) {
-            if (!merged.isEmpty() && r[0] <= merged.get(merged.size() - 1)[1]) {
-                int[] last = merged.get(merged.size() - 1);
+            if (!out.isEmpty() && r[0] <= out.get(out.size() - 1)[1]) {
+                int[] last = out.get(out.size() - 1);
                 last[1] = Math.max(last[1], r[1]);
             } else {
-                merged.add(r);
+                out.add(r);
             }
         }
-        write(context, translation, book, chapter, verse, merged);
+        return out;
+    }
+
+    /** Every highlight in a translation: book -> chapter -> verse -> merged ranges. */
+    static Map<String, Map<Integer, Map<Integer, List<int[]>>>> allFor(Context context,
+                                                                       String translation) {
+        Map<String, Map<Integer, Map<Integer, List<int[]>>>> books = new HashMap<>();
+        for (String key : Prefs.highlights(context)) {
+            String[] p = key.split(":");
+            String book;
+            int chapter;
+            int verse;
+            int[] range;
+            if (p.length == 6 && p[0].equals(translation)) {
+                book = p[1];
+                chapter = Integer.parseInt(p[2]);
+                verse = Integer.parseInt(p[3]);
+                range = new int[]{Integer.parseInt(p[4]), Integer.parseInt(p[5])};
+            } else if (p.length == 3) {
+                book = p[0];
+                chapter = Integer.parseInt(p[1]);
+                verse = Integer.parseInt(p[2]);
+                range = new int[]{0, WHOLE_VERSE};
+            } else {
+                continue;
+            }
+            Map<Integer, Map<Integer, List<int[]>>> chapters = books.get(book);
+            if (chapters == null) {
+                chapters = new HashMap<>();
+                books.put(book, chapters);
+            }
+            Map<Integer, List<int[]>> verses = chapters.get(chapter);
+            if (verses == null) {
+                verses = new HashMap<>();
+                chapters.put(chapter, verses);
+            }
+            List<int[]> list = verses.get(verse);
+            if (list == null) {
+                list = new ArrayList<>();
+                verses.put(verse, list);
+            }
+            list.add(range);
+        }
+        for (Map<Integer, Map<Integer, List<int[]>>> chapters : books.values()) {
+            for (Map<Integer, List<int[]>> verses : chapters.values()) {
+                for (Map.Entry<Integer, List<int[]>> entry : verses.entrySet()) {
+                    entry.setValue(merged(entry.getValue()));
+                }
+            }
+        }
+        return books;
     }
 
     /** Removes [start, end) from a verse's highlights, splitting ranges as needed. */

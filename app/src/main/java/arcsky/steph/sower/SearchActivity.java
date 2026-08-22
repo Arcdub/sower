@@ -124,8 +124,9 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             Bible.SearchResult result = items.get(position);
-            ((TextView) holder.itemView.findViewById(R.id.resultRef))
-                    .setText(result.bookName + " " + result.chapter + ":" + result.verse);
+            String reference = result.bookName + " " + result.chapter + ":" + result.verse
+                    + (result.endVerse > result.verse ? "–" + result.endVerse : "");
+            ((TextView) holder.itemView.findViewById(R.id.resultRef)).setText(reference);
 
             SpannableString text = new SpannableString(result.text);
             int at = Bible.normalizeQuery(result.text).indexOf(query);

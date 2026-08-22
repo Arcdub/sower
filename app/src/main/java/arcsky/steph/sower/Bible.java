@@ -71,15 +71,22 @@ public final class Bible {
     public static final class SearchResult {
         public final String file;
         public final String bookName;
-        public final int chapter; // 1-based
-        public final int verse;   // 1-based
-        public final String text; // plain, no red-letter markers
+        public final int chapter;  // 1-based
+        public final int verse;    // 1-based
+        public final int endVerse; // last verse of a multi-verse highlight; == verse otherwise
+        public final String text;  // plain, no red-letter markers
 
         SearchResult(String file, String bookName, int chapter, int verse, String text) {
+            this(file, bookName, chapter, verse, verse, text);
+        }
+
+        SearchResult(String file, String bookName, int chapter, int verse, int endVerse,
+                     String text) {
             this.file = file;
             this.bookName = bookName;
             this.chapter = chapter;
             this.verse = verse;
+            this.endVerse = endVerse;
             this.text = text;
         }
     }
@@ -313,32 +320,84 @@ public final class Bible {
     }
 
     /**
-     * Highlighted verses in canonical order, optionally filtered by query.
-     * An empty query returns every highlight (so the chip alone lists them).
+     * The highlighted passages themselves, in canonical order, optionally filtered
+     * by query. Each result's text is exactly what was highlighted; a highlight
+     * running to the end of one verse and on from the start of the next is one
+     * entry spanning both. An empty query returns every highlight.
      */
     public static List<SearchResult> searchHighlights(Context context, String query, int limit) {
         buildCorpus(context.getApplicationContext());
-        java.util.Set<String> keys =
-                Highlights.verseKeysFor(context, currentTranslation(context).id);
+        java.util.Map<String, java.util.Map<Integer, java.util.Map<Integer, List<int[]>>>> all =
+                Highlights.allFor(context, currentTranslation(context).id);
         List<SearchResult> results = new ArrayList<>();
-        if (keys.isEmpty()) {
+        if (all.isEmpty()) {
             return results;
         }
         String needle = query == null ? "" : normalizeQuery(query.trim());
-        for (int b = 0; b < corpusNorm.size(); b++) {
+        for (int b = 0; b < corpusMeta.size(); b++) {
             String[] meta = corpusMeta.get(b);
-            List<List<String>> chapters = corpusNorm.get(b);
-            for (int c = 0; c < chapters.size(); c++) {
-                List<String> verses = chapters.get(c);
-                for (int v = 0; v < verses.size(); v++) {
-                    if (!keys.contains(meta[0] + ":" + (c + 1) + ":" + (v + 1))) {
+            java.util.Map<Integer, java.util.Map<Integer, List<int[]>>> chapters =
+                    all.get(meta[0]);
+            if (chapters == null) {
+                continue;
+            }
+            List<List<String>> plainChapters = corpus.get(b);
+            for (int c = 0; c < plainChapters.size(); c++) {
+                java.util.Map<Integer, List<int[]>> verses = chapters.get(c + 1);
+                if (verses == null) {
+                    continue;
+                }
+                List<String> plain = plainChapters.get(c);
+                List<Integer> order = new ArrayList<>(verses.keySet());
+                java.util.Collections.sort(order);
+
+                // Stitch contiguous pieces into segments: a range reaching the end
+                // of its verse joins one starting at 0 in the following verse.
+                List<List<int[]>> segments = new ArrayList<>(); // pieces {verse, start, end}
+                List<int[]> open = null;
+                for (int v : order) {
+                    if (v < 1 || v > plain.size()) {
                         continue;
                     }
-                    if (!needle.isEmpty() && !verses.get(v).contains(needle)) {
+                    int length = plain.get(v - 1).length();
+                    boolean first = true;
+                    for (int[] r : verses.get(v)) {
+                        int start = Math.max(0, r[0]);
+                        int end = Math.min(length, r[1]);
+                        if (end <= start) {
+                            first = false;
+                            continue;
+                        }
+                        boolean joins = first && start == 0 && open != null
+                                && open.get(open.size() - 1)[0] == v - 1
+                                && open.get(open.size() - 1)[2] == plain.get(v - 2).length();
+                        if (!joins) {
+                            open = new ArrayList<>();
+                            segments.add(open);
+                        }
+                        open.add(new int[]{v, start, end});
+                        first = false;
+                    }
+                }
+
+                for (List<int[]> pieces : segments) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < pieces.size(); i++) {
+                        int[] piece = pieces.get(i);
+                        if (i > 0) {
+                            sb.append(' ');
+                        }
+                        sb.append(plain.get(piece[0] - 1), piece[1], piece[2]);
+                    }
+                    int[] head = pieces.get(0);
+                    int[] tail = pieces.get(pieces.size() - 1);
+                    String snippet = (head[1] > 0 ? "…" : "") + sb.toString().trim()
+                            + (tail[2] < plain.get(tail[0] - 1).length() ? "…" : "");
+                    if (!needle.isEmpty() && !normalizeQuery(snippet).contains(needle)) {
                         continue;
                     }
-                    results.add(new SearchResult(meta[0], meta[1], c + 1, v + 1,
-                            corpus.get(b).get(c).get(v)));
+                    results.add(new SearchResult(meta[0], meta[1], c + 1,
+                            head[0], tail[0], snippet));
                     if (results.size() >= limit) {
                         return results;
                     }

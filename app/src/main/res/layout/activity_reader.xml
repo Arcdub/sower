@@ -34,8 +34,9 @@
             app:iconTint="@color/sower_ink" />
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/verseList"
+    <!-- One TextView per chapter so native text selection can flow across verses. -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/verseScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -43,7 +44,17 @@
         android:paddingEnd="20dp"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/chapterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.35"
+            android:textIsSelectable="true"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+    </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
         android:id="@+id/navBar"

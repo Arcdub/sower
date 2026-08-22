@@ -1,8 +1,10 @@
 package arcsky.steph.sower;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
@@ -10,11 +12,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,11 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.widget.NestedScrollView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +37,7 @@ public class ReaderActivity extends AppCompatActivity {
     public static final String EXTRA_HIGHLIGHT = "highlight";
 
     private static final String STATE_CHAPTER = "state.chapter";
-    private static final String STATE_SCROLL_INDEX = "state.scrollIndex";
-    private static final String STATE_SCROLL_OFFSET = "state.scrollOffset";
+    private static final String STATE_TOP_VERSE = "state.topVerse";
     private static final String STATE_HIGHLIGHT = "state.highlight";
 
     private static final int MENU_ADD_HIGHLIGHT = 1001;
@@ -50,17 +48,28 @@ public class ReaderActivity extends AppCompatActivity {
     private int chapter; // 1-based
     private int pendingVerse; // verse to scroll to on first load
     private boolean highlightPendingVerse = true;
-    private int pendingScrollIndex = -1; // exact scroll restore after recreation
-    private int pendingScrollOffset;
     private int restoredHighlight;
+    private int transientVerse; // search-jump tint
 
     private Toolbar toolbar;
-    private RecyclerView verseList;
+    private NestedScrollView verseScroll;
+    private TextView chapterText;
     private TextView chapterLabel;
     private Button prevButton;
     private Button nextButton;
-    private VerseAdapter adapter;
 
+    // Per verse, offsets into the chapter spannable: the number prefix, and the
+    // verse text region that highlight ranges index.
+    private final List<Integer> verseNumbers = new ArrayList<>();
+    private final List<Integer> versePrefixStarts = new ArrayList<>();
+    private final List<Integer> verseTextStarts = new ArrayList<>();
+    private final List<Integer> verseTextEnds = new ArrayList<>();
+    private final List<String> verseRawTexts = new ArrayList<>();
+
+    private float touchX;
+    private float touchY;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +84,9 @@ public class ReaderActivity extends AppCompatActivity {
         // restore where the reader actually was, not where the launch intent pointed.
         if (savedInstanceState != null) {
             chapter = savedInstanceState.getInt(STATE_CHAPTER, chapter);
-            pendingScrollIndex = savedInstanceState.getInt(STATE_SCROLL_INDEX, -1);
-            pendingScrollOffset = savedInstanceState.getInt(STATE_SCROLL_OFFSET, 0);
+            pendingVerse = savedInstanceState.getInt(STATE_TOP_VERSE, 0);
+            highlightPendingVerse = false;
             restoredHighlight = savedInstanceState.getInt(STATE_HIGHLIGHT, 0);
-            pendingVerse = 0;
         }
 
         toolbar = findViewById(R.id.toolbar);
@@ -96,10 +104,50 @@ public class ReaderActivity extends AppCompatActivity {
         findViewById(R.id.toolbarPassButton).setOnClickListener(v ->
                 startActivity(new Intent(this, PassItOnActivity.class)));
 
-        verseList = findViewById(R.id.verseList);
-        verseList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VerseAdapter();
-        verseList.setAdapter(adapter);
+        verseScroll = findViewById(R.id.verseScroll);
+        chapterText = findViewById(R.id.chapterText);
+        chapterText.setOnTouchListener((v, event) -> {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                touchX = event.getX();
+                touchY = event.getY();
+            }
+            return false;
+        });
+        chapterText.setOnClickListener(v -> {
+            int index = verseIndexForOffset(
+                    chapterText.getOffsetForPosition(touchX, touchY));
+            if (index >= 0) {
+                shareVerse(verseNumbers.get(index), verseRawTexts.get(index));
+            }
+        });
+        chapterText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                menu.add(Menu.NONE, MENU_ADD_HIGHLIGHT, 100, R.string.verse_highlight);
+                menu.add(Menu.NONE, MENU_REMOVE_HIGHLIGHT, 101, R.string.verse_unhighlight);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                int id = item.getItemId();
+                if (id != MENU_ADD_HIGHLIGHT && id != MENU_REMOVE_HIGHLIGHT) {
+                    return false;
+                }
+                applyHighlightSelection(id == MENU_ADD_HIGHLIGHT);
+                mode.finish();
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+        });
 
         EdgeToEdge.apply(this, toolbar, findViewById(R.id.navBar));
 
@@ -124,40 +172,173 @@ public class ReaderActivity extends AppCompatActivity {
         chapterLabel.setText(getString(R.string.chapter_x_of_y, chapter, book.chapters.size()));
         prevButton.setEnabled(chapter > 1);
         nextButton.setEnabled(chapter < book.chapters.size());
-        adapter.setRanges(Highlights.rangesFor(this,
-                Bible.currentTranslation(this).id, bookFile, chapter));
-        adapter.setVerses(book.chapters.get(chapter - 1));
-        LinearLayoutManager layout = (LinearLayoutManager) verseList.getLayoutManager();
-        if (pendingScrollIndex >= 0) {
-            adapter.setHighlight(restoredHighlight);
-            layout.scrollToPositionWithOffset(pendingScrollIndex, pendingScrollOffset);
-            pendingScrollIndex = -1;
-        } else if (pendingVerse > 0) {
-            adapter.setHighlight(highlightPendingVerse ? pendingVerse : 0);
-            int index = adapter.indexOfVerse(pendingVerse);
-            layout.scrollToPositionWithOffset(Math.max(index, 0),
-                    highlightPendingVerse ? verseList.getHeight() / 4 : 0);
+
+        int jumpVerse = 0;
+        if (pendingVerse > 0) {
+            transientVerse = highlightPendingVerse ? pendingVerse : restoredHighlight;
+            jumpVerse = pendingVerse;
             pendingVerse = 0;
         } else {
-            adapter.setHighlight(0);
-            verseList.scrollToPosition(0);
+            transientVerse = 0;
         }
+        restoredHighlight = 0;
+
+        buildChapterText();
+        final int target = jumpVerse;
+        final boolean center = transientVerse != 0;
+        verseScroll.post(() -> {
+            if (target > 0) {
+                scrollToVerse(target, center);
+            } else {
+                verseScroll.scrollTo(0, 0);
+            }
+        });
         Prefs.setLastRead(this, bookFile, chapter);
+    }
+
+    /** Renders the whole chapter into the single selectable TextView. */
+    private void buildChapterText() {
+        verseNumbers.clear();
+        versePrefixStarts.clear();
+        verseTextStarts.clear();
+        verseTextEnds.clear();
+        verseRawTexts.clear();
+
+        Map<Integer, List<int[]>> ranges = Highlights.rangesFor(this,
+                Bible.currentTranslation(this).id, bookFile, chapter);
+        int numberColor = ContextCompat.getColor(this, R.color.verse_number);
+        List<String> verses = book.chapters.get(chapter - 1);
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        for (int i = 0; i < verses.size(); i++) {
+            String text = verses.get(i);
+            if (text == null || text.isEmpty()) {
+                continue;
+            }
+            if (builder.length() > 0) {
+                // Paragraph gap: a blank line shrunk to roughly half a line's height.
+                int gap = builder.length();
+                builder.append("\n\n");
+                builder.setSpan(new RelativeSizeSpan(0.4f), gap + 1, gap + 2,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            int number = i + 1;
+            String prefix = number + " ";
+            int prefixStart = builder.length();
+            builder.append(prefix);
+            builder.setSpan(new ForegroundColorSpan(numberColor), prefixStart,
+                    prefixStart + prefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(new StyleSpan(Typeface.BOLD), prefixStart,
+                    prefixStart + prefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(new RelativeSizeSpan(0.7f), prefixStart,
+                    prefixStart + prefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            int textStart = builder.length();
+            builder.append(RedLetter.styled(this, text));
+            int textEnd = builder.length();
+
+            List<int[]> verseRanges = ranges.get(number);
+            if (verseRanges != null) {
+                for (int[] r : verseRanges) {
+                    int start = textStart + Math.max(0, r[0]);
+                    int end = textStart + Math.min(textEnd - textStart, r[1]);
+                    if (end > start) {
+                        builder.setSpan(new BackgroundColorSpan(0x59C8A24B), start, end,
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+            if (number == transientVerse) {
+                builder.setSpan(new BackgroundColorSpan(0x33C8A24B), prefixStart, textEnd,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            verseNumbers.add(number);
+            versePrefixStarts.add(prefixStart);
+            verseTextStarts.add(textStart);
+            verseTextEnds.add(textEnd);
+            verseRawTexts.add(text);
+        }
+
+        // Cycling the selectable flag around setText keeps selection startable;
+        // otherwise the TextView's selection machinery goes stale after a reset.
+        chapterText.setTextIsSelectable(false);
+        chapterText.setText(builder);
+        chapterText.setTextIsSelectable(true);
+        chapterText.setTextSize(Prefs.textSize(this));
+    }
+
+    /** Turns the current selection into per-verse highlight range edits. */
+    private void applyHighlightSelection(boolean add) {
+        int selStart = Math.min(chapterText.getSelectionStart(), chapterText.getSelectionEnd());
+        int selEnd = Math.max(chapterText.getSelectionStart(), chapterText.getSelectionEnd());
+        if (selEnd <= selStart) {
+            return;
+        }
+        String translation = Bible.currentTranslation(this).id;
+        for (int i = 0; i < verseNumbers.size(); i++) {
+            int textStart = verseTextStarts.get(i);
+            int textEnd = verseTextEnds.get(i);
+            int start = Math.max(selStart, textStart) - textStart;
+            int end = Math.min(selEnd, textEnd) - textStart;
+            if (end <= start) {
+                continue;
+            }
+            int length = textEnd - textStart;
+            if (add) {
+                Highlights.add(this, translation, bookFile, chapter,
+                        verseNumbers.get(i), start, end, length);
+            } else {
+                Highlights.remove(this, translation, bookFile, chapter,
+                        verseNumbers.get(i), start, end, length);
+            }
+        }
+        // Rebuild after the action mode is gone; the text is identical so the
+        // scroll position is unaffected.
+        chapterText.post(this::buildChapterText);
+    }
+
+    private int verseIndexForOffset(int offset) {
+        int index = -1;
+        for (int i = 0; i < versePrefixStarts.size(); i++) {
+            if (versePrefixStarts.get(i) <= offset) {
+                index = i;
+            } else {
+                break;
+            }
+        }
+        return index;
+    }
+
+    /** The verse at the top of the viewport. */
+    private int topVerse() {
+        Layout layout = chapterText.getLayout();
+        if (layout == null || verseNumbers.isEmpty()) {
+            return 1;
+        }
+        int y = verseScroll.getScrollY() - chapterText.getTop();
+        int offset = layout.getLineStart(layout.getLineForVertical(Math.max(0, y)));
+        int index = verseIndexForOffset(offset);
+        return verseNumbers.get(Math.max(0, index));
+    }
+
+    private void scrollToVerse(int verse, boolean center) {
+        Layout layout = chapterText.getLayout();
+        int index = verseNumbers.indexOf(verse);
+        if (layout == null || index < 0) {
+            return;
+        }
+        int line = layout.getLineForOffset(versePrefixStarts.get(index));
+        int y = chapterText.getTop() + layout.getLineTop(line);
+        verseScroll.scrollTo(0, Math.max(0, y - (center ? verseScroll.getHeight() / 4 : 0)));
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_CHAPTER, chapter);
-        outState.putInt(STATE_HIGHLIGHT, adapter.getHighlight());
-        LinearLayoutManager layout = (LinearLayoutManager) verseList.getLayoutManager();
-        int index = layout.findFirstVisibleItemPosition();
-        if (index >= 0) {
-            outState.putInt(STATE_SCROLL_INDEX, index);
-            android.view.View first = layout.findViewByPosition(index);
-            outState.putInt(STATE_SCROLL_OFFSET,
-                    first != null ? first.getTop() - verseList.getPaddingTop() : 0);
-        }
+        outState.putInt(STATE_TOP_VERSE, topVerse());
+        outState.putInt(STATE_HIGHLIGHT, transientVerse);
     }
 
     @Override
@@ -165,10 +346,8 @@ public class ReaderActivity extends AppCompatActivity {
         super.onPause();
         // Remember the verse at the top of the screen so "Continue reading" can
         // return here even after the process is gone entirely.
-        LinearLayoutManager layout = (LinearLayoutManager) verseList.getLayoutManager();
-        int index = layout.findFirstVisibleItemPosition();
-        if (index >= 0 && index < adapter.getItemCount()) {
-            Prefs.setLastVerse(this, adapter.verseNumberAt(index));
+        if (book != null) {
+            Prefs.setLastVerse(this, topVerse());
         }
     }
 
@@ -184,7 +363,7 @@ public class ReaderActivity extends AppCompatActivity {
         slider.setValue(current);
         slider.addOnChangeListener((s, value, fromUser) -> {
             Prefs.setTextSize(this, value);
-            adapter.notifyDataSetChanged();
+            chapterText.setTextSize(value);
         });
 
         float density = getResources().getDisplayMetrics().density;
@@ -209,155 +388,5 @@ public class ReaderActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_TEXT,
                 "“" + RedLetter.plain(text) + "”\n— " + verseReference(verseNumber) + " (WEB)");
         startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
-    }
-
-    /** Re-reads this chapter's highlight ranges and redraws every verse. */
-    private void refreshHighlights() {
-        adapter.setRanges(Highlights.rangesFor(this,
-                Bible.currentTranslation(this).id, bookFile, chapter));
-        adapter.notifyDataSetChanged();
-    }
-
-    class VerseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        private final List<Integer> numbers = new ArrayList<>();
-        private final List<String> texts = new ArrayList<>();
-        private Map<Integer, List<int[]>> ranges = new HashMap<>();
-        private int highlightNumber;
-
-        void setRanges(Map<Integer, List<int[]>> verseRanges) {
-            ranges = verseRanges;
-        }
-
-        void setHighlight(int verseNumber) {
-            highlightNumber = verseNumber;
-        }
-
-        int getHighlight() {
-            return highlightNumber;
-        }
-
-        int indexOfVerse(int verseNumber) {
-            return numbers.indexOf(verseNumber);
-        }
-
-        int verseNumberAt(int index) {
-            return numbers.get(index);
-        }
-
-        void setVerses(List<String> verses) {
-            numbers.clear();
-            texts.clear();
-            for (int i = 0; i < verses.size(); i++) {
-                String text = verses.get(i);
-                if (text != null && !text.isEmpty()) {
-                    numbers.add(i + 1);
-                    texts.add(text);
-                }
-            }
-            notifyDataSetChanged();
-        }
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            TextView view = (TextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_verse, parent, false);
-            return new RecyclerView.ViewHolder(view) {
-            };
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            final int number = numbers.get(position);
-            final String text = texts.get(position);
-
-            SpannableStringBuilder builder = new SpannableStringBuilder();
-            String prefix = number + " ";
-            builder.append(prefix).append(RedLetter.styled(ReaderActivity.this, text));
-            int color = ContextCompat.getColor(ReaderActivity.this, R.color.verse_number);
-            builder.setSpan(new ForegroundColorSpan(color), 0, prefix.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            builder.setSpan(new StyleSpan(Typeface.BOLD), 0, prefix.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            builder.setSpan(new RelativeSizeSpan(0.7f), 0, prefix.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            final int prefixLength = prefix.length();
-            final int plainLength = builder.length() - prefixLength;
-            List<int[]> verseRanges = ranges.get(number);
-            if (verseRanges != null) {
-                for (int[] r : verseRanges) {
-                    int start = prefixLength + Math.max(0, r[0]);
-                    int end = prefixLength + Math.min(plainLength, r[1]);
-                    if (end > start) {
-                        builder.setSpan(new BackgroundColorSpan(0x59C8A24B), start, end,
-                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                }
-            }
-
-            final TextView view = (TextView) holder.itemView;
-            // Recycled selectable TextViews stop starting selections unless the flag
-            // is cycled around each setText.
-            view.setTextIsSelectable(false);
-            view.setText(builder);
-            view.setTextIsSelectable(true);
-            view.setTextSize(Prefs.textSize(ReaderActivity.this));
-            view.setBackgroundColor(number == highlightNumber
-                    ? 0x33C8A24B // transient search-jump tint
-                    : 0x00000000);
-            view.setOnClickListener(v -> shareVerse(number, text));
-            view.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
-                @Override
-                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                    menu.add(Menu.NONE, MENU_ADD_HIGHLIGHT, 100, R.string.verse_highlight);
-                    menu.add(Menu.NONE, MENU_REMOVE_HIGHLIGHT, 101, R.string.verse_unhighlight);
-                    return true;
-                }
-
-                @Override
-                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                    return false;
-                }
-
-                @Override
-                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                    int id = item.getItemId();
-                    if (id != MENU_ADD_HIGHLIGHT && id != MENU_REMOVE_HIGHLIGHT) {
-                        return false;
-                    }
-                    // Selection offsets are in the displayed text; highlight ranges
-                    // index the plain verse text after the verse-number prefix.
-                    int start = Math.min(view.getSelectionStart(), view.getSelectionEnd());
-                    int end = Math.max(view.getSelectionStart(), view.getSelectionEnd());
-                    start = Math.max(0, start - prefixLength);
-                    end = Math.min(plainLength, end - prefixLength);
-                    if (end > start) {
-                        String translation =
-                                Bible.currentTranslation(ReaderActivity.this).id;
-                        if (id == MENU_ADD_HIGHLIGHT) {
-                            Highlights.add(ReaderActivity.this, translation, bookFile,
-                                    chapter, number, start, end, plainLength);
-                        } else {
-                            Highlights.remove(ReaderActivity.this, translation, bookFile,
-                                    chapter, number, start, end, plainLength);
-                        }
-                        verseList.post(ReaderActivity.this::refreshHighlights);
-                    }
-                    mode.finish();
-                    return true;
-                }
-
-                @Override
-                public void onDestroyActionMode(ActionMode mode) {
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return texts.size();
-        }
     }
 }

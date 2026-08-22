@@ -21,7 +21,6 @@
     <string name="high_contrast">تباين عالٍ (لعمى الألوان)</string>
     <string name="menu_privacy">سياسة الخصوصية</string>
     <string name="privacy_policy_body">يحترم تطبيق الزارع خصوصيتك تمامًا. فهو لا يجمع أي معلومات شخصية، ولا يطلب أي أذونات، ولا يجري أي اتصالات بالشبكة، لذا لا يمكنه إرسال بياناتك إلى أي مكان. كل ما تقرأه وتبحث عنه يبقى على جهازك فقط. لا شيء يُتَتبَّع أو يُخزَّن على خادم أو يُشارَك مع أي أحد.\n\nمجانًا أخذتم، مجانًا أعطوا.</string>
-    <string name="verse_copied">تم نسخ الآية</string>
     <string name="share_verse_via">مشاركة الآية</string>
     <string name="search_hint">ابحث في الكتاب المقدس…</string>
     <string name="search_prompt">اكتب كلمة أو عبارة ثم اضغط بحث.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">لا توجد آيات مميَّزة بعد.</string>
     <string name="verse_highlight">تمييز</string>
     <string name="verse_unhighlight">إزالة التمييز</string>
-    <string name="verse_copy">نسخ الآية</string>
     <plurals name="search_results">
         <item quantity="one">تم العثور على آية واحدة</item>
         <item quantity="two">تم العثور على آيتين</item>

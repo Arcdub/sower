@@ -21,7 +21,6 @@
     <string name="high_contrast">Contraste élevé (pour le daltonisme)</string>
     <string name="menu_privacy">Politique de confidentialité</string>
     <string name="privacy_policy_body">Semeur respecte entièrement votre vie privée. Elle ne recueille aucune information personnelle, ne demande aucune autorisation et n’établit aucune connexion réseau ; elle ne peut donc envoyer vos données nulle part. Tout ce que vous lisez et recherchez reste uniquement sur votre appareil. Rien n’est suivi, stocké sur un serveur ni partagé avec qui que ce soit.\n\nVous avez reçu gratuitement, donnez gratuitement.</string>
-    <string name="verse_copied">Verset copié</string>
     <string name="share_verse_via">Partager le verset</string>
     <string name="search_hint">Chercher dans la Bible…</string>
     <string name="search_prompt">Tapez un mot ou une phrase, puis lancez la recherche.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">Aucun verset surligné pour l’instant.</string>
     <string name="verse_highlight">Surligner</string>
     <string name="verse_unhighlight">Retirer le surlignage</string>
-    <string name="verse_copy">Copier le verset</string>
     <plurals name="search_results">
         <item quantity="one">%1$d verset trouvé</item>
         <item quantity="other">%1$d versets trouvés</item>

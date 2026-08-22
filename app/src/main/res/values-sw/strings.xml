@@ -21,7 +21,6 @@
     <string name="high_contrast">Utofautishaji wa juu (kwa upofu wa rangi)</string>
     <string name="menu_privacy">Sera ya faragha</string>
     <string name="privacy_policy_body">Mpanzi inaheshimu kikamilifu faragha yako. Haikusanyi taarifa yoyote ya binafsi, haiombi ruhusa yoyote, na haifanyi muunganisho wowote wa mtandao, hivyo haiwezi kutuma data yako popote. Kila unachosoma na kutafuta kinabaki kwenye kifaa chako pekee. Hakuna kinachofuatiliwa, kuhifadhiwa kwenye seva, au kushirikiwa na mtu yeyote.\n\nMlipata bure, toeni bure.</string>
-    <string name="verse_copied">Mstari umenakiliwa</string>
     <string name="share_verse_via">Shiriki mstari</string>
     <string name="search_hint">Tafuta katika Biblia…</string>
     <string name="search_prompt">Andika neno au kifungu, kisha bonyeza tafuta.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">Bado hakuna mistari iliyoangaziwa.</string>
     <string name="verse_highlight">Angazia</string>
     <string name="verse_unhighlight">Ondoa mwangazo</string>
-    <string name="verse_copy">Nakili mstari</string>
     <plurals name="search_results">
         <item quantity="one">Mstari %1$d umepatikana</item>
         <item quantity="other">Mistari %1$d imepatikana</item>

@@ -318,7 +318,8 @@ public final class Bible {
      */
     public static List<SearchResult> searchHighlights(Context context, String query, int limit) {
         buildCorpus(context.getApplicationContext());
-        java.util.Set<String> keys = Prefs.highlights(context);
+        java.util.Set<String> keys =
+                Highlights.verseKeysFor(context, currentTranslation(context).id);
         List<SearchResult> results = new ArrayList<>();
         if (keys.isEmpty()) {
             return results;
@@ -330,7 +331,7 @@ public final class Bible {
             for (int c = 0; c < chapters.size(); c++) {
                 List<String> verses = chapters.get(c);
                 for (int v = 0; v < verses.size(); v++) {
-                    if (!keys.contains(Prefs.highlightKey(meta[0], c + 1, v + 1))) {
+                    if (!keys.contains(meta[0] + ":" + (c + 1) + ":" + (v + 1))) {
                         continue;
                     }
                     if (!needle.isEmpty() && !verses.get(v).contains(needle)) {

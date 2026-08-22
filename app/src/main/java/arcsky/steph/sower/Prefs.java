@@ -76,30 +76,15 @@ public final class Prefs {
         prefs(context).edit().putFloat(KEY_TEXT_SIZE, sp).apply();
     }
 
-    // Highlighted verses, stored translation-independently as "bookFile:chapter:verse".
+    // Highlight keys; format and range math live in Highlights.java.
 
-    public static String highlightKey(String bookFile, int chapter, int verse) {
-        return bookFile + ":" + chapter + ":" + verse;
-    }
-
-    /** A copy of the highlighted-verse keys (safe to read; never mutate the stored set). */
+    /** A copy of the stored highlight keys (safe to read; never mutate the stored set). */
     public static java.util.Set<String> highlights(Context context) {
         return new java.util.HashSet<>(
                 prefs(context).getStringSet(KEY_HIGHLIGHTS, java.util.Collections.emptySet()));
     }
 
-    public static boolean isHighlighted(Context context, String key) {
-        return prefs(context).getStringSet(KEY_HIGHLIGHTS, java.util.Collections.emptySet())
-                .contains(key);
-    }
-
-    public static void setHighlighted(Context context, String key, boolean on) {
-        java.util.Set<String> updated = highlights(context);
-        if (on) {
-            updated.add(key);
-        } else {
-            updated.remove(key);
-        }
-        prefs(context).edit().putStringSet(KEY_HIGHLIGHTS, updated).apply();
+    public static void saveHighlights(Context context, java.util.Set<String> keys) {
+        prefs(context).edit().putStringSet(KEY_HIGHLIGHTS, keys).apply();
     }
 }

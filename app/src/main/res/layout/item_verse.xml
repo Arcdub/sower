@@ -3,7 +3,6 @@
     android:id="@+id/verseText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
     android:lineSpacingMultiplier="1.35"
     android:paddingVertical="4dp"
     android:textAppearance="?attr/textAppearanceBodyLarge" />

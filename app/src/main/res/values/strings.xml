@@ -36,7 +36,6 @@
     <string name="search_no_highlights">No highlighted verses yet.</string>
     <string name="verse_highlight">Highlight</string>
     <string name="verse_unhighlight">Remove highlight</string>
-    <string name="verse_copy">Copy verse</string>
     <plurals name="search_results">
         <item quantity="one">%1$d verse found</item>
         <item quantity="other">%1$d verses found</item>
@@ -44,7 +43,6 @@
     <string name="menu_text_larger">Larger text</string>
     <string name="menu_text_smaller">Smaller text</string>
 
-    <string name="verse_copied">Verse copied</string>
     <string name="share_verse_via">Share verse</string>
 
     <string name="pass_it_on_title">Pass it on</string>

@@ -21,7 +21,6 @@
     <string name="high_contrast">Alto contraste (para daltonismo)</string>
     <string name="menu_privacy">Política de privacidad</string>
     <string name="privacy_policy_body">Sembrador respeta por completo tu privacidad. No recopila ninguna información personal, no solicita permisos y no realiza conexiones de red, por lo que no puede enviar tus datos a ningún lugar. Todo lo que lees y buscas permanece solo en tu dispositivo. No se rastrea, almacena en un servidor ni comparte nada con nadie.\n\nDe gracia recibisteis; dad de gracia.</string>
-    <string name="verse_copied">Versículo copiado</string>
     <string name="share_verse_via">Compartir versículo</string>
     <string name="search_hint">Buscar en la Biblia…</string>
     <string name="search_prompt">Escribe una palabra o frase y pulsa buscar.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">Aún no hay versículos destacados.</string>
     <string name="verse_highlight">Destacar</string>
     <string name="verse_unhighlight">Quitar destacado</string>
-    <string name="verse_copy">Copiar versículo</string>
     <plurals name="search_results">
         <item quantity="one">%1$d versículo encontrado</item>
         <item quantity="other">%1$d versículos encontrados</item>

@@ -21,7 +21,6 @@
     <string name="high_contrast">Высокая контрастность (для дальтоников)</string>
     <string name="menu_privacy">Политика конфиденциальности</string>
     <string name="privacy_policy_body">Сеятель полностью уважает вашу конфиденциальность. Приложение не собирает никаких личных данных, не запрашивает разрешений и не устанавливает сетевых соединений, поэтому не может никуда отправить ваши данные. Всё, что вы читаете и ищете, остаётся только на вашем устройстве. Ничего не отслеживается, не хранится на сервере и никому не передаётся.\n\nДаром получили — даром давайте.</string>
-    <string name="verse_copied">Стих скопирован</string>
     <string name="share_verse_via">Поделиться стихом</string>
     <string name="search_hint">Поиск по Библии…</string>
     <string name="search_prompt">Введите слово или фразу и нажмите поиск.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">Пока нет выделенных стихов.</string>
     <string name="verse_highlight">Выделить</string>
     <string name="verse_unhighlight">Убрать выделение</string>
-    <string name="verse_copy">Копировать стих</string>
     <plurals name="search_results">
         <item quantity="one">Найден %1$d стих</item>
         <item quantity="few">Найдено %1$d стиха</item>

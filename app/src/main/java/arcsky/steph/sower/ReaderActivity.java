@@ -1,21 +1,22 @@
 package arcsky.steph.sower;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReaderActivity extends AppCompatActivity {
 
@@ -38,6 +41,9 @@ public class ReaderActivity extends AppCompatActivity {
     private static final String STATE_SCROLL_INDEX = "state.scrollIndex";
     private static final String STATE_SCROLL_OFFSET = "state.scrollOffset";
     private static final String STATE_HIGHLIGHT = "state.highlight";
+
+    private static final int MENU_ADD_HIGHLIGHT = 1001;
+    private static final int MENU_REMOVE_HIGHLIGHT = 1002;
 
     private Bible.BookText book;
     private String bookFile;
@@ -118,6 +124,8 @@ public class ReaderActivity extends AppCompatActivity {
         chapterLabel.setText(getString(R.string.chapter_x_of_y, chapter, book.chapters.size()));
         prevButton.setEnabled(chapter > 1);
         nextButton.setEnabled(chapter < book.chapters.size());
+        adapter.setRanges(Highlights.rangesFor(this,
+                Bible.currentTranslation(this).id, bookFile, chapter));
         adapter.setVerses(book.chapters.get(chapter - 1));
         LinearLayoutManager layout = (LinearLayoutManager) verseList.getLayoutManager();
         if (pendingScrollIndex >= 0) {
@@ -203,41 +211,23 @@ public class ReaderActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
     }
 
-    private void copyVerse(int verseNumber, String text) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        clipboard.setPrimaryClip(ClipData.newPlainText(verseReference(verseNumber),
-                RedLetter.plain(text) + " — " + verseReference(verseNumber)));
-        Toast.makeText(this, R.string.verse_copied, Toast.LENGTH_SHORT).show();
-    }
-
-    /** Long-press menu for a verse: toggle highlight, copy, or share. */
-    private void showVerseActions(int verseNumber, String text, String key) {
-        boolean highlighted = Prefs.isHighlighted(this, key);
-        CharSequence[] items = {
-                getString(highlighted ? R.string.verse_unhighlight : R.string.verse_highlight),
-                getString(R.string.verse_copy),
-                getString(R.string.share_verse_via),
-        };
-        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-                .setTitle(verseReference(verseNumber))
-                .setItems(items, (dialog, which) -> {
-                    if (which == 0) {
-                        Prefs.setHighlighted(this, key, !highlighted);
-                        adapter.notifyDataSetChanged();
-                    } else if (which == 1) {
-                        copyVerse(verseNumber, text);
-                    } else {
-                        shareVerse(verseNumber, text);
-                    }
-                })
-                .show();
+    /** Re-reads this chapter's highlight ranges and redraws every verse. */
+    private void refreshHighlights() {
+        adapter.setRanges(Highlights.rangesFor(this,
+                Bible.currentTranslation(this).id, bookFile, chapter));
+        adapter.notifyDataSetChanged();
     }
 
     class VerseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<Integer> numbers = new ArrayList<>();
         private final List<String> texts = new ArrayList<>();
+        private Map<Integer, List<int[]>> ranges = new HashMap<>();
         private int highlightNumber;
+
+        void setRanges(Map<Integer, List<int[]>> verseRanges) {
+            ranges = verseRanges;
+        }
 
         void setHighlight(int verseNumber) {
             highlightNumber = verseNumber;
@@ -293,22 +283,75 @@ public class ReaderActivity extends AppCompatActivity {
             builder.setSpan(new RelativeSizeSpan(0.7f), 0, prefix.length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            TextView view = (TextView) holder.itemView;
-            view.setText(builder);
-            view.setTextSize(Prefs.textSize(ReaderActivity.this));
-            String key = Prefs.highlightKey(bookFile, chapter, number);
-            boolean highlighted = Prefs.isHighlighted(ReaderActivity.this, key);
-            if (highlighted) {
-                view.setBackgroundColor(0x59C8A24B); // persistent gold highlight
-            } else if (number == highlightNumber) {
-                view.setBackgroundColor(0x33C8A24B); // transient search-jump tint
-            } else {
-                view.setBackgroundColor(0x00000000);
+            final int prefixLength = prefix.length();
+            final int plainLength = builder.length() - prefixLength;
+            List<int[]> verseRanges = ranges.get(number);
+            if (verseRanges != null) {
+                for (int[] r : verseRanges) {
+                    int start = prefixLength + Math.max(0, r[0]);
+                    int end = prefixLength + Math.min(plainLength, r[1]);
+                    if (end > start) {
+                        builder.setSpan(new BackgroundColorSpan(0x59C8A24B), start, end,
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
             }
+
+            final TextView view = (TextView) holder.itemView;
+            // Recycled selectable TextViews stop starting selections unless the flag
+            // is cycled around each setText.
+            view.setTextIsSelectable(false);
+            view.setText(builder);
+            view.setTextIsSelectable(true);
+            view.setTextSize(Prefs.textSize(ReaderActivity.this));
+            view.setBackgroundColor(number == highlightNumber
+                    ? 0x33C8A24B // transient search-jump tint
+                    : 0x00000000);
             view.setOnClickListener(v -> shareVerse(number, text));
-            view.setOnLongClickListener(v -> {
-                showVerseActions(number, text, key);
-                return true;
+            view.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    menu.add(Menu.NONE, MENU_ADD_HIGHLIGHT, 100, R.string.verse_highlight);
+                    menu.add(Menu.NONE, MENU_REMOVE_HIGHLIGHT, 101, R.string.verse_unhighlight);
+                    return true;
+                }
+
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    return false;
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    int id = item.getItemId();
+                    if (id != MENU_ADD_HIGHLIGHT && id != MENU_REMOVE_HIGHLIGHT) {
+                        return false;
+                    }
+                    // Selection offsets are in the displayed text; highlight ranges
+                    // index the plain verse text after the verse-number prefix.
+                    int start = Math.min(view.getSelectionStart(), view.getSelectionEnd());
+                    int end = Math.max(view.getSelectionStart(), view.getSelectionEnd());
+                    start = Math.max(0, start - prefixLength);
+                    end = Math.min(plainLength, end - prefixLength);
+                    if (end > start) {
+                        String translation =
+                                Bible.currentTranslation(ReaderActivity.this).id;
+                        if (id == MENU_ADD_HIGHLIGHT) {
+                            Highlights.add(ReaderActivity.this, translation, bookFile,
+                                    chapter, number, start, end, plainLength);
+                        } else {
+                            Highlights.remove(ReaderActivity.this, translation, bookFile,
+                                    chapter, number, start, end, plainLength);
+                        }
+                        verseList.post(ReaderActivity.this::refreshHighlights);
+                    }
+                    mode.finish();
+                    return true;
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+                }
             });
         }
 

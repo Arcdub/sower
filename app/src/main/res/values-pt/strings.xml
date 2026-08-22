@@ -21,7 +21,6 @@
     <string name="high_contrast">Alto contraste (para daltonismo)</string>
     <string name="menu_privacy">Política de privacidade</string>
     <string name="privacy_policy_body">Semeador respeita totalmente a sua privacidade. Não coleta nenhuma informação pessoal, não solicita permissões e não faz conexões de rede, portanto não pode enviar seus dados para lugar nenhum. Tudo o que você lê e pesquisa permanece apenas no seu dispositivo. Nada é rastreado, armazenado em um servidor ou compartilhado com ninguém.\n\nDe graça recebestes; de graça dai.</string>
-    <string name="verse_copied">Versículo copiado</string>
     <string name="share_verse_via">Compartilhar versículo</string>
     <string name="search_hint">Pesquisar na Bíblia…</string>
     <string name="search_prompt">Digite uma palavra ou frase e toque em pesquisar.</string>
@@ -33,7 +32,6 @@
     <string name="search_no_highlights">Nenhum versículo destacado ainda.</string>
     <string name="verse_highlight">Destacar</string>
     <string name="verse_unhighlight">Remover destaque</string>
-    <string name="verse_copy">Copiar versículo</string>
     <plurals name="search_results">
         <item quantity="one">%1$d versículo encontrado</item>
         <item quantity="other">%1$d versículos encontrados</item>

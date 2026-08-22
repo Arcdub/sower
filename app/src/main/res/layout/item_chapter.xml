@@ -11,6 +11,6 @@
         android:layout_gravity="center"
         android:background="@drawable/chapter_circle"
         android:gravity="center"
-        android:textColor="?attr/bubbleText"
+        android:textColor="@color/book_text"
         android:textAppearance="?attr/textAppearanceTitleMedium" />
 </FrameLayout>

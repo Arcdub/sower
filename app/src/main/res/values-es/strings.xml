@@ -29,6 +29,11 @@
     <string name="search_searching">Buscando…</string>
     <string name="search_no_results">No se encontraron versículos.</string>
     <string name="search_results_capped">Mostrando las primeras %1$d coincidencias — prueba una búsqueda más específica.</string>
+    <string name="chip_highlights_only">Solo destacados</string>
+    <string name="search_no_highlights">Aún no hay versículos destacados.</string>
+    <string name="verse_highlight">Destacar</string>
+    <string name="verse_unhighlight">Quitar destacado</string>
+    <string name="verse_copy">Copiar versículo</string>
     <plurals name="search_results">
         <item quantity="one">%1$d versículo encontrado</item>
         <item quantity="other">%1$d versículos encontrados</item>

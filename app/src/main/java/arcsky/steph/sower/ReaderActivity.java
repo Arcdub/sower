@@ -210,6 +210,29 @@ public class ReaderActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.verse_copied, Toast.LENGTH_SHORT).show();
     }
 
+    /** Long-press menu for a verse: toggle highlight, copy, or share. */
+    private void showVerseActions(int verseNumber, String text, String key) {
+        boolean highlighted = Prefs.isHighlighted(this, key);
+        CharSequence[] items = {
+                getString(highlighted ? R.string.verse_unhighlight : R.string.verse_highlight),
+                getString(R.string.verse_copy),
+                getString(R.string.share_verse_via),
+        };
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(verseReference(verseNumber))
+                .setItems(items, (dialog, which) -> {
+                    if (which == 0) {
+                        Prefs.setHighlighted(this, key, !highlighted);
+                        adapter.notifyDataSetChanged();
+                    } else if (which == 1) {
+                        copyVerse(verseNumber, text);
+                    } else {
+                        shareVerse(verseNumber, text);
+                    }
+                })
+                .show();
+    }
+
     class VerseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<Integer> numbers = new ArrayList<>();
@@ -273,10 +296,18 @@ public class ReaderActivity extends AppCompatActivity {
             TextView view = (TextView) holder.itemView;
             view.setText(builder);
             view.setTextSize(Prefs.textSize(ReaderActivity.this));
-            view.setBackgroundColor(number == highlightNumber ? 0x33C8A24B : 0x00000000);
+            String key = Prefs.highlightKey(bookFile, chapter, number);
+            boolean highlighted = Prefs.isHighlighted(ReaderActivity.this, key);
+            if (highlighted) {
+                view.setBackgroundColor(0x59C8A24B); // persistent gold highlight
+            } else if (number == highlightNumber) {
+                view.setBackgroundColor(0x33C8A24B); // transient search-jump tint
+            } else {
+                view.setBackgroundColor(0x00000000);
+            }
             view.setOnClickListener(v -> shareVerse(number, text));
             view.setOnLongClickListener(v -> {
-                copyVerse(number, text);
+                showVerseActions(number, text, key);
                 return true;
             });
         }

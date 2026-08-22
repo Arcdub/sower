@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText input;
     private TextView status;
     private ResultsAdapter adapter;
+    private com.google.android.material.chip.Chip highlightsChip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,19 @@ public class SearchActivity extends AppCompatActivity {
             runSearch(input.getText().toString());
             return true;
         });
+
+        highlightsChip = findViewById(R.id.highlightsChip);
+        highlightsChip.setOnCheckedChangeListener((button, checked) -> runSearch(input.getText().toString()));
+
         input.requestFocus();
     }
 
     private void runSearch(String query) {
         final String trimmed = query.trim();
-        if (trimmed.length() < 2) {
+        final boolean highlightsOnly = highlightsChip.isChecked();
+        // With the chip on, an empty query lists all highlights; otherwise require 2+ chars.
+        if (!highlightsOnly && trimmed.length() < 2) {
+            adapter.set(java.util.Collections.emptyList(), "");
             status.setText(R.string.search_too_short);
             return;
         }
@@ -71,14 +79,17 @@ public class SearchActivity extends AppCompatActivity {
         final int gen = generation.incrementAndGet();
         status.setText(R.string.search_searching);
         EXECUTOR.execute(() -> {
-            final List<Bible.SearchResult> found = Bible.search(this, trimmed, RESULT_LIMIT);
+            final List<Bible.SearchResult> found = highlightsOnly
+                    ? Bible.searchHighlights(this, trimmed, RESULT_LIMIT)
+                    : Bible.search(this, trimmed, RESULT_LIMIT);
             runOnUiThread(() -> {
                 if (gen != generation.get()) {
                     return; // a newer search replaced this one
                 }
                 adapter.set(found, trimmed);
                 if (found.isEmpty()) {
-                    status.setText(R.string.search_no_results);
+                    status.setText(highlightsOnly
+                            ? R.string.search_no_highlights : R.string.search_no_results);
                 } else if (found.size() >= RESULT_LIMIT) {
                     status.setText(getString(R.string.search_results_capped, RESULT_LIMIT));
                 } else {

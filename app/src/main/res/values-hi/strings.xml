@@ -29,6 +29,11 @@
     <string name="search_searching">खोज रहा है…</string>
     <string name="search_no_results">कोई वचन नहीं मिला।</string>
     <string name="search_results_capped">पहले %1$d परिणाम दिखाए गए — अधिक सटीक खोज आज़माएँ।</string>
+    <string name="chip_highlights_only">केवल हाइलाइट</string>
+    <string name="search_no_highlights">अभी तक कोई हाइलाइट किया वचन नहीं।</string>
+    <string name="verse_highlight">हाइलाइट करें</string>
+    <string name="verse_unhighlight">हाइलाइट हटाएँ</string>
+    <string name="verse_copy">वचन कॉपी करें</string>
     <plurals name="search_results">
         <item quantity="one">%1$d वचन मिला</item>
         <item quantity="other">%1$d वचन मिले</item>

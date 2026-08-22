@@ -29,6 +29,11 @@
     <string name="search_searching">正在搜索…</string>
     <string name="search_no_results">未找到经文。</string>
     <string name="search_results_capped">仅显示前 %1$d 条结果 — 请尝试更具体的搜索。</string>
+    <string name="chip_highlights_only">仅高亮</string>
+    <string name="search_no_highlights">还没有高亮的经文。</string>
+    <string name="verse_highlight">高亮</string>
+    <string name="verse_unhighlight">取消高亮</string>
+    <string name="verse_copy">复制经文</string>
     <plurals name="search_results">
         <item quantity="other">找到 %1$d 节经文</item>
     </plurals>

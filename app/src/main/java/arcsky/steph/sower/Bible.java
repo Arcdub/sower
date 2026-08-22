@@ -312,6 +312,41 @@ public final class Bible {
         return results;
     }
 
+    /**
+     * Highlighted verses in canonical order, optionally filtered by query.
+     * An empty query returns every highlight (so the chip alone lists them).
+     */
+    public static List<SearchResult> searchHighlights(Context context, String query, int limit) {
+        buildCorpus(context.getApplicationContext());
+        java.util.Set<String> keys = Prefs.highlights(context);
+        List<SearchResult> results = new ArrayList<>();
+        if (keys.isEmpty()) {
+            return results;
+        }
+        String needle = query == null ? "" : normalizeQuery(query.trim());
+        for (int b = 0; b < corpusNorm.size(); b++) {
+            String[] meta = corpusMeta.get(b);
+            List<List<String>> chapters = corpusNorm.get(b);
+            for (int c = 0; c < chapters.size(); c++) {
+                List<String> verses = chapters.get(c);
+                for (int v = 0; v < verses.size(); v++) {
+                    if (!keys.contains(Prefs.highlightKey(meta[0], c + 1, v + 1))) {
+                        continue;
+                    }
+                    if (!needle.isEmpty() && !verses.get(v).contains(needle)) {
+                        continue;
+                    }
+                    results.add(new SearchResult(meta[0], meta[1], c + 1, v + 1,
+                            corpus.get(b).get(c).get(v)));
+                    if (results.size() >= limit) {
+                        return results;
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
     private static String readAsset(Context context, String path) throws Exception {
         try (InputStream in = context.getAssets().open(path)) {
             ByteArrayOutputStream out = new ByteArrayOutputStream(in.available());

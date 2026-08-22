@@ -29,6 +29,11 @@
     <string name="search_searching">Inatafuta…</string>
     <string name="search_no_results">Hakuna mistari iliyopatikana.</string>
     <string name="search_results_capped">Inaonyesha matokeo %1$d ya kwanza — jaribu utafutaji mahususi zaidi.</string>
+    <string name="chip_highlights_only">Vilivyoangaziwa pekee</string>
+    <string name="search_no_highlights">Bado hakuna mistari iliyoangaziwa.</string>
+    <string name="verse_highlight">Angazia</string>
+    <string name="verse_unhighlight">Ondoa mwangazo</string>
+    <string name="verse_copy">Nakili mstari</string>
     <plurals name="search_results">
         <item quantity="one">Mstari %1$d umepatikana</item>
         <item quantity="other">Mistari %1$d imepatikana</item>

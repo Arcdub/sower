@@ -12,6 +12,7 @@ public final class Prefs {
     private static final String KEY_TEXT_SIZE = "textSize";
     private static final String KEY_TRANSLATION = "translation";
     private static final String KEY_WJ_STYLE = "wordsOfJesusStyle";
+    private static final String KEY_HIGHLIGHTS = "highlights";
 
     public static final float MIN_TEXT_SIZE = 14f;
     public static final float MAX_TEXT_SIZE = 30f;
@@ -73,5 +74,32 @@ public final class Prefs {
 
     public static void setTextSize(Context context, float sp) {
         prefs(context).edit().putFloat(KEY_TEXT_SIZE, sp).apply();
+    }
+
+    // Highlighted verses, stored translation-independently as "bookFile:chapter:verse".
+
+    public static String highlightKey(String bookFile, int chapter, int verse) {
+        return bookFile + ":" + chapter + ":" + verse;
+    }
+
+    /** A copy of the highlighted-verse keys (safe to read; never mutate the stored set). */
+    public static java.util.Set<String> highlights(Context context) {
+        return new java.util.HashSet<>(
+                prefs(context).getStringSet(KEY_HIGHLIGHTS, java.util.Collections.emptySet()));
+    }
+
+    public static boolean isHighlighted(Context context, String key) {
+        return prefs(context).getStringSet(KEY_HIGHLIGHTS, java.util.Collections.emptySet())
+                .contains(key);
+    }
+
+    public static void setHighlighted(Context context, String key, boolean on) {
+        java.util.Set<String> updated = highlights(context);
+        if (on) {
+            updated.add(key);
+        } else {
+            updated.remove(key);
+        }
+        prefs(context).edit().putStringSet(KEY_HIGHLIGHTS, updated).apply();
     }
 }

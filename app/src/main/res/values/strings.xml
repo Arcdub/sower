@@ -32,6 +32,11 @@
     <string name="search_searching">Searching…</string>
     <string name="search_no_results">No verses found.</string>
     <string name="search_results_capped">Showing the first %1$d matches — try a more specific search.</string>
+    <string name="chip_highlights_only">Highlights only</string>
+    <string name="search_no_highlights">No highlighted verses yet.</string>
+    <string name="verse_highlight">Highlight</string>
+    <string name="verse_unhighlight">Remove highlight</string>
+    <string name="verse_copy">Copy verse</string>
     <plurals name="search_results">
         <item quantity="one">%1$d verse found</item>
         <item quantity="other">%1$d verses found</item>

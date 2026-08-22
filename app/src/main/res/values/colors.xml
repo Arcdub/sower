@@ -16,4 +16,5 @@
     <color name="book_tile_border">#DED9CE</color>
     <color name="book_text">#2B3A2C</color>
     <color name="book_icon">#C8A24B</color>
+    <color name="chip_selected">#3AC8A24B</color>
 </resources>

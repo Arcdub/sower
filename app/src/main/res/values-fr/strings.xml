@@ -29,6 +29,11 @@
     <string name="search_searching">Recherche…</string>
     <string name="search_no_results">Aucun verset trouvé.</string>
     <string name="search_results_capped">Affichage des %1$d premiers résultats — essayez une recherche plus précise.</string>
+    <string name="chip_highlights_only">Surlignés seulement</string>
+    <string name="search_no_highlights">Aucun verset surligné pour l’instant.</string>
+    <string name="verse_highlight">Surligner</string>
+    <string name="verse_unhighlight">Retirer le surlignage</string>
+    <string name="verse_copy">Copier le verset</string>
     <plurals name="search_results">
         <item quantity="one">%1$d verset trouvé</item>
         <item quantity="other">%1$d versets trouvés</item>

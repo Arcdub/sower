@@ -29,6 +29,11 @@
     <string name="search_searching">جارٍ البحث…</string>
     <string name="search_no_results">لم يتم العثور على آيات.</string>
     <string name="search_results_capped">تُعرض أول %1$d نتيجة — جرّب بحثًا أدق.</string>
+    <string name="chip_highlights_only">المميَّزة فقط</string>
+    <string name="search_no_highlights">لا توجد آيات مميَّزة بعد.</string>
+    <string name="verse_highlight">تمييز</string>
+    <string name="verse_unhighlight">إزالة التمييز</string>
+    <string name="verse_copy">نسخ الآية</string>
     <plurals name="search_results">
         <item quantity="one">تم العثور على آية واحدة</item>
         <item quantity="two">تم العثور على آيتين</item>

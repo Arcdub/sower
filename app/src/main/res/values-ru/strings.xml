@@ -29,6 +29,11 @@
     <string name="search_searching">Идёт поиск…</string>
     <string name="search_no_results">Стихи не найдены.</string>
     <string name="search_results_capped">Показаны первые %1$d совпадений — уточните запрос.</string>
+    <string name="chip_highlights_only">Только выделенные</string>
+    <string name="search_no_highlights">Пока нет выделенных стихов.</string>
+    <string name="verse_highlight">Выделить</string>
+    <string name="verse_unhighlight">Убрать выделение</string>
+    <string name="verse_copy">Копировать стих</string>
     <plurals name="search_results">
         <item quantity="one">Найден %1$d стих</item>
         <item quantity="few">Найдено %1$d стиха</item>

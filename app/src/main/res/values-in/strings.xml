@@ -29,6 +29,11 @@
     <string name="search_searching">Mencari…</string>
     <string name="search_no_results">Tidak ada ayat yang ditemukan.</string>
     <string name="search_results_capped">Menampilkan %1$d hasil pertama — coba pencarian yang lebih spesifik.</string>
+    <string name="chip_highlights_only">Hanya sorotan</string>
+    <string name="search_no_highlights">Belum ada ayat yang disorot.</string>
+    <string name="verse_highlight">Sorot</string>
+    <string name="verse_unhighlight">Hapus sorotan</string>
+    <string name="verse_copy">Salin ayat</string>
     <plurals name="search_results">
         <item quantity="other">%1$d ayat ditemukan</item>
     </plurals>

@@ -7,8 +7,10 @@
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginTop="12dp"
+    android:clickable="true"
+    android:focusable="true"
     app:cardBackgroundColor="@color/book_tile"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="18dp"
     app:strokeColor="@color/book_tile_border"
     app:strokeWidth="1dp">
 
@@ -16,19 +18,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/inner_box"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="@string/continue_reading"
-            android:textAppearance="?attr/textAppearanceLabelLarge" />
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="@color/book_text" />
 
         <TextView
             android:id="@+id/continueWhere"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
+            android:layout_marginTop="8dp"
+            android:background="@drawable/inner_box"
+            android:gravity="center_vertical"
+            android:minHeight="64dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/book_text"
+            android:textSize="20sp" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

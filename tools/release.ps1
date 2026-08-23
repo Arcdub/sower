@@ -66,23 +66,30 @@ Write-Host "release: $oldName ($oldCode) -> $Version ($newCode)" -ForegroundColo
 $changelog = Join-Path $root "fastlane\metadata\android\en-US\changelogs\$newCode.txt"
 Set-Content -Path $changelog -Value $Notes -Encoding utf8
 
+function Undo-Bump {
+    git checkout -- $gradle
+    Remove-Item $changelog -ErrorAction SilentlyContinue
+}
+
 # --- build -----------------------------------------------------------------
 
 Write-Host 'release: building all languages...' -ForegroundColor Cyan
-$build = & "$root\gradlew.bat" assembleRelease 2>$null | Out-String
+# No stderr redirection: PowerShell turns a native command's stderr into
+# terminating errors, and Gradle writes warnings there on a good build.
+$build = & "$root\gradlew.bat" assembleRelease | Out-String
 if ($build -notmatch 'BUILD SUCCESSFUL') {
+    Undo-Bump
     Fail "gradle build failed:`n$($build.Substring([Math]::Max(0, $build.Length - 2000)))"
 }
 foreach ($lang in $languages) {
     $apk = "$root\app\build\outputs\apk\$lang\release\app-$lang-release.apk"
-    if (-not (Test-Path $apk)) { Fail "missing APK for $lang" }
+    if (-not (Test-Path $apk)) { Undo-Bump; Fail "missing APK for $lang" }
 }
 Write-Host "release: built $($languages.Count) APKs" -ForegroundColor Green
 
 if ($DryRun) {
     Write-Host 'release: dry run - reverting the version bump, nothing published.' -ForegroundColor Yellow
-    git checkout -- $gradle
-    Remove-Item $changelog -ErrorAction SilentlyContinue
+    Undo-Bump
     exit 0
 }
 

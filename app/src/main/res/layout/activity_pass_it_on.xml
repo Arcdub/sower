@@ -63,11 +63,14 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
+                <!-- sp so the badge grows with the text; a dp box clips the
+                     digit once the font scale passes about 1.5. -->
                 <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:background="@drawable/step_badge"
                     android:gravity="center"
+                    android:textSize="14sp"
                     android:text="1"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -88,11 +91,14 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
+                <!-- sp so the badge grows with the text; a dp box clips the
+                     digit once the font scale passes about 1.5. -->
                 <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:background="@drawable/step_badge"
                     android:gravity="center"
+                    android:textSize="14sp"
                     android:text="2"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -113,11 +119,14 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
+                <!-- sp so the badge grows with the text; a dp box clips the
+                     digit once the font scale passes about 1.5. -->
                 <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:background="@drawable/step_badge"
                     android:gravity="center"
+                    android:textSize="14sp"
                     android:text="3"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />

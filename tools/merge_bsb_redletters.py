@@ -61,8 +61,61 @@ def nearest_index(pos_list, offset, tolerance=2):
     return None
 
 
+def quote_regions(text):
+    """Regions inside curly double quotes, inclusive of the marks themselves.
+    A closer with no opener means the verse began mid-quote; an unclosed
+    opener runs to the end of the verse."""
+    regions = []
+    start = None
+    for i, c in enumerate(text):
+        if c == OPEN_Q:
+            if start is None:
+                start = i
+        elif c == CLOSE_Q:
+            regions.append((0 if start is None else start, i + 1))
+            start = None
+    if start is not None:
+        regions.append((start, len(text)))
+    return regions
+
+
+def clip_to_quotes(spans, text):
+    """Speech lives inside quotes: narration such as 'said Jesus' between or
+    around quoted stretches is trimmed out of the red spans. Verses without
+    any quote mark (mid-discourse continuations) pass through untouched."""
+    if OPEN_Q not in text and CLOSE_Q not in text:
+        return spans
+    out = []
+    for s, e in spans:
+        for qs, qe in quote_regions(text):
+            a, b = max(s, qs), min(e, qe)
+            if b > a:
+                out.append((a, b))
+    return sorted(out)
+
+
+def emit(bsb_plain, spans):
+    out = []
+    last = 0
+    for s, e in spans:
+        if s < last:
+            return None
+        out.append(bsb_plain[last:s])
+        out.append(S1 + bsb_plain[s:e] + S2)
+        last = e
+    out.append(bsb_plain[last:])
+    return "".join(out)
+
+
 def map_verse(web_marked, bsb_plain):
-    """Returns the BSB verse with sentinels, or None when unmappable."""
+    """Returns the BSB verse with sentinels, or None when unmappable.
+
+    Partial-red verses transfer at quote-region granularity: the WEB tells us
+    which quoted stretches are Jesus speaking, and the matching BSB regions are
+    marked, anchored from the first and last red region so an inversion that
+    splits one quote into two ("...," He said, "...") still maps whole while
+    the narration between the regions stays black.
+    """
     spans, web_plain = red_spans(web_marked)
     if not spans:
         return bsb_plain
@@ -71,47 +124,31 @@ def map_verse(web_marked, bsb_plain):
     if meaningful == 0:
         return bsb_plain
     if total_red >= meaningful - 3:
-        return S1 + bsb_plain + S2  # effectively the whole verse
+        # The whole WEB verse is speech; any BSB narration sits outside quotes.
+        clipped = clip_to_quotes([(0, len(bsb_plain))], bsb_plain)
+        return emit(bsb_plain, clipped) if clipped else None
 
-    web_open = positions(web_plain, OPEN_Q)
-    web_close = positions(web_plain, CLOSE_Q)
-    bsb_open = positions(bsb_plain, OPEN_Q)
-    bsb_close = positions(bsb_plain, CLOSE_Q)
-
-    out_spans = []
-    for s, e in spans:
-        # Anchor the start: verse start, or the k-th opening quote.
-        if s <= 2:
-            b_start = 0
-        else:
-            k = nearest_index(web_open, s)
-            if k is None or k >= len(bsb_open):
-                return None
-            b_start = bsb_open[k]
-        # Anchor the end: verse end, or just after the m-th closing quote.
-        if e >= len(web_plain) - 2:
-            b_end = len(bsb_plain)
-        else:
-            m = nearest_index(web_close, e - 1)
-            if m is None:
-                m = nearest_index(web_close, e)
-            if m is None or m >= len(bsb_close):
-                return None
-            b_end = bsb_close[m] + 1
-        if b_end <= b_start:
-            return None
-        out_spans.append((b_start, b_end))
-
-    out = []
-    last = 0
-    for s, e in sorted(out_spans):
-        if s < last:
-            return None  # overlapping anchors; bail out
-        out.append(bsb_plain[last:s])
-        out.append(S1 + bsb_plain[s:e] + S2)
-        last = e
-    out.append(bsb_plain[last:])
-    return "".join(out)
+    regions_w = quote_regions(web_plain)
+    regions_b = quote_regions(bsb_plain)
+    if not regions_w or not regions_b:
+        return None
+    red_idx = set()
+    for k, (rs, re_) in enumerate(regions_w):
+        covered = sum(max(0, min(e, re_) - max(s, rs)) for s, e in spans)
+        if re_ > rs and covered / (re_ - rs) > 0.5:
+            red_idx.add(k)
+    if not red_idx:
+        return None
+    first = min(red_idx)
+    last = max(red_idx)
+    if set(range(first, last + 1)) != red_idx:
+        return None  # non-contiguous red regions; too risky to map
+    # Keep the first red region's index from the front and the last one's
+    # distance from the back, absorbing any extra regions the BSB split off.
+    b_last = len(regions_b) - 1 - (len(regions_w) - 1 - last)
+    if first > b_last or b_last > len(regions_b) - 1:
+        return None
+    return emit(bsb_plain, [regions_b[k] for k in range(first, b_last + 1)])
 
 
 def main():

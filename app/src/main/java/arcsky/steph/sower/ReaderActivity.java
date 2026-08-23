@@ -435,6 +435,28 @@ public class ReaderActivity extends AppCompatActivity {
             verseRawTexts.add(text);
         }
 
+        // Bridge the gap between consecutively highlighted verses (a highlight
+        // running to one verse's end and on from the next verse's start), so a
+        // marking that spans verses reads as one unbroken highlight — the
+        // paragraph gap and the verse number are painted too.
+        for (int i = 0; i + 1 < verseNumbers.size(); i++) {
+            if (verseNumbers.get(i + 1) != verseNumbers.get(i) + 1) {
+                continue;
+            }
+            List<int[]> tail = ranges.get(verseNumbers.get(i));
+            List<int[]> head = ranges.get(verseNumbers.get(i + 1));
+            if (tail == null || tail.isEmpty() || head == null || head.isEmpty()) {
+                continue;
+            }
+            int length = verseTextEnds.get(i) - verseTextStarts.get(i);
+            if (Math.min(tail.get(tail.size() - 1)[1], length) >= length
+                    && Math.max(head.get(0)[0], 0) == 0) {
+                builder.setSpan(new BackgroundColorSpan(0x59C8A24B),
+                        verseTextEnds.get(i), verseTextStarts.get(i + 1),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+
         // Cycling the selectable flag around setText keeps selection startable;
         // otherwise the TextView's selection machinery goes stale after a reset.
         chapterText.setTextIsSelectable(false);

@@ -23,10 +23,8 @@ public class HighlightTextView extends androidx.appcompat.widget.AppCompatTextVi
 
     private final List<int[]> highlights = new ArrayList<>();
     private final Path path = new Path();
-    private final RectF bounds = new RectF();
     private final Paint gold = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint green = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final float density;
     private int jumpStart = -1;
     private int jumpEnd = -1;
 
@@ -36,7 +34,6 @@ public class HighlightTextView extends androidx.appcompat.widget.AppCompatTextVi
 
     public HighlightTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        density = getResources().getDisplayMetrics().density;
         gold.setColor(0x59C8A24B);
         green.setColor(0x408CBF94);
     }
@@ -79,51 +76,14 @@ public class HighlightTextView extends androidx.appcompat.widget.AppCompatTextVi
         super.onDraw(canvas);
     }
 
-    /** One uniformly rounded stripe per line, with a hairline gap between lines. */
+    /**
+     * The exact primitive the live selection uses: one selection path for the
+     * whole range, filled once. A single fill can't double where rectangles
+     * overlap, and the geometry is identical to the preview under the finger.
+     */
     private void drawRange(Canvas canvas, Layout layout, int start, int end, Paint paint) {
-        int firstLine = layout.getLineForOffset(start);
-        int lastLine = layout.getLineForOffset(Math.max(start, end - 1));
-        RectF[] stripes = new RectF[lastLine - firstLine + 1];
-        for (int line = firstLine; line <= lastLine; line++) {
-            int lineStart = Math.max(start, layout.getLineStart(line));
-            // Stop at the visible text: including the trailing newline makes the
-            // selection path spill a phantom rectangle onto the following line,
-            // which doubled every stripe after the first.
-            int lineEnd = Math.min(end, layout.getLineVisibleEnd(line));
-            RectF stripe = new RectF();
-            if (lineEnd > lineStart) {
-                path.reset();
-                layout.getSelectionPath(lineStart, lineEnd, path);
-                path.computeBounds(stripe, true);
-                if (line < lastLine) {
-                    // The run continues: reach the margin like a live selection.
-                    if (layout.getParagraphDirection(line) == Layout.DIR_RIGHT_TO_LEFT) {
-                        stripe.left = 0;
-                    } else {
-                        stripe.right = layout.getWidth();
-                    }
-                }
-            }
-            stripes[line - firstLine] = stripe;
-        }
-        // A blank gap line inside a cross-verse run has no glyphs of its own;
-        // give it the following line's horizontal extent so the run connects.
-        for (int i = 0; i < stripes.length; i++) {
-            if (stripes[i].width() < 2 && i + 1 < stripes.length
-                    && stripes[i + 1].width() >= 2) {
-                int line = firstLine + i;
-                stripes[i].set(stripes[i + 1].left, layout.getLineTop(line),
-                        stripes[i + 1].right, layout.getLineBottom(line));
-            }
-        }
-        float inset = density * 0.5f;
-        float radius = density * 4;
-        for (RectF stripe : stripes) {
-            if (stripe.width() < 2) {
-                continue;
-            }
-            canvas.drawRoundRect(stripe.left, stripe.top + inset,
-                    stripe.right, stripe.bottom - inset, radius, radius, paint);
-        }
+        path.reset();
+        layout.getSelectionPath(start, end, path);
+        canvas.drawPath(path, paint);
     }
 }

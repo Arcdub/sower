@@ -23,12 +23,15 @@
             android:textColor="?attr/colorPrimary"
             android:textSize="15sp" />
 
+        <!-- withinBounds keeps the value bubble inside the popup; the default
+             floating label draws in the window overlay, under the toolbar. -->
         <com.google.android.material.slider.Slider
             android:id="@+id/textSizeSlider"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/menu_text_size" />
+            android:contentDescription="@string/menu_text_size"
+            app:labelBehavior="withinBounds" />
 
         <TextView
             android:layout_width="wrap_content"

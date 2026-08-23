@@ -65,6 +65,25 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     /**
+     * Paints the empty paragraph-gap line inside a cross-verse highlight. A
+     * BackgroundColorSpan only draws behind glyphs, so the blank line needs its
+     * own full-line band to keep the highlight visually unbroken.
+     */
+    private static class GapBridgeSpan implements android.text.style.LineBackgroundSpan {
+        @Override
+        public void drawBackground(@NonNull android.graphics.Canvas canvas,
+                                   @NonNull android.graphics.Paint paint,
+                                   int left, int right, int top, int baseline, int bottom,
+                                   @NonNull CharSequence text, int start, int end,
+                                   int lineNumber) {
+            int old = paint.getColor();
+            paint.setColor(0x59C8A24B);
+            canvas.drawRect(left, top, right, bottom, paint);
+            paint.setColor(old);
+        }
+    }
+
+    /**
      * Snaps each selection edge that landed mid-word to that word's nearest
      * boundary: past the midpoint keeps the whole word, short of it lets go.
      */
@@ -453,6 +472,10 @@ public class ReaderActivity extends AppCompatActivity {
                     && Math.max(head.get(0)[0], 0) == 0) {
                 builder.setSpan(new BackgroundColorSpan(0x59C8A24B),
                         verseTextEnds.get(i), verseTextStarts.get(i + 1),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // The blank gap line itself, which has no glyphs to paint behind.
+                builder.setSpan(new GapBridgeSpan(),
+                        verseTextEnds.get(i) + 1, verseTextEnds.get(i) + 2,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }

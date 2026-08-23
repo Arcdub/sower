@@ -65,32 +65,6 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     /**
-     * Paints the empty paragraph-gap line inside a cross-verse highlight. A
-     * BackgroundColorSpan only draws behind glyphs, so the blank line needs its
-     * own band — sized to the following line's text, not edge to edge.
-     */
-    private class GapBridgeSpan implements android.text.style.LineBackgroundSpan {
-        @Override
-        public void drawBackground(@NonNull android.graphics.Canvas canvas,
-                                   @NonNull android.graphics.Paint paint,
-                                   int left, int right, int top, int baseline, int bottom,
-                                   @NonNull CharSequence text, int start, int end,
-                                   int lineNumber) {
-            float bandLeft = left;
-            float bandRight = right;
-            Layout layout = chapterText.getLayout();
-            if (layout != null && lineNumber + 1 < layout.getLineCount()) {
-                bandLeft = layout.getLineLeft(lineNumber + 1);
-                bandRight = layout.getLineRight(lineNumber + 1);
-            }
-            int old = paint.getColor();
-            paint.setColor(0x59C8A24B);
-            canvas.drawRect(bandLeft, top, bandRight, bottom, paint);
-            paint.setColor(old);
-        }
-    }
-
-    /**
      * Snaps each selection edge that landed mid-word to that word's nearest
      * boundary: past the midpoint keeps the whole word, short of it lets go.
      */
@@ -127,7 +101,7 @@ public class ReaderActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private NestedScrollView verseScroll;
-    private TextView chapterText;
+    private HighlightTextView chapterText;
     private TextView chapterLabel;
     private Button prevButton;
     private Button nextButton;
@@ -435,25 +409,6 @@ public class ReaderActivity extends AppCompatActivity {
             builder.append(RedLetter.styled(this, text));
             int textEnd = builder.length();
 
-            if (number == transientVerse) {
-                // Soft green, deliberately distinct from the gold highlights, so the
-                // searched-for verse can't be mistaken for a marked one. Applied
-                // first so gold highlight spans draw on top of it.
-                builder.setSpan(new BackgroundColorSpan(0x408CBF94), prefixStart, textEnd,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-            List<int[]> verseRanges = ranges.get(number);
-            if (verseRanges != null) {
-                for (int[] r : verseRanges) {
-                    int start = textStart + Math.max(0, r[0]);
-                    int end = textStart + Math.min(textEnd - textStart, r[1]);
-                    if (end > start) {
-                        builder.setSpan(new BackgroundColorSpan(0x59C8A24B), start, end,
-                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                }
-            }
-
             verseNumbers.add(number);
             versePrefixStarts.add(prefixStart);
             verseTextStarts.add(textStart);
@@ -461,30 +416,49 @@ public class ReaderActivity extends AppCompatActivity {
             verseRawTexts.add(text);
         }
 
-        // Bridge the gap between consecutively highlighted verses (a highlight
-        // running to one verse's end and on from the next verse's start), so a
-        // marking that spans verses reads as one unbroken highlight — the
-        // paragraph gap and the verse number are painted too.
-        for (int i = 0; i + 1 < verseNumbers.size(); i++) {
-            if (verseNumbers.get(i + 1) != verseNumbers.get(i) + 1) {
+        // Highlights are drawn by the view with the selection's own geometry,
+        // not with background spans. A span ending at one verse's end that
+        // continues from the next verse's start merges into a single run, so a
+        // cross-verse marking flows through the gap and the verse number just
+        // like the live selection did.
+        List<int[]> displaySpans = new ArrayList<>();
+        for (int i = 0; i < verseNumbers.size(); i++) {
+            List<int[]> verseRanges = ranges.get(verseNumbers.get(i));
+            if (verseRanges == null) {
                 continue;
             }
-            List<int[]> tail = ranges.get(verseNumbers.get(i));
-            List<int[]> head = ranges.get(verseNumbers.get(i + 1));
-            if (tail == null || tail.isEmpty() || head == null || head.isEmpty()) {
-                continue;
+            int textStart = verseTextStarts.get(i);
+            int length = verseTextEnds.get(i) - textStart;
+            for (int[] r : verseRanges) {
+                int start = textStart + Math.max(0, r[0]);
+                int end = textStart + Math.min(length, r[1]);
+                if (end > start) {
+                    displaySpans.add(new int[]{start, end, i});
+                }
             }
-            int length = verseTextEnds.get(i) - verseTextStarts.get(i);
-            if (Math.min(tail.get(tail.size() - 1)[1], length) >= length
-                    && Math.max(head.get(0)[0], 0) == 0) {
-                builder.setSpan(new BackgroundColorSpan(0x59C8A24B),
-                        verseTextEnds.get(i), verseTextStarts.get(i + 1),
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                // The blank gap line itself, which has no glyphs to paint behind.
-                builder.setSpan(new GapBridgeSpan(),
-                        verseTextEnds.get(i) + 1, verseTextEnds.get(i) + 2,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        List<int[]> mergedSpans = new ArrayList<>();
+        for (int[] span : displaySpans) {
+            if (!mergedSpans.isEmpty()) {
+                int[] prev = mergedSpans.get(mergedSpans.size() - 1);
+                if (span[2] == prev[2] + 1
+                        && verseNumbers.get(span[2]) == verseNumbers.get(prev[2]) + 1
+                        && prev[1] == verseTextEnds.get(prev[2])
+                        && span[0] == verseTextStarts.get(span[2])) {
+                    prev[1] = span[1];
+                    prev[2] = span[2];
+                    continue;
+                }
             }
+            mergedSpans.add(span);
+        }
+        chapterText.setHighlights(mergedSpans);
+        int jumpIndex = transientVerse != 0 ? verseNumbers.indexOf(transientVerse) : -1;
+        if (jumpIndex >= 0) {
+            chapterText.setJumpTint(versePrefixStarts.get(jumpIndex),
+                    verseTextEnds.get(jumpIndex));
+        } else {
+            chapterText.clearJumpTint();
         }
 
         // Cycling the selectable flag around setText keeps selection startable;

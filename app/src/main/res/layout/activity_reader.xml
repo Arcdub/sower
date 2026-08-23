@@ -49,7 +49,7 @@
 
         <!-- Selection tints match the committed highlight, so a press-drag
              highlight looks live under the finger and commits with no flash. -->
-        <TextView
+        <arcsky.steph.sower.HighlightTextView
             android:id="@+id/chapterText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

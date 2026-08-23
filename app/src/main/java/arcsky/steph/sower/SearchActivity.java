@@ -36,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView results;
     private ResultsAdapter adapter;
     private com.google.android.material.chip.Chip highlightsChip;
+    private com.google.android.material.progressindicator.LinearProgressIndicator progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
                 }).attachToRecyclerView(results);
 
         status = findViewById(R.id.searchStatus);
+        progress = findViewById(R.id.searchProgress);
         input = findViewById(R.id.searchInput);
         input.setOnEditorActionListener((v, actionId, event) -> {
             runSearch(input.getText().toString());
@@ -105,6 +107,8 @@ public class SearchActivity extends AppCompatActivity {
 
         final int gen = generation.incrementAndGet();
         status.setText(R.string.search_searching);
+        progress.setVisibility(android.view.View.VISIBLE);
+        adapter.set(java.util.Collections.emptyList(), "");
         EXECUTOR.execute(() -> {
             final List<Bible.SearchResult> found = highlightsOnly
                     ? Bible.searchHighlights(this, trimmed, RESULT_LIMIT)
@@ -113,6 +117,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (gen != generation.get()) {
                     return; // a newer search replaced this one
                 }
+                progress.setVisibility(android.view.View.GONE);
                 adapter.set(found, trimmed);
                 if (found.isEmpty()) {
                     status.setText(highlightsOnly

@@ -26,6 +26,16 @@
             android:textColorHint="#B3FFFFFF" />
     </com.google.android.material.appbar.MaterialToolbar>
 
+    <!-- Visible while a search runs, so quiet moments read as working, not empty. -->
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/searchProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/sower_gold"
+        app:trackColor="@color/chip_selected" />
+
     <TextView
         android:id="@+id/searchStatus"
         android:layout_width="match_parent"

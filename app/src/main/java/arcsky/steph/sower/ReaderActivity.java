@@ -109,6 +109,11 @@ public class ReaderActivity extends AppCompatActivity {
 
         verseScroll = findViewById(R.id.verseScroll);
         chapterText = findViewById(R.id.chapterText);
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            // The smart-selection classifier flashes its sprite animation in the
+            // theme accent (green) over the text; plain selections don't.
+            chapterText.setTextClassifier(android.view.textclassifier.TextClassifier.NO_OP);
+        }
         // A plain click listener misses the first tap (it only grants the
         // selectable TextView focus), so taps are detected from the touch stream.
         final android.view.GestureDetector taps = new android.view.GestureDetector(this,
@@ -146,14 +151,18 @@ public class ReaderActivity extends AppCompatActivity {
                     // Kindle-style: press-hold, drag over the words, let go — the
                     // highlight commits the moment the finger lifts. A plain
                     // long-press (no drag) still offers the selection toolbar.
-                    if (longPressActive && dragExtended) {
+                    // The bounds are captured now: suppressing the action mode
+                    // can clear the selection before a posted read would run.
+                    if (longPressActive && dragExtended && chapterText.hasSelection()) {
                         suppressActionMode = true;
+                        final int selA = Math.min(chapterText.getSelectionStart(),
+                                chapterText.getSelectionEnd());
+                        final int selB = Math.max(chapterText.getSelectionStart(),
+                                chapterText.getSelectionEnd());
                         chapterText.post(() -> {
-                            if (chapterText.hasSelection()) {
-                                applyHighlightSelection(true);
-                                android.text.Selection.removeSelection(
-                                        (android.text.Spannable) chapterText.getText());
-                            }
+                            applyHighlightRange(selA, selB);
+                            android.text.Selection.removeSelection(
+                                    (android.text.Spannable) chapterText.getText());
                         });
                     }
                     break;
@@ -344,6 +353,10 @@ public class ReaderActivity extends AppCompatActivity {
     private void applyHighlightSelection(boolean add) {
         int selStart = Math.min(chapterText.getSelectionStart(), chapterText.getSelectionEnd());
         int selEnd = Math.max(chapterText.getSelectionStart(), chapterText.getSelectionEnd());
+        if (add) {
+            applyHighlightRange(selStart, selEnd);
+            return;
+        }
         if (selEnd <= selStart) {
             return;
         }
@@ -357,14 +370,29 @@ public class ReaderActivity extends AppCompatActivity {
             if (end <= start) {
                 continue;
             }
-            int length = textEnd - textStart;
-            if (add) {
-                Highlights.add(this, translation, bookFile, chapter,
-                        verseNumbers.get(i), start, end, length);
-            } else {
-                Highlights.remove(this, translation, bookFile, chapter,
-                        verseNumbers.get(i), start, end, length);
+            Highlights.remove(this, translation, bookFile, chapter,
+                    verseNumbers.get(i), start, end, textEnd - textStart);
+        }
+        chapterText.post(this::buildChapterText);
+    }
+
+    /** Stores [selStart, selEnd) of the chapter text as highlights and redraws. */
+    private void applyHighlightRange(int selStart, int selEnd) {
+        if (selEnd <= selStart) {
+            return;
+        }
+        transientVerse = 0; // acting on the text retires the jump marker
+        String translation = Bible.currentTranslation(this).id;
+        for (int i = 0; i < verseNumbers.size(); i++) {
+            int textStart = verseTextStarts.get(i);
+            int textEnd = verseTextEnds.get(i);
+            int start = Math.max(selStart, textStart) - textStart;
+            int end = Math.min(selEnd, textEnd) - textStart;
+            if (end <= start) {
+                continue;
             }
+            Highlights.add(this, translation, bookFile, chapter,
+                    verseNumbers.get(i), start, end, textEnd - textStart);
         }
         // Rebuild after the action mode is gone; the text is identical so the
         // scroll position is unaffected.

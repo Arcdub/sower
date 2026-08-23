@@ -86,12 +86,23 @@ public class HighlightTextView extends androidx.appcompat.widget.AppCompatTextVi
         RectF[] stripes = new RectF[lastLine - firstLine + 1];
         for (int line = firstLine; line <= lastLine; line++) {
             int lineStart = Math.max(start, layout.getLineStart(line));
-            int lineEnd = Math.min(end, layout.getLineEnd(line));
+            // Stop at the visible text: including the trailing newline makes the
+            // selection path spill a phantom rectangle onto the following line,
+            // which doubled every stripe after the first.
+            int lineEnd = Math.min(end, layout.getLineVisibleEnd(line));
             RectF stripe = new RectF();
             if (lineEnd > lineStart) {
                 path.reset();
                 layout.getSelectionPath(lineStart, lineEnd, path);
                 path.computeBounds(stripe, true);
+                if (line < lastLine) {
+                    // The run continues: reach the margin like a live selection.
+                    if (layout.getParagraphDirection(line) == Layout.DIR_RIGHT_TO_LEFT) {
+                        stripe.left = 0;
+                    } else {
+                        stripe.right = layout.getWidth();
+                    }
+                }
             }
             stripes[line - firstLine] = stripe;
         }

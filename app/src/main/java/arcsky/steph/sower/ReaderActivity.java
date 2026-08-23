@@ -441,11 +441,14 @@ public class ReaderActivity extends AppCompatActivity {
         for (int[] span : displaySpans) {
             if (!mergedSpans.isEmpty()) {
                 int[] prev = mergedSpans.get(mergedSpans.size() - 1);
-                if (span[2] == prev[2] + 1
+                boolean bridged = span[2] == prev[2] + 1
                         && verseNumbers.get(span[2]) == verseNumbers.get(prev[2]) + 1
                         && prev[1] == verseTextEnds.get(prev[2])
-                        && span[0] == verseTextStarts.get(span[2])) {
-                    prev[1] = span[1];
+                        && span[0] == verseTextStarts.get(span[2]);
+                // Overlapping spans must never stack: translucent gold drawn
+                // twice reads as a darker blotch.
+                if (bridged || span[0] <= prev[1]) {
+                    prev[1] = Math.max(prev[1], span[1]);
                     prev[2] = span[2];
                     continue;
                 }

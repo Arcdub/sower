@@ -52,8 +52,10 @@ final class Highlights {
             }
             list.add(range);
         }
-        for (List<int[]> list : map.values()) {
-            Collections.sort(list, (a, b) -> a[0] - b[0]);
+        // Merge, not just sort: overlapping stored keys (interrupted writes,
+        // restored backups) must never draw a doubled highlight.
+        for (Map.Entry<Integer, List<int[]>> entry : map.entrySet()) {
+            entry.setValue(merged(entry.getValue()));
         }
         return map;
     }

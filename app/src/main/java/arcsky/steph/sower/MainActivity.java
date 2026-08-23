@@ -306,7 +306,43 @@ public class MainActivity extends AppCompatActivity {
                 holder.itemView.setOnClickListener(view -> openReader(v.file, v.chapter));
             } else if (row instanceof ContinueRow) {
                 ContinueRow c = (ContinueRow) row;
-                ((TextView) holder.itemView.findViewById(R.id.continueWhere)).setText(c.label);
+                final int lastVerse = Prefs.lastVerse(activity);
+                ((TextView) holder.itemView.findViewById(R.id.continueWhere))
+                        .setText(lastVerse > 1 ? c.label + ":" + lastVerse : c.label);
+                final TextView preview = holder.itemView.findViewById(R.id.continuePreview);
+                preview.setText("");
+                Bible.load(activity, c.file, text -> {
+                    if (c.chapter < 1 || c.chapter > text.chapters.size()) {
+                        return;
+                    }
+                    java.util.List<String> verses = text.chapters.get(c.chapter - 1);
+                    android.text.SpannableStringBuilder window =
+                            new android.text.SpannableStringBuilder();
+                    int numberColor = androidx.core.content.ContextCompat.getColor(
+                            activity, R.color.verse_number);
+                    int shown = 0;
+                    for (int v = Math.max(1, lastVerse); v <= verses.size() && shown < 3; v++) {
+                        String t = verses.get(v - 1);
+                        if (t == null || t.isEmpty()) {
+                            continue;
+                        }
+                        if (window.length() > 0) {
+                            window.append('\n');
+                        }
+                        String prefix = v + " ";
+                        int prefixStart = window.length();
+                        window.append(prefix);
+                        window.setSpan(new android.text.style.ForegroundColorSpan(numberColor),
+                                prefixStart, prefixStart + prefix.length(),
+                                android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        window.setSpan(new android.text.style.RelativeSizeSpan(0.75f),
+                                prefixStart, prefixStart + prefix.length(),
+                                android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        window.append(RedLetter.styled(activity, t));
+                        shown++;
+                    }
+                    preview.setText(window);
+                });
                 holder.itemView.setOnClickListener(view -> {
                     Intent intent = new Intent(activity, ReaderActivity.class);
                     intent.putExtra(ReaderActivity.EXTRA_BOOK, c.file);

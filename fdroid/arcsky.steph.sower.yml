@@ -7,15 +7,17 @@ IssueTracker: https://github.com/Arcdub/sower/issues
 Changelog: https://github.com/Arcdub/sower/releases
 
 AutoName: Sower
-Summary: Offline Bible that passes itself phone to phone, no internet needed
 
 RepoType: git
 Repo: https://github.com/Arcdub/sower.git
 
+Binaries: https://github.com/Arcdub/sower/releases/download/v%v/Sower-%v-en.apk
+AllowedAPKSigningKeys: 8d784455ee265b5a00c1fc8b625eb02fe22754cfc157dc4c5accff725288c729
+
 Builds:
   - versionName: '1.0'
     versionCode: 1
-    commit: v1.0
+    commit: 81641298b4c9d3b2bd67245e62e0ad96e22b143a
     subdir: app
     gradle:
       - en

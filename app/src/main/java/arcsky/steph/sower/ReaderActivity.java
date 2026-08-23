@@ -50,6 +50,11 @@ public class ReaderActivity extends AppCompatActivity {
     private boolean highlightPendingVerse = true;
     private int restoredHighlight;
     private int transientVerse; // search-jump tint
+    private boolean longPressActive;
+    private boolean dragExtended;
+    private boolean suppressActionMode;
+    private float downX;
+    private float downY;
 
     private Toolbar toolbar;
     private NestedScrollView verseScroll;
@@ -115,14 +120,59 @@ public class ReaderActivity extends AppCompatActivity {
                         }
                         return false;
                     }
+
+                    @Override
+                    public void onLongPress(@NonNull MotionEvent e) {
+                        longPressActive = true;
+                    }
                 });
+        final int dragSlop = android.view.ViewConfiguration.get(this).getScaledTouchSlop() * 3;
         chapterText.setOnTouchListener((v, event) -> {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    longPressActive = false;
+                    dragExtended = false;
+                    suppressActionMode = false;
+                    downX = event.getX();
+                    downY = event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (longPressActive && (Math.abs(event.getX() - downX) > dragSlop
+                            || Math.abs(event.getY() - downY) > dragSlop)) {
+                        dragExtended = true;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // Kindle-style: press-hold, drag over the words, let go — the
+                    // highlight commits the moment the finger lifts. A plain
+                    // long-press (no drag) still offers the selection toolbar.
+                    if (longPressActive && dragExtended) {
+                        suppressActionMode = true;
+                        chapterText.post(() -> {
+                            if (chapterText.hasSelection()) {
+                                applyHighlightSelection(true);
+                                android.text.Selection.removeSelection(
+                                        (android.text.Spannable) chapterText.getText());
+                            }
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
             taps.onTouchEvent(event);
             return false;
         });
         chapterText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                if (suppressActionMode) {
+                    // The gesture already committed a highlight; no toolbar, and
+                    // whatever selection the editor restored async is dropped.
+                    chapterText.post(() -> android.text.Selection.removeSelection(
+                            (android.text.Spannable) chapterText.getText()));
+                    return false;
+                }
                 menu.add(Menu.NONE, MENU_ADD_HIGHLIGHT, 100, R.string.verse_highlight);
                 menu.add(Menu.NONE, MENU_REMOVE_HIGHLIGHT, 101, R.string.verse_unhighlight);
                 return true;
@@ -193,7 +243,25 @@ public class ReaderActivity extends AppCompatActivity {
                 verseScroll.scrollTo(0, 0);
             }
         });
+        if (transientVerse != 0) {
+            clearTransientSoon(transientVerse);
+        }
         Prefs.setLastRead(this, bookFile, chapter);
+    }
+
+    /** The jump marker is a pointer, not a highlight: fade it out after a moment. */
+    private void clearTransientSoon(int marked) {
+        verseScroll.postDelayed(() -> {
+            if (transientVerse != marked) {
+                return;
+            }
+            if (chapterText.hasSelection()) {
+                clearTransientSoon(marked); // don't wipe an in-progress selection
+                return;
+            }
+            transientVerse = 0;
+            buildChapterText();
+        }, 3000);
     }
 
     /** Renders the whole chapter into the single selectable TextView. */
@@ -279,6 +347,7 @@ public class ReaderActivity extends AppCompatActivity {
         if (selEnd <= selStart) {
             return;
         }
+        transientVerse = 0; // acting on the text retires the jump marker
         String translation = Bible.currentTranslation(this).id;
         for (int i = 0; i < verseNumbers.size(); i++) {
             int textStart = verseTextStarts.get(i);

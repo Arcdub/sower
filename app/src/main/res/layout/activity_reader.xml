@@ -47,12 +47,15 @@
         android:clipToPadding="false"
         android:fillViewport="true">
 
+        <!-- Selection tints match the committed highlight, so a press-drag
+             highlight looks live under the finger and commits with no flash. -->
         <TextView
             android:id="@+id/chapterText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.35"
             android:textIsSelectable="true"
+            android:textColorHighlight="#59C8A24B"
             android:textAppearance="?attr/textAppearanceBodyLarge" />
     </androidx.core.widget.NestedScrollView>
 

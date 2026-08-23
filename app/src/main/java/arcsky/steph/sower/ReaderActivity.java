@@ -52,9 +52,17 @@ public class ReaderActivity extends AppCompatActivity {
     private int transientVerse; // search-jump tint
     private boolean longPressActive;
     private boolean dragExtended;
+    private boolean charDragActive;
     private boolean suppressActionMode;
+    private int anchorStart;
+    private int anchorEnd;
+    private ActionMode activeActionMode;
     private float downX;
     private float downY;
+
+    private static boolean isWordChar(char c) {
+        return Character.isLetterOrDigit(c) || c == '\'' || c == '’';
+    }
 
     private Toolbar toolbar;
     private NestedScrollView verseScroll;
@@ -129,22 +137,65 @@ public class ReaderActivity extends AppCompatActivity {
                     @Override
                     public void onLongPress(@NonNull MotionEvent e) {
                         longPressActive = true;
+                        // Anchor on the pressed word so the drag can then grow the
+                        // selection character by character from the raw touch.
+                        int offset = chapterText.getOffsetForPosition(e.getX(), e.getY());
+                        CharSequence text = chapterText.getText();
+                        int start = offset;
+                        int end = offset;
+                        while (start > 0 && isWordChar(text.charAt(start - 1))) {
+                            start--;
+                        }
+                        while (end < text.length() && isWordChar(text.charAt(end))) {
+                            end++;
+                        }
+                        if (end > start) {
+                            anchorStart = start;
+                            anchorEnd = end;
+                            charDragActive = true;
+                        }
                     }
                 });
         final int dragSlop = android.view.ViewConfiguration.get(this).getScaledTouchSlop() * 3;
         chapterText.setOnTouchListener((v, event) -> {
+            boolean consumed = false;
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
                     longPressActive = false;
                     dragExtended = false;
+                    charDragActive = false;
                     suppressActionMode = false;
                     downX = event.getX();
                     downY = event.getY();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (longPressActive && (Math.abs(event.getX() - downX) > dragSlop
+                    if (longPressActive && !dragExtended
+                            && (Math.abs(event.getX() - downX) > dragSlop
                             || Math.abs(event.getY() - downY) > dragSlop)) {
                         dragExtended = true;
+                        if (charDragActive) {
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            if (activeActionMode != null) {
+                                activeActionMode.finish();
+                            }
+                        }
+                    }
+                    if (dragExtended && charDragActive) {
+                        // Character-precise: the selection tracks the finger exactly,
+                        // never snapping to word boundaries. Events are consumed so
+                        // the editor's word-jumping drag logic stays out of it.
+                        int offset = chapterText.getOffsetForPosition(
+                                event.getX(), event.getY());
+                        android.text.Spannable text =
+                                (android.text.Spannable) chapterText.getText();
+                        if (offset >= anchorEnd) {
+                            android.text.Selection.setSelection(text, anchorStart, offset);
+                        } else if (offset <= anchorStart) {
+                            android.text.Selection.setSelection(text, anchorEnd, offset);
+                        } else {
+                            android.text.Selection.setSelection(text, anchorStart, anchorEnd);
+                        }
+                        consumed = true;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
@@ -155,6 +206,7 @@ public class ReaderActivity extends AppCompatActivity {
                     // can clear the selection before a posted read would run.
                     if (longPressActive && dragExtended && chapterText.hasSelection()) {
                         suppressActionMode = true;
+                        consumed = charDragActive;
                         final int selA = Math.min(chapterText.getSelectionStart(),
                                 chapterText.getSelectionEnd());
                         final int selB = Math.max(chapterText.getSelectionStart(),
@@ -170,7 +222,7 @@ public class ReaderActivity extends AppCompatActivity {
                     break;
             }
             taps.onTouchEvent(event);
-            return false;
+            return consumed;
         });
         chapterText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
@@ -182,6 +234,7 @@ public class ReaderActivity extends AppCompatActivity {
                             (android.text.Spannable) chapterText.getText()));
                     return false;
                 }
+                activeActionMode = mode;
                 menu.add(Menu.NONE, MENU_ADD_HIGHLIGHT, 100, R.string.verse_highlight);
                 menu.add(Menu.NONE, MENU_REMOVE_HIGHLIGHT, 101, R.string.verse_unhighlight);
                 return true;
@@ -205,6 +258,9 @@ public class ReaderActivity extends AppCompatActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+                if (activeActionMode == mode) {
+                    activeActionMode = null;
+                }
             }
         });
 

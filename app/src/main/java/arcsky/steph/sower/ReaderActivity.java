@@ -64,6 +64,41 @@ public class ReaderActivity extends AppCompatActivity {
         return Character.isLetterOrDigit(c) || c == '\'' || c == '’';
     }
 
+    /**
+     * Snaps each selection edge that landed mid-word to that word's nearest
+     * boundary: past the midpoint keeps the whole word, short of it lets go.
+     */
+    private int[] snapToWordEdges(int start, int end) {
+        CharSequence text = chapterText.getText();
+        int s = start;
+        if (s > 0 && s < text.length()
+                && isWordChar(text.charAt(s)) && isWordChar(text.charAt(s - 1))) {
+            int wordStart = s;
+            int wordEnd = s;
+            while (wordStart > 0 && isWordChar(text.charAt(wordStart - 1))) {
+                wordStart--;
+            }
+            while (wordEnd < text.length() && isWordChar(text.charAt(wordEnd))) {
+                wordEnd++;
+            }
+            s = (s - wordStart <= wordEnd - s) ? wordStart : wordEnd;
+        }
+        int e = end;
+        if (e > 0 && e < text.length()
+                && isWordChar(text.charAt(e)) && isWordChar(text.charAt(e - 1))) {
+            int wordStart = e;
+            int wordEnd = e;
+            while (wordStart > 0 && isWordChar(text.charAt(wordStart - 1))) {
+                wordStart--;
+            }
+            while (wordEnd < text.length() && isWordChar(text.charAt(wordEnd))) {
+                wordEnd++;
+            }
+            e = (wordEnd - e <= e - wordStart) ? wordEnd : wordStart;
+        }
+        return e > s ? new int[]{s, e} : new int[]{start, end};
+    }
+
     private Toolbar toolbar;
     private NestedScrollView verseScroll;
     private TextView chapterText;
@@ -207,12 +242,15 @@ public class ReaderActivity extends AppCompatActivity {
                     if (longPressActive && dragExtended && chapterText.hasSelection()) {
                         suppressActionMode = true;
                         consumed = charDragActive;
-                        final int selA = Math.min(chapterText.getSelectionStart(),
+                        int selA = Math.min(chapterText.getSelectionStart(),
                                 chapterText.getSelectionEnd());
-                        final int selB = Math.max(chapterText.getSelectionStart(),
+                        int selB = Math.max(chapterText.getSelectionStart(),
                                 chapterText.getSelectionEnd());
+                        // The drag is character-precise; the release is forgiving —
+                        // an edge left inside a word snaps to its nearest boundary.
+                        final int[] snapped = snapToWordEdges(selA, selB);
                         chapterText.post(() -> {
-                            applyHighlightRange(selA, selB);
+                            applyHighlightRange(snapped[0], snapped[1]);
                             android.text.Selection.removeSelection(
                                     (android.text.Spannable) chapterText.getText());
                         });

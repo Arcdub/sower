@@ -10,9 +10,7 @@ AutoName: Sower
 
 RepoType: git
 Repo: https://github.com/Arcdub/sower.git
-
 Binaries: https://github.com/Arcdub/sower/releases/download/v%v/Sower-%v-en.apk
-AllowedAPKSigningKeys: 8d784455ee265b5a00c1fc8b625eb02fe22754cfc157dc4c5accff725288c729
 
 Builds:
   - versionName: '1.0'
@@ -21,6 +19,8 @@ Builds:
     subdir: app
     gradle:
       - en
+
+AllowedAPKSigningKeys: 8d784455ee265b5a00c1fc8b625eb02fe22754cfc157dc4c5accff725288c729
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$

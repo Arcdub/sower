@@ -59,12 +59,15 @@ if ($oldName -eq $Version) { Fail "versionName is already $Version" }
 
 $text = $text -replace 'versionCode\s+\d+', "versionCode $newCode"
 $text = $text -replace 'versionName\s+"[^"]+"', "versionName `"$Version`""
-Set-Content -Path $gradle -Value $text -Encoding utf8 -NoNewline
+# UTF8Encoding($false): PowerShell 5.1's -Encoding utf8 writes a BOM, and
+# Groovy refuses to compile a build file that starts with one.
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText($gradle, $text, $utf8NoBom)
 Write-Host "release: $oldName ($oldCode) -> $Version ($newCode)" -ForegroundColor Cyan
 
 # F-Droid reads the changelog for the versionCode it is building.
 $changelog = Join-Path $root "fastlane\metadata\android\en-US\changelogs\$newCode.txt"
-Set-Content -Path $changelog -Value $Notes -Encoding utf8
+[System.IO.File]::WriteAllText($changelog, "$Notes`n", $utf8NoBom)
 
 function Undo-Bump {
     git checkout -- $gradle

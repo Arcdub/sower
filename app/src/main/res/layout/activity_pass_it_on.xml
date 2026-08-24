@@ -210,7 +210,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="@string/pass_it_on_button" />
+            android:text="@string/pass_it_on_button"
+            android:textColor="@color/filled_button_text"
+            app:backgroundTint="@color/filled_button_bg" />
 
         <TextView
             android:id="@+id/apkSize"

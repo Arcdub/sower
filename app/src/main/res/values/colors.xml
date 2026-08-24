@@ -16,5 +16,11 @@
     <color name="book_tile_border">#DED9CE</color>
     <color name="book_text">#2B3A2C</color>
     <color name="book_icon">#C8A24B</color>
+    <!-- Ring around chapter circles; dimmed at night so a grid of fifty stays calm. -->
+    <color name="chapter_ring">#C8A24B</color>
+    <!-- Filled buttons carry their own pair; colorOnPrimary belongs to the toolbar,
+         which is dark in both themes, so it can't double as a button label colour. -->
+    <color name="filled_button_bg">#2E6B34</color>
+    <color name="filled_button_text">#FFFFFF</color>
     <color name="chip_selected">#3AC8A24B</color>
 </resources>

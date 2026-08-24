@@ -12,7 +12,7 @@
             <solid android:color="@color/book_tile" />
             <stroke
                 android:width="1dp"
-                android:color="@color/sower_gold" />
+                android:color="@color/chapter_ring" />
         </shape>
     </item>
 </ripple>

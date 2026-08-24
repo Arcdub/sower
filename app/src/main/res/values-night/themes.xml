@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Night reading palette: dark green-charcoal page, gold headings, cream text. -->
+    <!-- Night reading palette: deep green-charcoal page, cream text, gold accents. -->
     <style name="Base.Theme.Sower" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#8CBF94</item>
         <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorPrimaryContainer">#26332C</item>
-        <item name="colorOnPrimaryContainer">#E8E0CF</item>
+        <item name="colorPrimaryContainer">#223328</item>
+        <item name="colorOnPrimaryContainer">@color/book_text</item>
         <item name="colorSecondary">@color/sower_gold</item>
 
-        <item name="android:colorBackground">#1E2A24</item>
-        <item name="android:windowBackground">#1E2A24</item>
-        <item name="colorSurface">#1E2A24</item>
-        <item name="colorOnSurface">#E8E0CF</item>
+        <item name="android:colorBackground">@color/page_bg</item>
+        <item name="android:windowBackground">@color/page_bg</item>
+        <item name="colorSurface">@color/page_bg</item>
+        <item name="colorOnSurface">@color/book_text</item>
         <item name="colorOnSurfaceVariant">#B7C4B8</item>
+        <item name="colorOutline">@color/book_tile_border</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <!-- Night reading surfaces. -->
-        <item name="bubbleBackground">#26332C</item>
-        <item name="bubbleText">#E8E0CF</item>
+        <!-- The verse of the day is the one card gold outlines. -->
+        <item name="bubbleBackground">#223328</item>
+        <item name="bubbleText">@color/book_text</item>
         <item name="bubbleRipple">#C8A24B</item>
         <item name="sectionHeading">#C8A24B</item>
     </style>

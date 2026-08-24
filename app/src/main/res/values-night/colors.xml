@@ -3,11 +3,17 @@
     <!-- Brighter variants so red letters and verse numbers stay readable on dark backgrounds. -->
     <color name="red_letter">#EF5350</color>
     <color name="verse_number">#8CBF94</color>
-    <!-- Night reading: very dark green toolbar. -->
-    <color name="toolbar_bg">#14201A</color>
-    <color name="page_bg">#1E2A24</color>
-    <color name="book_tile">#26332C</color>
-    <color name="book_tile_border">#C8A24B</color>
+
+    <!-- Night reading. Mirrors the light hierarchy: a deep page, surfaces that
+         sit clearly above it, and borders that only whisper. Gold is an accent
+         (icons, the verse card, headings) — never an outline on every tile. -->
+    <color name="toolbar_bg">#131C17</color>
+    <color name="page_bg">#17211C</color>
+    <color name="book_tile">#222E28</color>
+    <color name="book_tile_border">#314038</color>
     <color name="book_text">#E8E0CF</color>
     <color name="book_icon">#C8A24B</color>
+    <color name="chapter_ring">#7A6534</color>
+    <color name="filled_button_bg">#8CBF94</color>
+    <color name="filled_button_text">#10241A</color>
 </resources>

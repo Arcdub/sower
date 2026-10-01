@@ -56,6 +56,8 @@ https://ebible.org/find/ , run `node tools/transform.js <usfmDir> app/src/<code>
   official WEB USFM distribution at https://ebible.org/Scriptures/engwebp_usfm.zip. Words of
   Jesus are embedded as U+0001/U+0002 sentinel spans in the verse strings (see
   `RedLetter.java`).
+- `ios/`: the SwiftUI port, which reads those same asset folders through
+  XcodeGen folder references. See `ios/README.md` for how to build it on a Mac.
 - `tools/transform.js`: regenerates those assets: download and extract the USFM zip, then
   `node transform.js <usfmDir> <path-to-assets/bible>`.
 - Toolchain: Gradle 9.6.1, AGP 9.3.1, Java 17 sources, compileSdk 37, minSdk 21,

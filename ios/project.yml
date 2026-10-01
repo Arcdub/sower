@@ -1,0 +1,60 @@
+# XcodeGen spec. The Xcode project is generated, not committed, so the
+# Android and iOS trees can share one repository without a 20k-line
+# project.pbxproj fighting every merge.
+#
+#   brew install xcodegen && cd ios && xcodegen generate && open Sower.xcodeproj
+name: Sower
+options:
+  bundleIdPrefix: io.github.arcdub
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "16.0"
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.1"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+targets:
+  Sower:
+    type: application
+    platform: iOS
+    info:
+      path: Sower/Support/Info.plist
+      properties:
+        CFBundleDisplayName: Sower
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.arcdub.sower
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+    sources:
+      - path: Sower
+        excludes:
+          - "Support/Info.plist"
+      # The Bible itself is not copied into this folder. These are folder
+      # references into the Android source set, so regenerating the assets
+      # with tools/transform.js updates both apps at once.
+      - path: ../app/src/en/assets/bible
+        type: folder
+        buildPhase: resources
+      - path: ../app/src/en/assets/bible_bsb
+        type: folder
+        buildPhase: resources
+      - path: ../app/src/en/assets/translations.json
+        buildPhase: resources

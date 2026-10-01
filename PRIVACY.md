@@ -4,7 +4,7 @@
 
 - Sower collects **no personal information** of any kind.
 - It requests **no permissions** and makes **no network connections**, so it cannot
-  send your data anywhere. (You can confirm this yourself — the source code is public
+  send your data anywhere. (You can confirm this yourself, the source code is public
   and the app declares no internet permission.)
 - Everything you read and search stays **only on your device**.
 - Nothing is tracked, stored on a server, or shared with anyone. There are no accounts,

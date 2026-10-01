@@ -27,7 +27,7 @@
     <string name="search_too_short">Tapez au moins deux caractères.</string>
     <string name="search_searching">Recherche…</string>
     <string name="search_no_results">Aucun verset trouvé.</string>
-    <string name="search_results_capped">Affichage des %1$d premiers résultats — essayez une recherche plus précise.</string>
+    <string name="search_results_capped">Affichage des %1$d premiers résultats. Essayez une recherche plus précise.</string>
     <string name="chip_highlights_only">Surlignés seulement</string>
     <string name="search_no_highlights">Aucun verset surligné pour l’instant.</string>
     <string name="verse_highlight">Surligner</string>
@@ -39,15 +39,17 @@
         <item quantity="other">%1$d versets trouvés</item>
     </plurals>
     <string name="pass_it_on_title">Transmets-la</string>
-    <string name="pass_it_on_lead">Cette application contient la Bible complète — sans internet, sans compte, sans boutique d’applications. Elle passe directement de votre téléphone à celui d’un ami, comme une graine transmise de main en main.</string>
-    <string name="pass_it_on_how_title">Comment ça marche</string>
-    <string name="pass_it_on_step1">Sur le téléphone de votre ami : <b>ouvrez l’écran des paramètres Bluetooth</b> et restez-y. (Cela active le Bluetooth et rend son téléphone visible — cela fonctionne sur tous les téléphones Android.)</string>
-    <string name="pass_it_on_step2">Sur ce téléphone : touchez <b>Envoyer cette application</b> ci-dessous, choisissez <b>Bluetooth</b>, puis touchez <b>le nom du téléphone de votre ami</b> quand il apparaît.</string>
-    <string name="pass_it_on_step3">Votre ami touche <b>Accepter</b>, ouvre le fichier reçu et <b>autorise l’installation</b> quand son téléphone le demande — cette question est normale pour une application partagée de téléphone à téléphone. Voilà ! <b>Sa copie peut maintenant être transmise à son tour.</b></string>
-    <string name="pass_it_on_quickshare_tip">Les deux téléphones ont <b>Quick Share</b> ? C’est plus rapide : votre ami balaie l’écran du haut vers le bas, <b>appuie longuement sur le bouton Quick Share</b> et autorise <b>« Tout le monde »</b> — puis à l’étape 2 choisissez Quick Share au lieu de Bluetooth. Certains téléphones nomment le partage autrement (Huawei Share, Mi Share), mais <b>le Bluetooth fonctionne sur tous</b>.</string>
+    <string name="pass_it_on_lead">Cette application porte la Bible entière : sans internet, sans compte, sans magasin d’applications. Elle passe directement de votre téléphone à celui d’un ami, comme une graine transmise de main en main.</string>
+    <string name="pass_it_on_how_title">Le plus simple</string>
+    <string name="pass_it_on_step1">Touchez <b>Envoyer cette app</b> ci-dessous, puis choisissez n’importe quelle messagerie : <b>WhatsApp</b>, <b>Telegram</b>, <b>Signal</b>, e-mail, tout ce qui envoie un fichier.</string>
+    <string name="pass_it_on_step2">Votre ami ouvre le fichier reçu et <b>autorise l’installation</b> quand son téléphone le demande. Cette question est normale pour une app partagée de téléphone à téléphone.</string>
+    <string name="pass_it_on_step3">C’est fait. <b>Sa copie peut être transmise de la même façon.</b></string>
+    <string name="pass_it_on_offline_body">Le <b>Bluetooth</b> fonctionne entre deux téléphones Android sans aucune connexion. Votre ami ouvre l’<b>écran des paramètres Bluetooth</b> et y reste, vous touchez Envoyer cette app et choisissez <b>Bluetooth</b>, puis le nom de son téléphone quand il apparaît. Si les deux téléphones ont <b>Quick Share</b>, c’est encore plus rapide : il balaie l’écran vers le bas, maintient <b>Quick Share</b> et autorise <b>Tout le monde</b>.</string>
+    <string name="pass_it_on_offline_title">Aucune connexion ?</string>
     <string name="pass_it_on_button">Envoyer cette application à un autre téléphone</string>
     <string name="pass_it_on_size">Taille : %1$s</string>
     <string name="pass_it_on_failed">Impossible de préparer l’application pour le partage.</string>
-    <string name="pass_it_on_qr_tip">Internet plutôt que Bluetooth ? Demandez-leur de <b>scanner ce code avec l’appareil photo de leur téléphone</b> — il télécharge directement cette application :</string>
-    <string name="pass_it_on_verse">« Un semeur sortit pour semer sa semence… Une autre partie tomba dans la bonne terre : quand elle fut crue, elle rendit du fruit au centuple. » — Luc 8:5,8</string>
+    <string name="pass_it_on_qr_tip">Ou envoyez-les sur le site, où ils peuvent lire la Bible tout de suite ou installer l’app. Qu’ils scannent ceci avec l’appareil photo :</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">« Un semeur sortit pour semer sa semence… Une autre partie tomba dans la bonne terre : quand elle fut crue, elle rendit du fruit au centuple. » Luc 8:5,8</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="search_too_short">请至少输入两个字符。</string>
     <string name="search_searching">正在搜索…</string>
     <string name="search_no_results">未找到经文。</string>
-    <string name="search_results_capped">仅显示前 %1$d 条结果 — 请尝试更具体的搜索。</string>
+    <string name="search_results_capped">仅显示前 %1$d 条结果. 请尝试更具体的搜索。</string>
     <string name="chip_highlights_only">仅高亮</string>
     <string name="search_no_highlights">还没有高亮的经文。</string>
     <string name="verse_highlight">高亮</string>
@@ -38,15 +38,17 @@
         <item quantity="other">找到 %1$d 节经文</item>
     </plurals>
     <string name="pass_it_on_title">传下去</string>
-    <string name="pass_it_on_lead">这个应用装着整本圣经 — 无需网络、无需账号、无需应用商店。它可以直接从你的手机传到朋友的手机，就像一粒种子，手手相传。</string>
-    <string name="pass_it_on_how_title">使用方法</string>
-    <string name="pass_it_on_step1">在朋友的手机上：<b>打开蓝牙设置页面</b>并停留在该页面。（这会打开蓝牙并让手机可被发现 — 任何安卓手机都可以。）</string>
-    <string name="pass_it_on_step2">在这部手机上：点击下方的<b>发送此应用</b>，选择<b>蓝牙</b>，当<b>朋友的手机名称</b>出现时点击它。</string>
-    <string name="pass_it_on_step3">朋友点击<b>接受</b>，打开收到的文件，并在手机询问时<b>允许安装</b> — 对于手机间直接分享的应用，这个提示是正常的。完成！<b>他的副本现在也可以继续传下去。</b></string>
-    <string name="pass_it_on_quickshare_tip">两部手机都有 <b>Quick Share</b>（快速分享）？那样更快：朋友从屏幕顶部下滑，<b>长按 Quick Share 按钮</b>，允许<b>“所有人”</b> — 然后在第 2 步选择 Quick Share 而不是蓝牙。有些手机的分享功能名称不同（华为分享、小米互传），但<b>蓝牙在所有手机上都能用</b>。</string>
+    <string name="pass_it_on_lead">这个应用随身带着整本圣经：不需要网络，不需要账号，不需要应用商店。它直接从你的手机传到朋友的手机，就像一粒种子手手相传。</string>
+    <string name="pass_it_on_how_title">最快的方式</string>
+    <string name="pass_it_on_step1">点击下方的<b>发送此应用</b>，然后选择任意聊天应用：<b>WhatsApp</b>、<b>Telegram</b>、<b>Signal</b>、电子邮件，任何可以发送文件的方式。</string>
+    <string name="pass_it_on_step2">朋友打开收到的文件，在手机询问时<b>允许安装</b>。对于手机之间传递的应用，这个提示很正常。</string>
+    <string name="pass_it_on_step3">完成。<b>他的那一份也可以用同样的方式继续传下去。</b></string>
+    <string name="pass_it_on_offline_body"><b>蓝牙</b>在任意两部安卓手机之间都能用，完全不需要联网。朋友打开<b>蓝牙设置页面</b>并停留在那里，你点击发送此应用并选择<b>蓝牙</b>，然后点他手机的名称。如果两部手机都有<b>Quick Share</b>会更快：从屏幕顶部下滑，长按<b>Quick Share</b>，允许<b>所有人</b>。</string>
+    <string name="pass_it_on_offline_title">完全没有网络？</string>
     <string name="pass_it_on_button">发送此应用到另一部手机</string>
     <string name="pass_it_on_size">应用大小：%1$s</string>
     <string name="pass_it_on_failed">无法准备分享此应用。</string>
-    <string name="pass_it_on_qr_tip">有网络而不用蓝牙？让对方<b>用手机相机扫描这个二维码</b>，即可直接下载本应用：</string>
-    <string name="pass_it_on_verse">“有一个撒种的出去撒种……又有落在好土里的，生长起来，结实百倍。” — 路加福音 8:5,8</string>
+    <string name="pass_it_on_qr_tip">或者把网站发给他们，可以直接阅读圣经或安装应用。让他们用手机相机扫描这个：</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">“有一个撒种的出去撒种……又有落在好土里的，生长起来，结实百倍。” 路加福音 8:5,8</string>
 </resources>

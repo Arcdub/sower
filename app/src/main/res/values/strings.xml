@@ -31,7 +31,7 @@
     <string name="search_too_short">Type at least two characters.</string>
     <string name="search_searching">Searching…</string>
     <string name="search_no_results">No verses found.</string>
-    <string name="search_results_capped">Showing the first %1$d matches — try a more specific search.</string>
+    <string name="search_results_capped">Showing the first %1$d matches. Try a more specific search.</string>
     <string name="chip_highlights_only">Highlights only</string>
     <string name="search_no_highlights">No highlighted verses yet.</string>
     <string name="verse_highlight">Highlight</string>
@@ -48,17 +48,19 @@
     <string name="share_verse_via">Share verse</string>
 
     <string name="pass_it_on_title">Pass it on</string>
-    <string name="pass_it_on_lead">This app carries the complete Bible — no internet, no account, no app store. It travels straight from your phone to a friend’s, like a seed passed hand to hand.</string>
-    <string name="pass_it_on_how_title">How it works</string>
-    <string name="pass_it_on_step1">On your friend’s phone: <b>open the Bluetooth settings screen</b> and stay there. (That turns Bluetooth on and makes their phone visible — it works on every Android phone.)</string>
-    <string name="pass_it_on_step2">On this phone: tap <b>Send this app</b> below, choose <b>Bluetooth</b>, then tap <b>your friend’s phone name</b> when it appears.</string>
-    <string name="pass_it_on_step3">Your friend taps <b>Accept</b>, opens the finished file, and <b>allows the install</b> when their phone asks — that question is normal for an app shared phone-to-phone. Done! <b>Their copy can now be passed on too.</b></string>
-    <string name="pass_it_on_quickshare_tip">Both phones have <b>Quick Share</b>? It’s faster: your friend swipes down from the top of their screen, <b>presses and holds the Quick Share button</b>, and allows <b>“Everyone”</b> — then in step 2 pick Quick Share instead of Bluetooth. Some phones name sharing differently (Huawei Share, Mi Share), but <b>Bluetooth works on them all</b>.</string>
+    <string name="pass_it_on_lead">This app carries the complete Bible: no internet, no account, no app store. It travels straight from your phone to a friend’s, like a seed passed hand to hand.</string>
+    <string name="pass_it_on_how_title">The quickest way</string>
+    <string name="pass_it_on_step1">Tap <b>Send this app</b> below, then pick any chat app: <b>WhatsApp</b>, <b>Telegram</b>, <b>Signal</b>, email, anything that can send a file.</string>
+    <string name="pass_it_on_step2">Your friend opens the file they receive and <b>allows the install</b> when their phone asks. That question is normal for an app shared phone to phone.</string>
+    <string name="pass_it_on_step3">Done. <b>Their copy can be passed on the same way.</b></string>
+    <string name="pass_it_on_offline_title">No internet at all?</string>
+    <string name="pass_it_on_offline_body"><b>Bluetooth</b> works between any two Android phones with no connection of any kind. Your friend opens their <b>Bluetooth settings screen</b> and stays there, you tap Send this app and choose <b>Bluetooth</b>, then tap their phone name when it appears. If both phones have <b>Quick Share</b> it is quicker still: they swipe down from the top of the screen, press and hold <b>Quick Share</b>, and allow <b>Everyone</b>.</string>
     <string name="pass_it_on_button">Send this app to another phone</string>
     <string name="pass_it_on_size">App size: %1$s</string>
     <string name="pass_it_on_failed">Could not prepare the app for sharing.</string>
-    <string name="pass_it_on_qr_tip">Internet instead of Bluetooth? Have them <b>scan this code with their phone’s camera</b> — it downloads this app directly:</string>
-    <string name="pass_it_on_verse">“A farmer went out to sow his seed… Other seed fell into the good ground and grew and produced one hundred times as much fruit.” — Luke 8:5,8</string>
+    <string name="pass_it_on_qr_tip">Or send them to the website, where they can read the Bible straight away or install the app. Have them scan this with their phone camera:</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">“A farmer went out to sow his seed… Other seed fell into the good ground and grew and produced one hundred times as much fruit.” Luke 8:5,8</string>
 
     <!-- about_translation is defined per product flavor in build.gradle. -->
 </resources>

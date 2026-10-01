@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat;
 
 /**
  * Verse strings from assets mark the words of Jesus with sentinel characters
- * (U+0001 opens a span, U+0002 closes it — see tools/transform.js). This class
+ * (U+0001 opens a span, U+0002 closes it, see tools/transform.js). This class
  * renders those spans in red, or strips them for plain-text share/copy.
  */
 public final class RedLetter {

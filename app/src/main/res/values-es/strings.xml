@@ -27,7 +27,7 @@
     <string name="search_too_short">Escribe al menos dos caracteres.</string>
     <string name="search_searching">Buscando…</string>
     <string name="search_no_results">No se encontraron versículos.</string>
-    <string name="search_results_capped">Mostrando las primeras %1$d coincidencias — prueba una búsqueda más específica.</string>
+    <string name="search_results_capped">Mostrando las primeras %1$d coincidencias. Prueba una búsqueda más específica.</string>
     <string name="chip_highlights_only">Solo destacados</string>
     <string name="search_no_highlights">Aún no hay versículos destacados.</string>
     <string name="verse_highlight">Destacar</string>
@@ -39,15 +39,17 @@
         <item quantity="other">%1$d versículos encontrados</item>
     </plurals>
     <string name="pass_it_on_title">Pásalo</string>
-    <string name="pass_it_on_lead">Esta aplicación lleva la Biblia completa — sin internet, sin cuenta, sin tienda de aplicaciones. Viaja directamente de tu teléfono al de un amigo, como una semilla que pasa de mano en mano.</string>
-    <string name="pass_it_on_how_title">Cómo funciona</string>
-    <string name="pass_it_on_step1">En el teléfono de tu amigo: <b>abre la pantalla de ajustes de Bluetooth</b> y quédate ahí. (Eso enciende el Bluetooth y hace visible su teléfono — funciona en todos los teléfonos Android.)</string>
-    <string name="pass_it_on_step2">En este teléfono: toca <b>Enviar esta aplicación</b> abajo, elige <b>Bluetooth</b> y toca <b>el nombre del teléfono de tu amigo</b> cuando aparezca.</string>
-    <string name="pass_it_on_step3">Tu amigo toca <b>Aceptar</b>, abre el archivo recibido y <b>permite la instalación</b> cuando su teléfono lo pregunte — esa pregunta es normal para una aplicación compartida de teléfono a teléfono. ¡Listo! <b>Su copia ahora también se puede compartir.</b></string>
-    <string name="pass_it_on_quickshare_tip">¿Ambos teléfonos tienen <b>Quick Share</b>? Es más rápido: tu amigo desliza hacia abajo desde la parte superior de su pantalla, <b>mantiene pulsado el botón de Quick Share</b> y permite <b>«Todos»</b> — luego en el paso 2 elige Quick Share en lugar de Bluetooth. Algunos teléfonos llaman al uso compartido de otra forma (Huawei Share, Mi Share), pero <b>Bluetooth funciona en todos</b>.</string>
+    <string name="pass_it_on_lead">Esta aplicación lleva la Biblia completa: sin internet, sin cuenta, sin tienda de aplicaciones. Viaja directamente de tu teléfono al de un amigo, como una semilla que pasa de mano en mano.</string>
+    <string name="pass_it_on_how_title">La forma más rápida</string>
+    <string name="pass_it_on_step1">Toca <b>Enviar esta app</b> abajo y elige cualquier aplicación de mensajería: <b>WhatsApp</b>, <b>Telegram</b>, <b>Signal</b>, correo, cualquier cosa que envíe archivos.</string>
+    <string name="pass_it_on_step2">Tu amigo abre el archivo que recibe y <b>permite la instalación</b> cuando su teléfono lo pregunte. Esa pregunta es normal en una app compartida de teléfono a teléfono.</string>
+    <string name="pass_it_on_step3">Listo. <b>Su copia se puede pasar de la misma manera.</b></string>
+    <string name="pass_it_on_offline_body"><b>Bluetooth</b> funciona entre dos teléfonos Android sin ninguna conexión. Tu amigo abre la <b>pantalla de ajustes de Bluetooth</b> y se queda ahí, tú tocas Enviar esta app y eliges <b>Bluetooth</b>, luego tocas el nombre de su teléfono cuando aparezca. Si ambos tienen <b>Quick Share</b> es aún más rápido: desliza desde arriba, mantén pulsado <b>Quick Share</b> y permite <b>Todos</b>.</string>
+    <string name="pass_it_on_offline_title">¿Sin internet?</string>
     <string name="pass_it_on_button">Enviar esta aplicación a otro teléfono</string>
     <string name="pass_it_on_size">Tamaño: %1$s</string>
     <string name="pass_it_on_failed">No se pudo preparar la aplicación para compartir.</string>
-    <string name="pass_it_on_qr_tip">¿Internet en lugar de Bluetooth? Pide que <b>escaneen este código con la cámara de su teléfono</b> — descarga esta aplicación directamente:</string>
-    <string name="pass_it_on_verse">«El sembrador salió a sembrar su semilla… Y otra parte cayó en buena tierra, y nació y llevó fruto a ciento por uno.» — Lucas 8:5,8</string>
+    <string name="pass_it_on_qr_tip">O envíalos al sitio web, donde pueden leer la Biblia enseguida o instalar la app. Que escaneen esto con la cámara del teléfono:</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">«El sembrador salió a sembrar su semilla… Y otra parte cayó en buena tierra, y nació y llevó fruto a ciento por uno.» Lucas 8:5,8</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="search_too_short">कम से कम दो अक्षर लिखें।</string>
     <string name="search_searching">खोज रहा है…</string>
     <string name="search_no_results">कोई वचन नहीं मिला।</string>
-    <string name="search_results_capped">पहले %1$d परिणाम दिखाए गए — अधिक सटीक खोज आज़माएँ।</string>
+    <string name="search_results_capped">पहले %1$d परिणाम दिखाए गए. अधिक सटीक खोज आज़माएँ।</string>
     <string name="chip_highlights_only">केवल हाइलाइट</string>
     <string name="search_no_highlights">अभी तक कोई हाइलाइट किया वचन नहीं।</string>
     <string name="verse_highlight">हाइलाइट करें</string>
@@ -39,15 +39,17 @@
         <item quantity="other">%1$d वचन मिले</item>
     </plurals>
     <string name="pass_it_on_title">आगे बढ़ाएँ</string>
-    <string name="pass_it_on_lead">यह ऐप पूरी बाइबल साथ रखता है — न इंटरनेट चाहिए, न खाता, न ऐप स्टोर। यह सीधे आपके फ़ोन से आपके मित्र के फ़ोन तक जाता है, जैसे हाथों-हाथ दिया गया बीज।</string>
-    <string name="pass_it_on_how_title">यह कैसे काम करता है</string>
-    <string name="pass_it_on_step1">मित्र के फ़ोन पर: <b>ब्लूटूथ सेटिंग स्क्रीन खोलें</b> और वहीं रहें। (इससे ब्लूटूथ चालू हो जाता है और फ़ोन दिखाई देने लगता है — यह हर एंड्रॉइड फ़ोन पर काम करता है।)</string>
-    <string name="pass_it_on_step2">इस फ़ोन पर: नीचे <b>यह ऐप भेजें</b> दबाएँ, <b>ब्लूटूथ</b> चुनें, फिर <b>मित्र के फ़ोन का नाम</b> दिखते ही उसे दबाएँ।</string>
-    <string name="pass_it_on_step3">मित्र <b>स्वीकार करें</b> दबाता है, मिली फ़ाइल खोलता है, और फ़ोन के पूछने पर <b>इंस्टॉल की अनुमति देता है</b> — फ़ोन से फ़ोन साझा किए गए ऐप के लिए यह सवाल सामान्य है। हो गया! <b>अब उसकी प्रति भी आगे बढ़ाई जा सकती है।</b></string>
-    <string name="pass_it_on_quickshare_tip">दोनों फ़ोनों में <b>Quick Share</b> है? वह तेज़ है: मित्र स्क्रीन के ऊपर से नीचे स्वाइप करे, <b>Quick Share बटन को देर तक दबाए</b> और <b>“सभी”</b> की अनुमति दे — फिर चरण 2 में ब्लूटूथ की जगह Quick Share चुनें। कुछ फ़ोन साझा करने को अलग नाम देते हैं (Huawei Share, Mi Share), पर <b>ब्लूटूथ सब पर चलता है</b>।</string>
+    <string name="pass_it_on_lead">यह ऐप पूरी बाइबल साथ रखता है: न इंटरनेट चाहिए, न खाता, न ऐप स्टोर। यह सीधे आपके फ़ोन से मित्र के फ़ोन तक जाता है, जैसे हाथों-हाथ दिया गया बीज।</string>
+    <string name="pass_it_on_how_title">सबसे आसान तरीक़ा</string>
+    <string name="pass_it_on_step1">नीचे <b>यह ऐप भेजें</b> दबाएँ और कोई भी चैट ऐप चुनें: <b>WhatsApp</b>, <b>Telegram</b>, <b>Signal</b>, ईमेल, जो भी फ़ाइल भेज सके।</string>
+    <string name="pass_it_on_step2">मित्र मिली हुई फ़ाइल खोलता है और फ़ोन के पूछने पर <b>इंस्टॉल की अनुमति देता है</b>। फ़ोन से फ़ोन साझा किए गए ऐप के लिए यह सवाल सामान्य है।</string>
+    <string name="pass_it_on_step3">हो गया। <b>उसकी प्रति भी इसी तरह आगे बढ़ाई जा सकती है।</b></string>
+    <string name="pass_it_on_offline_body"><b>ब्लूटूथ</b> किसी भी दो एंड्रॉइड फ़ोन के बीच बिना किसी कनेक्शन के काम करता है। मित्र <b>ब्लूटूथ सेटिंग स्क्रीन</b> खोलकर वहीं रहता है, आप यह ऐप भेजें दबाकर <b>ब्लूटूथ</b> चुनते हैं, फिर उसके फ़ोन का नाम दिखते ही दबाते हैं। अगर दोनों फ़ोन में <b>Quick Share</b> है तो और भी तेज़: वह स्क्रीन ऊपर से नीचे स्वाइप करे, <b>Quick Share</b> को देर तक दबाए और <b>सभी</b> की अनुमति दे।</string>
+    <string name="pass_it_on_offline_title">इंटरनेट बिल्कुल नहीं है?</string>
     <string name="pass_it_on_button">यह ऐप दूसरे फ़ोन पर भेजें</string>
     <string name="pass_it_on_size">ऐप का आकार: %1$s</string>
     <string name="pass_it_on_failed">ऐप साझा करने के लिए तैयार नहीं हो सका।</string>
-    <string name="pass_it_on_qr_tip">ब्लूटूथ की जगह इंटरनेट है? उनसे कहें कि <b>अपने फ़ोन के कैमरे से यह कोड स्कैन करें</b> — ऐप सीधे डाउनलोड हो जाएगा:</string>
-    <string name="pass_it_on_verse">“एक बोने वाला अपना बीज बोने निकला… और कुछ अच्छी भूमि पर गिरा, और उगकर सौ गुणा फल लाया।” — लूका 8:5,8</string>
+    <string name="pass_it_on_qr_tip">या उन्हें वेबसाइट पर भेजें, जहाँ वे तुरंत बाइबल पढ़ सकते हैं या ऐप इंस्टॉल कर सकते हैं। उनसे कहें कि फ़ोन के कैमरे से इसे स्कैन करें:</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">“एक बोने वाला अपना बीज बोने निकला… और कुछ अच्छी भूमि पर गिरा, और उगकर सौ गुणा फल लाया।” लूका 8:5,8</string>
 </resources>

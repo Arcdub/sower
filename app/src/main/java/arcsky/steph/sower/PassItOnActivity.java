@@ -49,13 +49,13 @@ public class PassItOnActivity extends AppCompatActivity {
     }
 
     /**
-     * A camera-scannable direct download of this edition. Points at the
-     * "latest" release asset so even an old printed or screenshotted code
-     * always delivers the newest version.
+     * A camera-scannable pointer to the website, which offers the Bible to read
+     * straight away and the app to install. Better than a raw APK link: it works
+     * on any phone, explains the install prompt before it appears, and an old
+     * printed or screenshotted code keeps working.
      */
     private void showDownloadQr() {
-        String url = "https://github.com/Arcdub/sower/releases/latest/download/Sower-"
-                + BuildConfig.FLAVOR + ".apk";
+        String url = "https://arcdub.github.io/sower/";
         android.widget.ImageView qrView = findViewById(R.id.qrImage);
         android.graphics.Bitmap qr = renderQr(url, 660);
         if (qr != null) {

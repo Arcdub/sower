@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Loads the bundled Bible(s) from the APK assets — no network, ever.
+ * Loads the bundled Bible(s) from the APK assets, with no network, ever.
  *
  * An edition may carry one or several translations. assets/translations.json (when
  * present) lists them as {id, name, dir}; each dir holds an index.json listing the

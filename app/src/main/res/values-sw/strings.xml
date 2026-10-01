@@ -27,7 +27,7 @@
     <string name="search_too_short">Andika angalau herufi mbili.</string>
     <string name="search_searching">Inatafuta…</string>
     <string name="search_no_results">Hakuna mistari iliyopatikana.</string>
-    <string name="search_results_capped">Inaonyesha matokeo %1$d ya kwanza — jaribu utafutaji mahususi zaidi.</string>
+    <string name="search_results_capped">Inaonyesha matokeo %1$d ya kwanza. Jaribu utafutaji mahususi zaidi.</string>
     <string name="chip_highlights_only">Vilivyoangaziwa pekee</string>
     <string name="search_no_highlights">Bado hakuna mistari iliyoangaziwa.</string>
     <string name="verse_highlight">Angazia</string>
@@ -39,15 +39,17 @@
         <item quantity="other">Mistari %1$d imepatikana</item>
     </plurals>
     <string name="pass_it_on_title">Ipitishe</string>
-    <string name="pass_it_on_lead">Programu hii imebeba Biblia nzima — bila intaneti, bila akaunti, bila duka la programu. Inasafiri moja kwa moja kutoka simu yako hadi simu ya rafiki, kama mbegu inayopitishwa mkono kwa mkono.</string>
-    <string name="pass_it_on_how_title">Jinsi inavyofanya kazi</string>
-    <string name="pass_it_on_step1">Kwenye simu ya rafiki yako: <b>fungua skrini ya mipangilio ya Bluetooth</b> na ubaki hapo. (Hilo huwasha Bluetooth na kufanya simu ionekane — inafanya kazi kwenye kila simu ya Android.)</string>
-    <string name="pass_it_on_step2">Kwenye simu hii: gusa <b>Tuma programu hii</b> hapa chini, chagua <b>Bluetooth</b>, kisha gusa <b>jina la simu ya rafiki yako</b> litakapoonekana.</string>
-    <string name="pass_it_on_step3">Rafiki yako anagusa <b>Kubali</b>, anafungua faili lililopokelewa, na <b>anaruhusu usakinishaji</b> simu yake ikiuliza — swali hilo ni la kawaida kwa programu inayoshirikiwa simu kwa simu. Imekamilika! <b>Nakala yake sasa inaweza kupitishwa pia.</b></string>
-    <string name="pass_it_on_quickshare_tip">Simu zote mbili zina <b>Quick Share</b>? Ni haraka zaidi: rafiki yako anatelezesha kidole kutoka juu ya skrini kwenda chini, <b>anabonyeza na kushikilia kitufe cha Quick Share</b>, na kuruhusu <b>“Kila mtu”</b> — kisha katika hatua ya 2 chagua Quick Share badala ya Bluetooth. Simu zingine huita ushirikiano jina lingine (Huawei Share, Mi Share), lakini <b>Bluetooth inafanya kazi kwenye zote</b>.</string>
+    <string name="pass_it_on_lead">Programu hii imebeba Biblia nzima: bila intaneti, bila akaunti, bila duka la programu. Inasafiri moja kwa moja kutoka simu yako hadi simu ya rafiki, kama mbegu inayopitishwa mkono kwa mkono.</string>
+    <string name="pass_it_on_how_title">Njia ya haraka zaidi</string>
+    <string name="pass_it_on_step1">Gusa <b>Tuma programu hii</b> hapa chini, kisha chagua programu yoyote ya ujumbe: <b>WhatsApp</b>, <b>Telegram</b>, <b>Signal</b>, barua pepe, chochote kinachotuma faili.</string>
+    <string name="pass_it_on_step2">Rafiki yako anafungua faili alilopokea na <b>anaruhusu usakinishaji</b> simu yake ikiuliza. Swali hilo ni la kawaida kwa programu inayoshirikiwa simu kwa simu.</string>
+    <string name="pass_it_on_step3">Imekamilika. <b>Nakala yake inaweza kupitishwa kwa njia ile ile.</b></string>
+    <string name="pass_it_on_offline_body"><b>Bluetooth</b> hufanya kazi kati ya simu zozote mbili za Android bila muunganisho wowote. Rafiki yako anafungua <b>skrini ya mipangilio ya Bluetooth</b> na kubaki hapo, wewe unagusa Tuma programu hii na kuchagua <b>Bluetooth</b>, kisha unagusa jina la simu yake litakapoonekana. Kama simu zote mbili zina <b>Quick Share</b> ni haraka zaidi: anatelezesha kidole kutoka juu, anabonyeza na kushikilia <b>Quick Share</b>, na kuruhusu <b>Kila mtu</b>.</string>
+    <string name="pass_it_on_offline_title">Hakuna intaneti kabisa?</string>
     <string name="pass_it_on_button">Tuma programu hii kwenye simu nyingine</string>
     <string name="pass_it_on_size">Ukubwa wa programu: %1$s</string>
     <string name="pass_it_on_failed">Imeshindwa kuandaa programu kwa kushiriki.</string>
-    <string name="pass_it_on_qr_tip">Kuna intaneti badala ya Bluetooth? Waambie <b>waskani msimbo huu kwa kamera ya simu yao</b> — programu itapakuliwa moja kwa moja:</string>
-    <string name="pass_it_on_verse">“Mpanzi alitoka kwenda kupanda mbegu zake… Nyingine ikaanguka penye udongo mzuri, ikamea na kuzaa mara mia.” — Luka 8:5,8</string>
+    <string name="pass_it_on_qr_tip">Au wapeleke kwenye tovuti, wanapoweza kusoma Biblia mara moja au kusakinisha programu. Waambie waskani hii kwa kamera ya simu:</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">“Mpanzi alitoka kwenda kupanda mbegu zake… Nyingine ikaanguka penye udongo mzuri, ikamea na kuzaa mara mia.” Luka 8:5,8</string>
 </resources>

@@ -2,7 +2,7 @@
 // distribution (https://ebible.org/Scriptures/engwebp_usfm.zip, public domain).
 //
 // Words of Jesus (\wj ... \wj*) are preserved as sentinel characters in the verse
-// strings — U+0001 opens a red span, U+0002 closes it — which the app renders as
+// strings (U+0001 opens a red span, U+0002 closes it) which the app renders as
 // red-letter text (see RedLetter.java).
 //
 // usage: node transform.js <usfmDir> <outDir>
@@ -50,7 +50,7 @@ const books = [
 ];
 
 // Map USFM code -> file on disk (files are named like 70-MATengwebp.usfm,
-// 70-MATspaRV1909.usfm, ... — 3-char book code, then the translation id).
+// 70-MATspaRV1909.usfm, ...: 3-char book code, then the translation id).
 const filesByCode = {};
 for (const f of fs.readdirSync(usfmDir)) {
   const m = f.match(/^\d+-([0-9A-Z]{3})[A-Za-z0-9-]*\.usfm$/);
@@ -99,7 +99,7 @@ function parseBook(code) {
       verse = parseInt(m[1], 10);
       append(m[2]);
     } else if (SKIP_LINE.test(line)) {
-      // headings, titles, metadata — not verse text
+      // headings, titles, metadata, not verse text
     } else if ((m = line.match(PARA))) {
       append(line.slice(m[0].length));
     } else {

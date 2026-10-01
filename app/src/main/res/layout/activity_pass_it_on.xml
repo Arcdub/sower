@@ -140,11 +140,19 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium" />
             </LinearLayout>
 
+            <!-- The offline route, kept for where it genuinely shines. -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:text="@string/pass_it_on_offline_title"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/pass_it_on_quickshare_tip"
+                android:layout_marginTop="8dp"
+                android:text="@string/pass_it_on_offline_body"
                 android:textAppearance="?attr/textAppearanceBodySmall"
                 android:alpha="0.75" />
 
@@ -172,6 +180,16 @@
                     android:layout_margin="14dp"
                     android:contentDescription="@string/pass_it_on_qr_tip" />
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="@string/pass_it_on_site"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                android:textColor="@color/sower_gold"
+                android:textIsSelectable="true" />
 
             <TextView
                 android:layout_width="match_parent"

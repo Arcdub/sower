@@ -27,7 +27,7 @@
     <string name="search_too_short">اكتب حرفين على الأقل.</string>
     <string name="search_searching">جارٍ البحث…</string>
     <string name="search_no_results">لم يتم العثور على آيات.</string>
-    <string name="search_results_capped">تُعرض أول %1$d نتيجة — جرّب بحثًا أدق.</string>
+    <string name="search_results_capped">تُعرض أول %1$d نتيجة. جرّب بحثًا أدق.</string>
     <string name="chip_highlights_only">المميَّزة فقط</string>
     <string name="search_no_highlights">لا توجد آيات مميَّزة بعد.</string>
     <string name="verse_highlight">تمييز</string>
@@ -42,15 +42,17 @@
         <item quantity="other">تم العثور على %1$d آية</item>
     </plurals>
     <string name="pass_it_on_title">مرِّرها</string>
-    <string name="pass_it_on_lead">يحمل هذا التطبيق الكتاب المقدس كاملًا — بلا إنترنت، بلا حساب، بلا متجر تطبيقات. ينتقل مباشرة من هاتفك إلى هاتف صديقك، كبذرة تنتقل من يد إلى يد.</string>
-    <string name="pass_it_on_how_title">كيف يعمل</string>
-    <string name="pass_it_on_step1">على هاتف صديقك: <b>افتح شاشة إعدادات البلوتوث</b> وابقَ فيها. (هذا يشغّل البلوتوث ويجعل الهاتف مرئيًا — يعمل على كل هواتف أندرويد.)</string>
-    <string name="pass_it_on_step2">على هذا الهاتف: اضغط <b>أرسل هذا التطبيق</b> بالأسفل، واختر <b>البلوتوث</b>، ثم اضغط على <b>اسم هاتف صديقك</b> عندما يظهر.</string>
-    <string name="pass_it_on_step3">يضغط صديقك <b>قبول</b>، ويفتح الملف المستلم، و<b>يسمح بالتثبيت</b> عندما يسأل هاتفه — هذا السؤال طبيعي لأي تطبيق يُشارك من هاتف إلى هاتف. تم! <b>نسخته الآن يمكن تمريرها أيضًا.</b></string>
-    <string name="pass_it_on_quickshare_tip">هل يوجد <b>Quick Share</b> على الهاتفين؟ إنه أسرع: يسحب صديقك من أعلى الشاشة إلى الأسفل، <b>يضغط مطولًا على زر Quick Share</b> ويسمح بـ<b>«الجميع»</b> — ثم في الخطوة 2 اختر Quick Share بدلًا من البلوتوث. بعض الهواتف تسمّي المشاركة باسم آخر (Huawei Share، Mi Share)، لكن <b>البلوتوث يعمل عليها كلها</b>.</string>
+    <string name="pass_it_on_lead">يحمل هذا التطبيق الكتاب المقدس كاملاً: بلا إنترنت، بلا حساب، بلا متجر تطبيقات. ينتقل مباشرة من هاتفك إلى هاتف صديقك، مثل بذرة تُمرَّر من يد إلى يد.</string>
+    <string name="pass_it_on_how_title">أسرع طريقة</string>
+    <string name="pass_it_on_step1">اضغط <b>أرسل هذا التطبيق</b> في الأسفل، ثم اختر أي تطبيق مراسلة: <b>واتساب</b> أو <b>تيليجرام</b> أو <b>سيجنال</b> أو البريد، أي شيء يرسل ملفًا.</string>
+    <string name="pass_it_on_step2">يفتح صديقك الملف الذي وصله و<b>يسمح بالتثبيت</b> عندما يسأل هاتفه. هذا السؤال طبيعي لتطبيق يُشارَك من هاتف إلى هاتف.</string>
+    <string name="pass_it_on_step3">تم. <b>نسخته يمكن تمريرها بالطريقة نفسها.</b></string>
+    <string name="pass_it_on_offline_body"><b>البلوتوث</b> يعمل بين أي هاتفين أندرويد بدون أي اتصال. يفتح صديقك <b>شاشة إعدادات البلوتوث</b> ويبقى فيها، وتضغط أنت أرسل هذا التطبيق وتختار <b>البلوتوث</b>، ثم تضغط اسم هاتفه عند ظهوره. وإذا كان في الهاتفين <b>Quick Share</b> فالأمر أسرع: يسحب من أعلى الشاشة، ويضغط مطولاً على <b>Quick Share</b>، ويسمح لـ<b>الجميع</b>.</string>
+    <string name="pass_it_on_offline_title">لا يوجد إنترنت إطلاقًا؟</string>
     <string name="pass_it_on_button">أرسل هذا التطبيق إلى هاتف آخر</string>
     <string name="pass_it_on_size">حجم التطبيق: %1$s</string>
     <string name="pass_it_on_failed">تعذّر تجهيز التطبيق للمشاركة.</string>
-    <string name="pass_it_on_qr_tip">إنترنت بدل البلوتوث؟ اطلب منهم <b>مسح هذا الرمز بكاميرا هاتفهم</b> — سيُحمَّل التطبيق مباشرة:</string>
-    <string name="pass_it_on_verse">«خرج الزارع ليزرع زرعه… وسقط آخر في الأرض الصالحة، فلما نبت صنع ثمرًا مئة ضعف.» — لوقا ٨:‏٥،٨</string>
+    <string name="pass_it_on_qr_tip">أو أرسل لهم الموقع، حيث يمكنهم قراءة الكتاب المقدس فورًا أو تثبيت التطبيق. اطلب منهم مسح هذا بكاميرا الهاتف:</string>
+    <string name="pass_it_on_site">arcdub.github.io/sower</string>
+    <string name="pass_it_on_verse">«خرج الزارع ليزرع زرعه… وسقط آخر في الأرض الصالحة، فلما نبت صنع ثمرًا مئة ضعف.» لوقا ٨:‏٥،٨</string>
 </resources>

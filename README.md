@@ -3,13 +3,13 @@
 **The Word travels hand to hand.**
 
 An offline Bible app designed to spread: it carries a complete Bible inside the APK and can
-send *itself* to a nearby phone over Quick Share or Bluetooth — no internet, no account, no
+send *itself* to a nearby phone over Quick Share or Bluetooth, with no internet, no account, no
 app store. One phone can seed a whole village. Nine language editions, each named in its own
 tongue: **Sower · Sembrador · Semeur · Semeador · Сеятель · الزارع · बोनेवाला · Mpanzi · 撒种者**.
 
 ## Features
 
-- Complete 66-book Bible (World English Bible translation), fully offline — the app requests
+- Complete 66-book Bible (World English Bible translation), fully offline: the app requests
   **zero permissions** and never touches the network.
 - Red-letter edition: the words of Jesus render in red, driven by the `\wj` markup in the
   official USFM source (accurate to the sub-verse level).
@@ -26,15 +26,15 @@ tongue: **Sower · Sembrador · Semeur · Semeador · Сеятель · الزا
 Sower ships as **one small APK per Bible language** (product flavors, installable side by
 side) so every edition stays a quick Bluetooth/Quick Share transfer:
 
-- `en` — World English Bible (red-letter, public domain)
-- `es` — Reina-Valera 1909 (public domain)
-- `fr` — Louis Segond 1910 (red-letter, public domain)
-- `pt` — Bíblia Livre 2018 (CC BY 4.0)
-- `ru` — Синодальный перевод / Synodal (public domain)
-- `ar` — ترجمة فان دايك / Van Dyck (public domain)
-- `hi` — Indian Revised Version 2017 (red-letter, CC BY-SA 4.0)
-- `sw` — Unlocked Literal Bible Kiswahili (CC BY-SA 4.0)
-- `zh` — 和合本 / Chinese Union Version 1919 (public domain)
+- `en`: World English Bible and Berean Standard Bible (both red-letter, public domain)
+- `es`: Reina-Valera 1909 (public domain)
+- `fr`: Louis Segond 1910 (red-letter, public domain)
+- `pt`: Bíblia Livre 2018 (CC BY 4.0)
+- `ru`: Синодальный перевод / Synodal (public domain)
+- `ar`: ترجمة فان دايك / Van Dyck (public domain)
+- `hi`: Indian Revised Version 2017 (red-letter, CC BY-SA 4.0)
+- `sw`: Unlocked Literal Bible Kiswahili (CC BY-SA 4.0)
+- `zh`: 和合本 / Chinese Union Version 1919 (public domain)
 
 Each non-`en` flavor uses an `applicationId` suffix (`.es`, `.fr`, …) so editions
 install side by side.
@@ -50,16 +50,18 @@ https://ebible.org/find/ , run `node tools/transform.js <usfmDir> app/src/<code>
 
 ## Project layout
 
-- `app/src/main/assets/bible/` — 66 per-book JSON files plus `index.json`, generated from the
+- `app/src/<flavor>/assets/`: each edition carries its own `bible/` folder of 66 per-book
+  JSON files plus `index.json`, and the `en` edition adds `bible_bsb/` and a
+  `translations.json` listing both. Generated from the
   official WEB USFM distribution at https://ebible.org/Scriptures/engwebp_usfm.zip. Words of
   Jesus are embedded as U+0001/U+0002 sentinel spans in the verse strings (see
   `RedLetter.java`).
-- `tools/transform.js` — regenerates those assets: download and extract the USFM zip, then
+- `tools/transform.js`: regenerates those assets: download and extract the USFM zip, then
   `node transform.js <usfmDir> <path-to-assets/bible>`.
 - Toolchain: Gradle 9.6.1, AGP 9.3.1, Java 17 sources, compileSdk 37, minSdk 21,
   targetSdk 36. AndroidX/Material versions are pinned to the last releases that
   support minSdk 21 (see gradle/libs.versions.toml) so the app runs on Android 5.0 (2014)
-  and newer — including old hand-me-down phones and devices without Google services.
+  and newer, including old hand-me-down phones and devices without Google services.
 
 ## Building
 
@@ -68,7 +70,7 @@ gradlew.bat assembleDebug
 ```
 
 Release builds are signed with a keystore configured via a local `keystore.properties`
-file (never committed — see `.gitignore`). Signed release APKs for every edition are
+file (never committed, see `.gitignore`). Signed release APKs for every edition are
 published on the GitHub Releases page.
 
 ## Roadmap ideas

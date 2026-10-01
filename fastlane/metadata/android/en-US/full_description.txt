@@ -1,8 +1,8 @@
-Sower carries the complete Bible (World English Bible, public domain) and is built to travel: it can send its own APK to a nearby phone over Bluetooth or Quick Share, with no internet, no account, and no app store. Like a seed passed hand to hand — one phone can seed a whole village.
+Sower carries the complete Bible (World English Bible, public domain) and is built to travel: it can send its own APK to a nearby phone over Bluetooth or Quick Share, with no internet, no account, and no app store. Like a seed passed hand to hand: one phone can seed a whole village.
 
 Features:
 
-• Complete 66-book Bible, fully offline — the app requests zero permissions and cannot touch the network
+• Complete 66-book Bible, fully offline: the app requests zero permissions and cannot touch the network
 • Red-letter edition: the words of Jesus in red, accurate to the sub-verse level
 • Full-text search across every verse, accent-insensitive
 • Verse of the day and continue-reading that remembers your exact place

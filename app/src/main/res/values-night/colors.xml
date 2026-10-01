@@ -6,7 +6,7 @@
 
     <!-- Night reading. Mirrors the light hierarchy: a deep page, surfaces that
          sit clearly above it, and borders that only whisper. Gold is an accent
-         (icons, the verse card, headings) — never an outline on every tile. -->
+         (icons, the verse card, headings), never an outline on every tile. -->
     <color name="toolbar_bg">#131C17</color>
     <color name="page_bg">#17211C</color>
     <color name="book_tile">#222E28</color>

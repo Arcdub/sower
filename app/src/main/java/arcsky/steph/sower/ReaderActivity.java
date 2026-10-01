@@ -27,6 +27,7 @@ import androidx.core.widget.NestedScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ReaderActivity extends AppCompatActivity {
@@ -234,7 +235,7 @@ public class ReaderActivity extends AppCompatActivity {
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    // Kindle-style: press-hold, drag over the words, let go — the
+                    // Kindle-style: press-hold, drag over the words, let go, and the
                     // highlight commits the moment the finger lifts. A plain
                     // long-press (no drag) still offers the selection toolbar.
                     // The bounds are captured now: suppressing the action mode
@@ -246,7 +247,7 @@ public class ReaderActivity extends AppCompatActivity {
                                 chapterText.getSelectionEnd());
                         int selB = Math.max(chapterText.getSelectionStart(),
                                 chapterText.getSelectionEnd());
-                        // The drag is character-precise; the release is forgiving —
+                        // The drag is character-precise; the release is forgiving,
                         // an edge left inside a word snaps to its nearest boundary.
                         final int[] snapped = snapToWordEdges(selA, selB);
                         chapterText.post(() -> {
@@ -580,7 +581,7 @@ public class ReaderActivity extends AppCompatActivity {
 
     /**
      * The whole contiguous highlight under a tapped character, as
-     * {verse, start, end, verseLength} pieces — walking across verse boundaries
+     * {verse, start, end, verseLength} pieces, walking across verse boundaries
      * wherever the marking runs on unbroken. Null when the tap isn't on a highlight.
      */
     private List<int[]> swathAt(int index, int offset) {
@@ -747,8 +748,12 @@ public class ReaderActivity extends AppCompatActivity {
     private void shareVerse(int verseNumber, String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
+        // Credit whichever translation is open; editions that bundle only one
+        // carry no id worth printing.
+        String id = Bible.currentTranslation(this).id;
+        String credit = "default".equals(id) ? "" : " (" + id.toUpperCase(Locale.ROOT) + ")";
         intent.putExtra(Intent.EXTRA_TEXT,
-                "“" + RedLetter.plain(text) + "”\n— " + verseReference(verseNumber) + " (WEB)");
+                "“" + RedLetter.plain(text) + "”\n" + verseReference(verseNumber) + credit);
         startActivity(Intent.createChooser(intent, getString(R.string.share_verse_via)));
     }
 }

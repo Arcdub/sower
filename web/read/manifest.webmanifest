@@ -1,0 +1,14 @@
+{
+  "name": "Sower: offline Bible",
+  "short_name": "Sower",
+  "description": "The whole Bible in your browser, offline once loaded.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F4EE",
+  "theme_color": "#2E6B34",
+  "icons": [
+    { "src": "../icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "../icon.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sower: the whole Bible, offline and free to pass on</title>
+<meta name="description" content="The complete Bible on your phone. No account, no ads, no tracking. Read it in your browser or install the Android app, then pass it to anyone.">
+<meta name="theme-color" content="#2E6B34">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="Sower: the whole Bible, offline and free to pass on">
+<meta property="og:description" content="Read the Bible in your browser, or install the Android app and hand it to anyone.">
+<meta property="og:type" content="website">
+<style>
+:root {
+  --page: #F6F4EE; --ink: #2B3A2C; --muted: #5C6B5D;
+  --card: #FFFFFF; --line: #DED9CE;
+  --green: #2E6B34; --gold: #C8A24B;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #17211C; --ink: #E8E0CF; --muted: #B7C4B8;
+    --card: #222E28; --line: #314038;
+    --green: #8CBF94; --gold: #C8A24B;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 44rem; margin: 0 auto; padding: 2.2rem 1.25rem 4rem; }
+header { text-align: center; margin-bottom: 2.2rem; }
+header img { width: 84px; height: 84px; border-radius: 20px; }
+h1 { font-size: 2rem; margin: 0.7rem 0 0.3rem; letter-spacing: -0.01em; }
+.tagline { color: var(--muted); margin: 0; font-size: 1.05rem; }
+.actions { display: grid; gap: 0.75rem; margin: 2rem 0; }
+a.btn {
+  display: block; text-align: center; text-decoration: none;
+  padding: 1rem 1.25rem; border-radius: 999px; font-weight: 600; font-size: 1.05rem;
+}
+a.primary { background: var(--green); color: #FFFFFF; }
+@media (prefers-color-scheme: dark) { a.primary { color: #10241A; } }
+a.secondary { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+.hint { text-align: center; color: var(--muted); font-size: 0.92rem; margin: -0.3rem 0 0; }
+h2 { font-size: 1.15rem; margin: 2.4rem 0 0.9rem; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem 1.25rem; margin-bottom: 0.85rem; }
+.card h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.num { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  background: var(--green); color: #FFFFFF; font-size: 0.85rem; font-weight: 700; margin-right: 0.5rem; vertical-align: 1px; }
+@media (prefers-color-scheme: dark) { .num { color: #10241A; } }
+footer { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.85rem; line-height: 1.8; }
+footer a { color: var(--muted); }
+.verse { text-align: center; font-style: italic; color: var(--muted); margin: 2.5rem 0 0; font-size: 0.95rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="icon.png" alt="">
+    <h1>Sower</h1>
+    <p class="tagline">The whole Bible on your phone. No account, no ads, nothing tracked.</p>
+  </header>
+
+  <div class="actions">
+    <a class="btn primary" href="read/">Read it now in your browser</a>
+    <a class="btn secondary" id="apk" href="https://github.com/Arcdub/sower/releases/latest/download/Sower-en.apk">Get the Android app</a>
+  </div>
+  <p class="hint">The reader works on any phone, with nothing to install. The app keeps the whole Bible on your phone and can hand itself to someone else.</p>
+
+  <h2>Passing it on</h2>
+
+  <div class="card">
+    <h3><span class="num">1</span>Send this page</h3>
+    <p>Share the link in any chat app or write it down. Whoever opens it can start reading straight away, on any phone.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">2</span>Send the app itself</h3>
+    <p>In the Android app, tap Pass it on, then pick WhatsApp, Telegram, Signal, email, or anything else that sends a file. The app travels as one file.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">3</span>No internet at all</h3>
+    <p>The app can also hand itself over by Bluetooth or Quick Share, phone to phone, with no connection of any kind. Useful where data is scarce or unwelcome.</p>
+  </div>
+
+  <h2>What is inside</h2>
+  <div class="card">
+    <p>Two complete English translations, the World English Bible and the Berean Standard Bible, both public domain and freely shareable. Words of Jesus in red. Search, highlights, and a night reading mode. The Android app asks for no permissions and makes no network connections at all.</p>
+  </div>
+
+  <p class="verse">"A sower went out to sow his seed. Other seed fell into good ground, and grew, and produced one hundred times as much fruit." Luke 8:5, 8</p>
+
+  <footer>
+    <a href="https://github.com/Arcdub/sower">Source code</a> and
+    <a href="https://github.com/Arcdub/sower/blob/main/PRIVACY.md">privacy policy</a> on GitHub.<br>
+    Freely you have received, freely give.
+  </footer>
+
+</div>
+<script>
+  // Point non-Android visitors at the reader instead of an APK they cannot install.
+  if (!/Android/i.test(navigator.userAgent)) {
+    var a = document.getElementById('apk');
+    a.textContent = 'Android app (for Android phones)';
+  }
+</script>
+</body>
+</html>

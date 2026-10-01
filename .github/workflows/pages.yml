@@ -1,0 +1,65 @@
+name: Deploy site
+
+# The reader ships the same JSON the Android app bundles, so the site is
+# assembled here rather than duplicating four megabytes of scripture in git.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - 'app/src/en/assets/**'
+      - 'fastlane/metadata/android/en-US/images/icon.png'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble site
+        run: |
+          set -eu
+          mkdir -p _site/read
+          cp -r web/. _site/
+          cp fastlane/metadata/android/en-US/images/icon.png _site/icon.png
+          cp -r app/src/en/assets/bible _site/read/bible
+          cp -r app/src/en/assets/bible_bsb _site/read/bible_bsb
+          cp app/src/en/assets/translations.json _site/read/translations.json
+
+      - name: Check the reader has its scripture
+        run: |
+          set -eu
+          test -f _site/index.html
+          test -f _site/read/app.js
+          test -f _site/read/bible/index.json
+          test -f _site/read/bible/john.json
+          test -f _site/read/bible_bsb/john.json
+          books=$(ls _site/read/bible/*.json | wc -l)
+          echo "bundled $books book files"
+          test "$books" -ge 67
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

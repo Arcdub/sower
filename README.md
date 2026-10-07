@@ -83,3 +83,9 @@ published on the GitHub Releases page.
 - Additional public-domain translations (other languages) as downloadable or bundled modules.
 - Audio scripture for oral cultures / low literacy, with picture-based navigation.
 - Bookmarks and reading plans.
+
+## Licence
+
+The app's code is MIT licensed; see `LICENSE`. The bundled Bible texts are
+separate works under their own terms, most of them public domain and two under
+CC BY-SA 4.0. They are listed in `NOTICE.md`.

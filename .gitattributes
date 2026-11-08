@@ -1,0 +1,7 @@
+# F-Droid runs `fdroid rewritemeta` in CI and fails the build if a metadata
+# file differs by so much as a line ending. This repo is worked on with
+# core.autocrlf=true, which hands back CRLF copies on Windows, and a CRLF copy
+# of the recipe pasted into fdroiddata is exactly what failed !46150 once.
+# Keep YAML as LF in the working tree so the copy source is always right.
+*.yml text eol=lf
+*.yaml text eol=lf

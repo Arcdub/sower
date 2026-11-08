@@ -5,8 +5,10 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
-}
+// No foojay toolchain resolver here on purpose. Android Studio adds it to new
+// projects, but it downloads a JDK from an external service at build time,
+// which F-Droid's scanner rejects as unreproducible. Nothing needs it: the
+// build sets source and target compatibility to 17 and uses whichever JDK runs
+// Gradle.
 rootProject.name = 'Sower'
 include ':app'

@@ -77,10 +77,16 @@ function Undo-Bump {
 # --- build -----------------------------------------------------------------
 
 Write-Host 'release: building all languages...' -ForegroundColor Cyan
-# No stderr redirection: PowerShell turns a native command's stderr into
-# terminating errors, and Gradle writes warnings there on a good build.
-$build = & "$root\gradlew.bat" assembleRelease | Out-String
-if ($build -notmatch 'BUILD SUCCESSFUL') {
+# Windows PowerShell 5.1 turns a native command's stderr into a terminating
+# error while ErrorActionPreference is Stop, and Gradle writes warnings there
+# on a perfectly good build. Drop to Continue for this one call and judge the
+# build by its exit code instead, so the script runs under both 5.1 and pwsh.
+$previousPreference = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
+$build = & "$root\gradlew.bat" assembleRelease 2>&1 | Out-String
+$gradleExit = $LASTEXITCODE
+$ErrorActionPreference = $previousPreference
+if ($gradleExit -ne 0 -or $build -notmatch 'BUILD SUCCESSFUL') {
     Undo-Bump
     Fail "gradle build failed:`n$($build.Substring([Math]::Max(0, $build.Length - 2000)))"
 }

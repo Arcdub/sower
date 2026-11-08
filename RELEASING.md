@@ -8,9 +8,13 @@ verification. Every release gets a new tag and a higher `versionCode`.
 ## Cutting a release
 
 ```powershell
-pwsh tools/release.ps1 -Version 1.1 -Notes "What changed in this release." -DryRun
-pwsh tools/release.ps1 -Version 1.1 -Notes "What changed in this release."
+.	oolselease.ps1 -Version 1.1 -Notes "What changed in this release." -DryRun
+.	oolselease.ps1 -Version 1.1 -Notes "What changed in this release."
 ```
+
+Runs under Windows PowerShell 5.1 as well as pwsh. Always do the dry run
+first: it bumps, builds all nine, then puts the version back without tagging
+or publishing anything.
 
 The script refuses to reuse an existing tag, bumps `versionCode` and
 `versionName` in `app/build.gradle`, writes the fastlane changelog F-Droid

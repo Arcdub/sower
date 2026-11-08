@@ -32,18 +32,39 @@ function Fail($message) {
     exit 1
 }
 
+# Windows PowerShell 5.1 treats anything a native command writes to stderr as a
+# terminating error while ErrorActionPreference is Stop, and both git and
+# Gradle write ordinary warnings there. Every native call goes through this, so
+# the script is judged by exit codes and behaves the same under 5.1 and pwsh.
+function Invoke-Native {
+    param(
+        [Parameter(Mandatory = $true)][string]$Exe,
+        [string[]]$Arguments = @(),
+        [switch]$AllowFailure
+    )
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    $output = & $Exe @Arguments 2>&1 | Out-String
+    $code = $LASTEXITCODE
+    $ErrorActionPreference = $previous
+    if (-not $AllowFailure -and $code -ne 0) {
+        Fail "$Exe $($Arguments -join ' ') failed (exit $code):`n$output"
+    }
+    return $output
+}
+
 # --- guard rails -----------------------------------------------------------
 
 if ($Version -notmatch '^[0-9]+\.[0-9]+$') {
     Fail "version must look like 1.1 (got '$Version')"
 }
-if ((git tag -l $tag)) {
+if ((Invoke-Native git @('tag', '-l', $tag)).Trim()) {
     Fail "$tag already exists locally. Tags are immutable - pick a new version."
 }
-if ((git ls-remote --tags origin $tag)) {
+if ((Invoke-Native git @('ls-remote', '--tags', 'origin', $tag)).Trim()) {
     Fail "$tag already exists on origin. Tags are immutable - pick a new version."
 }
-if ((git status --porcelain)) {
+if ((Invoke-Native git @('status', '--porcelain')).Trim()) {
     Fail 'working tree is dirty. Commit or stash first.'
 }
 
@@ -70,7 +91,7 @@ $changelog = Join-Path $root "fastlane\metadata\android\en-US\changelogs\$newCod
 [System.IO.File]::WriteAllText($changelog, "$Notes`n", $utf8NoBom)
 
 function Undo-Bump {
-    git checkout -- $gradle
+    Invoke-Native git @('checkout', '--', $gradle) -AllowFailure | Out-Null
     Remove-Item $changelog -ErrorAction SilentlyContinue
 }
 
@@ -81,12 +102,8 @@ Write-Host 'release: building all languages...' -ForegroundColor Cyan
 # error while ErrorActionPreference is Stop, and Gradle writes warnings there
 # on a perfectly good build. Drop to Continue for this one call and judge the
 # build by its exit code instead, so the script runs under both 5.1 and pwsh.
-$previousPreference = $ErrorActionPreference
-$ErrorActionPreference = 'Continue'
-$build = & "$root\gradlew.bat" assembleRelease 2>&1 | Out-String
-$gradleExit = $LASTEXITCODE
-$ErrorActionPreference = $previousPreference
-if ($gradleExit -ne 0 -or $build -notmatch 'BUILD SUCCESSFUL') {
+$build = Invoke-Native "$root\gradlew.bat" @('assembleRelease') -AllowFailure
+if ($build -notmatch 'BUILD SUCCESSFUL') {
     Undo-Bump
     Fail "gradle build failed:`n$($build.Substring([Math]::Max(0, $build.Length - 2000)))"
 }
@@ -104,12 +121,12 @@ if ($DryRun) {
 
 # --- commit and tag (once, never moved) ------------------------------------
 
-git add -A
-git commit -m "Release $Version" | Out-Null
-git tag -a $tag -m "Sower $Version"
-git push origin main
-git push origin $tag
-$commit = (git rev-parse HEAD).Trim()
+Invoke-Native git @('add', '-A') | Out-Null
+Invoke-Native git @('commit', '-m', "Release $Version") | Out-Null
+Invoke-Native git @('tag', '-a', $tag, '-m', "Sower $Version") | Out-Null
+Invoke-Native git @('push', 'origin', 'main') | Out-Null
+Invoke-Native git @('push', 'origin', $tag) | Out-Null
+$commit = (Invoke-Native git @('rev-parse', 'HEAD')).Trim()
 Write-Host "release: tagged $tag at $commit" -ForegroundColor Green
 
 # --- publish to GitHub -----------------------------------------------------
